@@ -26,22 +26,22 @@
                         <div class="p-1">
                             <label for="Email">User Email</label>
                             <input value="<?php echo $user->getEmail() ?>" type="email" class="form-control"
-                                   name="Email" required/>
+                                   name="email" required/>
                         </div>
                         <div class="p-1">
                             <label for="Name">User Name</label>
-                            <input value="<?php echo $user->getName() ?>" class="form-control" name="Name" required/>
+                            <input value="<?php echo $user->getName() ?>" class="form-control" name="name" required/>
                         </div>
                         <div class="p-1">
                             <label for="Gender">Gender</label>
-                            <select value="<?php echo $user->getGender() ?>" class="form-control" name="Gender">
+                            <select value="<?php echo $user->getGender() ?>" class="form-control" name="gender">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
                         <div class="p-1">
                             <label for="Status">Status</label>
-                            <select value="<?php echo $user->getStatus() ?>" class="form-control" name="Status">
+                            <select value="<?php echo $user->getStatus() ?>" class="form-control" name="status">
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
                             </select>

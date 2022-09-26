@@ -13,8 +13,8 @@ class DatabaseSeeder extends Database
             $gender = $value == 1 ? 'Male' : 'Female';
             $value = rand(0, 1) == 1;
             $status = $value == 1 ? 'Active' : 'Inactive';
-            $user = new User($email, $name, $gender, $status);
-            self::insertUser($user);
+            $user = new User(['email' => $email, 'name'=>$name, 'value'=>$value, 'gender'=>$gender]);
+            self::store($user, \Config::getUserDb());
         }
     }
 

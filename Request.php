@@ -8,6 +8,10 @@ class Request
     private $POST;
     private $GET;
 
+    public function get(){
+        return array_merge($this->GET, $this->POST);
+    }
+
     public function __construct()
     {
         $this->SERVER = $_SERVER;

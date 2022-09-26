@@ -24,23 +24,23 @@
                     </div>
                     <div class="col-md offset-md p-5">
                         <div class="p-1">
-                            <label for="Email">User Email</label>
-                            <input type="email" class="form-control" name="Email" required/>
+                            <label for="email">User Email</label>
+                            <input type="email" class="form-control" name="email" required/>
                         </div>
                         <div class="p-1">
-                            <label for="Name">User Name</label>
-                            <input class="form-control" name="Name" required/>
+                            <label for="name">User Name</label>
+                            <input class="form-control" name="name" required/>
                         </div>
                         <div class="p-1">
-                            <label for="Gender">Gender</label>
-                            <select class="form-control" name="Gender">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" name="gender">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
                         <div class="p-1">
-                            <label for="Status">Status</label>
-                            <select class="form-control" name="Status">
+                            <label for="status">Status</label>
+                            <select class="form-control" name="status">
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
                             </select>

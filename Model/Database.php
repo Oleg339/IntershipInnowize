@@ -13,7 +13,7 @@ class Database
         $mysqli->query($class::createTableSql());
     }
 
-    public static function store($entity)
+    public static function store($entity, $dbName)
     {
         $methods = [];
 
@@ -32,7 +32,6 @@ class Database
             $mysqlValues[] = $mysqli->real_escape_string($entity->$method());
         }
 
-        $dbName = $entity::dbNameGet();
         $sql = "INSERT INTO  $dbName (";
         foreach ($mysqlVars as $var) {
             $sql .= lcfirst($var) . ', ';
@@ -49,9 +48,9 @@ class Database
         $mysqli->query($sql);
     }
 
-    public static function find($class, $findBy, $parameter)
+    public static function find($dbName, $findBy, $parameter)
     {
-        $entitiesDB = self::select($class);
+        $entitiesDB = self::select($dbName);
         foreach ($entitiesDB as $entityDB) {
             if ($entityDB[$findBy] == $parameter) {
                 return $entityDB;
@@ -60,10 +59,9 @@ class Database
         return [];
     }
 
-    public static function delete($class, $deleteBy, $parameter)
+    public static function delete($dbName, $deleteBy, $parameter)
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
-        $dbName = $class::dbNameGet();
         $sql = "DELETE FROM $dbName WHERE $deleteBy = '$parameter'";
         $mysqli->query($sql);
     }
@@ -100,15 +98,14 @@ class Database
         $mysqli->query($sql);
     }
 
-    public static function select($class)
+    public static function select($dbName)
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
-        $dbName = $class::dbNameGet();
         $sql = "SELECT * FROM $dbName";
         try {
             $result = $mysqli->query($sql);
         } catch (\mysqli_sql_exception $ex) {
-            self::createTable($class);
+            self::createTable($dbName);
             $result = $mysqli->query($sql);
         }
 

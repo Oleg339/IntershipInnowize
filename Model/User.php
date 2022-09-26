@@ -11,12 +11,17 @@ class User
     private $id;
     private static $dbName = 'Users';
 
-    public function __construct(string $Email, string $Name, string $Gender, string $Status)
+    public function __construct(array $values)
     {
-        $this->setEmail($Email);
-        $this->setName($Name);
-        $this->setGender($Gender);
-        $this->setStatus($Status);
+        //var_dump($values);
+        //echo '<br>'.$values['email'];
+        $this->email = $values['email'];
+        $this->name = $values['name'];
+        $this->gender = $values['gender'];
+        $this->status = $values['status'];
+        if(array_key_exists('id', $values)){
+            $this->id = $values['id'];
+        }
     }
 
     public function getEmail()
