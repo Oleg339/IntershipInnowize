@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css"/>
 </head>
 <body>
-<?php if ($errorMessages) {
-    foreach ($errorMessages as $errorMessage) {
-        echo "<p class=\"text-danger\">$errorMessage</p>";
+<?php if ($errors) {
+    foreach ($errors as $error) {
+        echo "<p class=\"text-danger\">$error</p>";
     }
 } ?>
 <div class="panel-heading text-center p-3 border bg-light"><h4>List Of Users</h4></div>
