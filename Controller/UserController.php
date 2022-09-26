@@ -35,8 +35,7 @@ class UserController
         ]);
 
         if ($validated) {
-            $user = new User($validator->getValidated());
-            Database::update($user);
+            Database::update(new User($validator->getValidated()));
         }
 
         $this->index($validator->getErrors());
@@ -44,16 +43,13 @@ class UserController
 
     public function edit($Request): void
     {
-        $userDB = Database::find(User::class, 'email', $Request->getGET()['Email']);
-        $user = new User($userDB);
-        Database::update($user);
+        Database::update(new User(Database::find(User::class, 'email', $Request->getGET()['Email'])));
         include 'View/EditUser.php';
     }
 
     public function delete($Request): void
     {
-        $user = new User(Database::find(User::class, 'email', $Request->getGET()['Email']));
-        Database::delete($user);
+        Database::delete(new User(Database::find(User::class, 'email', $Request->getGET()['Email'])));
         $this->index();
     }
 

@@ -52,7 +52,6 @@ class User
         $this->id = $id;
     }
 
-
     public function setEmail($email): void
     {
         $this->email = $email;
