@@ -9,18 +9,16 @@ class User
     private $gender;
     private $status;
     private $id;
-    private static $dbName = 'Users';
+    public static $table = 'Users';
 
-    public function __construct(array $values)
+    public function __construct(array $data)
     {
-        //var_dump($values);
-        //echo '<br>'.$values['email'];
-        $this->email = $values['email'];
-        $this->name = $values['name'];
-        $this->gender = $values['gender'];
-        $this->status = $values['status'];
-        if(array_key_exists('id', $values)){
-            $this->id = $values['id'];
+        $this->email = $data['email'];
+        $this->name = $data['name'];
+        $this->gender = $data['gender'];
+        $this->status = $data['status'];
+        if(array_key_exists('id', $data)){
+            $this->id = $data['id'];
         }
     }
 
@@ -73,20 +71,5 @@ class User
     public function setStatus($status): void
     {
         $this->status = $status;
-    }
-
-    public static function dbNameGet(): string
-    {
-        return self::$dbName;
-    }
-
-    public static function createTableSql()
-    {
-        return "CREATE TABLE IF NOT EXISTS Users (
-            id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-            email VARCHAR(50),
-            name VARCHAR(50),
-            gender VARCHAR(20),
-            status VARCHAR(10))";
     }
 }

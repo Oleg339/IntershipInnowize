@@ -2,19 +2,19 @@
 
 namespace Model;
 
-class DatabaseSeeder extends Database
+class SeederUser extends Database
 {
-    public static function seedUsersInDB($countOfUsers)
+    public static function seedUsersInDB($count = 10)
     {
-        for ($i = 0; $i < $countOfUsers; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $email = self::generateRandomString() . '@gmail.com';
             $name = self::generateRandomString();
             $value = rand(0, 1) == 1;
             $gender = $value == 1 ? 'Male' : 'Female';
             $value = rand(0, 1) == 1;
             $status = $value == 1 ? 'Active' : 'Inactive';
-            $user = new User(['email' => $email, 'name'=>$name, 'value'=>$value, 'gender'=>$gender]);
-            self::store($user, \Config::getUserDb());
+            $user = new User(['email' => $email, 'name'=>$name, 'status'=>$status, 'gender'=>$gender]);
+            self::store($user);
         }
     }
 

@@ -5,120 +5,100 @@ use Model\User;
 
 class Validator
 {
-    private $valuesToValidate;
-
-    private $validatedValues = [];
-
-    private $errorMessages = [];
+    private $values = [];
+    private $validated = [];
+    private $errors = [];
 
     public function __construct($valuesToValidate)
     {
-        $this->valuesToValidate = $valuesToValidate;
+        $this->values = $valuesToValidate;
     }
 
-    public function getErrorMessages(){
-        return $this->errorMessages;
-    }
-
-    public function validate($validationParameters)
+    public function getErrors()
     {
-        foreach ($validationParameters as $key => $values) {
-            foreach ($values as $value){
+        return $this->errors;
+    }
+
+    public function validate($data): bool
+    {
+        foreach ($data as $key => $values) {
+            foreach ($values as $value) {
                 $value = explode(':', $value);
                 $method = $value[0];
+
                 if (sizeof($value) === 1) {
-                    $errorMessage = $this->$method($key);
+                    $this->$method($key);
                 } else {
-                    $errorMessage = $this->$method($key, $value[1]);
+                    $this->$method($key, $value[1]);
                 }
             }
-            if($errorMessage){
-                $this->errorMessages = array_merge($this->errorMessages, $errorMessage);
-                continue;
-            }
-            $this->validatedValues = array_merge($this->validatedValues, [$key => $this->valuesToValidate[$key]]);
+            $this->validated = array_merge($this->validated, [$key => $this->values[$key]]);
         }
 
-        if (sizeof($this->errorMessages)) {
+        if (sizeof($this->errors)) {
             return false;
         }
 
         return true;
     }
 
-    private function length($value, $min_max): array
+    private function length($value, $min_max)
     {
         $min_max = explode(',', $min_max);
-        $errorMessages = [];
-        if(strlen($this->valuesToValidate[$value]) < $min_max[0]){
-            $errorMessages[] = $this->valuesToValidate[$value].'size less than'.$min_max[0];
+
+        $min = $min_max[0];
+        $max = $min_max[1];
+
+        if (strlen($this->values[$value]) < $min) {
+            $this->errors = $this->values[$value] . 'size less than' . $min;
         }
-        if(strlen($this->valuesToValidate[$value]) > $min_max[1]){
-            $errorMessages[] = $this->valuesToValidate[$value].'size greater than'.$min_max[1];
+
+        if (strlen($this->values[$value]) > $max) {
+            $this->errors = $this->values[$value] . 'size greater than' . $max;
         }
-        return $errorMessages;
     }
 
-    private function email($value): array
+    private function email($value)
     {
-        $errorMessages = [];
-        $email = $this->valuesToValidate[$value];
-        $findUser = Database::find(Config::getUserDb(), 'email', $email);
-        if(array_key_exists('id', $this->valuesToValidate)){
-            if ($findUser && $findUser['id'] != $this->valuesToValidate['id']) {
-                $errorMessages[] = "User with $email email already exist";
+        $email = $this->values[$value];
+        $findUser = Database::find(User::class, 'email', $email);
+        if (array_key_exists('id', $this->values)) {
+            if ($findUser && $findUser['id'] != $this->values['id']) {
+                $this->errors[] = "User with $email email already exist";
             }
         } elseif ($findUser) {
-            $errorMessages[] = "User with $email email already exist";
+            $this->errors[] = "User with $email email already exist";
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errorMessages[] = "Email $email is invalid";
+            $this->errors[] = "Email $email is invalid";
         }
-        return $errorMessages;
     }
 
-    private function required($value){
-        $errorMessages = [];
-        if(array_key_exists($value, $this->valuesToValidate)){
-            return [];
-        }
-
-        $errorMessages[] = "$value is required";
-
-        return $errorMessages;
-    }
-
-    private function string($name): array
+    private function required($value)
     {
-        $errorMessages = [];
-        foreach (explode(' ', $name) as $str){
-            if (!preg_match("/^[a-zA-z]*$/", $str)) {
-                $errorMessages[] = "Invalid name $name";
-            }
+        if (array_key_exists($value, $this->values)) {
+            return;
         }
 
-        return $errorMessages;
+        $this->errors[] = "$value is required";
     }
 
-    private function gender($value){
-        if ($this->valuesToValidate[$value] !== 'Male' && $this->valuesToValidate[$value] !== 'Female'){
-            return ["$value is not a gender"];
+    private function string($name)
+    {
+        if (is_string($name)) {
+            return;
         }
-        return [];
+
+        $this->errors[] = "$name is not string";
     }
 
-    private function status($value){
-        if ($this->valuesToValidate[$value] !== 'Active' && $this->valuesToValidate[$value] !== 'Inactive'){
-            return ["$value is not a status"];
+    public function getValidated(): array
+    {
+        if (array_key_exists('id', $this->values)) {
+            $this->validated = array_merge($this->validated, ['id' => $this->values['id']]);
         }
-        return [];
-    }
 
-    public function getValidated(){
-        if(array_key_exists('id', $this->valuesToValidate)){
-            $this->validatedValues = array_merge($this->validatedValues, ['id' => $this->valuesToValidate['id']]);
-        }
-        return $this->validatedValues;
+        return $this->validated;
     }
 }

@@ -12,10 +12,11 @@ include_once('Config.php');
 
 class UserController
 {
-    public function index($errorMessages = []): void
+    public function index($errors = []): void
     {
-        $usersDB = Database::select(\Config::getUserDb());
+        $usersDB = Database::select(User::class);
         $users = [];
+
         foreach ($usersDB as $userDB) {
             $users[] = new User($userDB);
         }
@@ -27,8 +28,8 @@ class UserController
     {
         $validator = new \Validator($Request->get());
         $validated = $validator->validate([
-            'gender' => ['required', 'gender'],
-            'status' => ['required', 'status'],
+            'gender' => ['required'],
+            'status' => ['required'],
             'email' => ['required', 'email'],
             'name' => ['required', 'length:4,20', 'string']
         ]);
@@ -38,12 +39,12 @@ class UserController
             Database::update($user);
         }
 
-        $this->index($validator->getErrorMessages());
+        $this->index($validator->getErrors());
     }
 
     public function edit($Request): void
     {
-        $userDB = Database::find(\Config::getUserDb(), 'email', $Request->getGET()['Email']);
+        $userDB = Database::find(User::class, 'email', $Request->getGET()['Email']);
         $user = new User($userDB);
         Database::update($user);
         include 'View/EditUser.php';
@@ -51,7 +52,8 @@ class UserController
 
     public function delete($Request): void
     {
-        Database::delete(\Config::getUserDb(), 'email', $Request->getGET()['Email']);
+        $user = new User(Database::find(User::class, 'email', $Request->getGET()['Email']));
+        Database::delete($user);
         $this->index();
     }
 
@@ -63,18 +65,17 @@ class UserController
     public function store($Request): void
     {
         $validator = new \Validator($Request->getPOST());
-        $validated = $validator->validate([
-            'gender' => ['required', 'gender'],
-            'status' => ['required', 'status'],
+        $isValidated = $validator->validate([
+            'gender' => ['required'],
+            'status' => ['required'],
             'email' => ['required', 'email'],
             'name' => ['required', 'length:4,20', 'string']
         ]);
 
-        if ($validated) {
-            $user = new User($validator->getValidated());
-            Database::store($user, \Config::getUserDb());
+        if ($isValidated) {
+            Database::store(new User($validator->getValidated()));
         }
 
-        $this->index($validator->getErrorMessages());
+        $this->index($validator->getErrors());
     }
 }
