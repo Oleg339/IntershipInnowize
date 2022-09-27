@@ -18,6 +18,7 @@ class User
         $this->name = $data['name'];
         $this->gender = $data['gender'];
         $this->status = $data['status'];
+
         if (array_key_exists('id', $data)) {
             $this->id = $data['id'];
         }

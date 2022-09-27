@@ -21,8 +21,9 @@ class Validator
 
     public function validate($data): bool
     {
-        $hasErrors = false;
         foreach ($data as $key => $values) {
+            $hasErrors = false;
+
             foreach ($values as $value) {
                 $value = explode(':', $value);
                 $method = $value[0];
@@ -33,9 +34,11 @@ class Validator
                     $hasErrors = $this->$method($key, $value[1]);
                 }
             }
+
             if ($hasErrors) {
                 continue;
             }
+
             $this->validated = array_merge($this->validated, [$key => $this->values[$key]]);
         }
 

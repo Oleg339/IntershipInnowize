@@ -44,12 +44,14 @@ class UserController
     {
         $user = new User(Database::find(User::class, 'email', $Request->getGET()['Email']));
         Database::update($user);
+
         include 'View/EditUser.php';
     }
 
     public function delete($Request): void
     {
         Database::delete(new User(Database::find(User::class, 'email', $Request->getGET()['Email'])));
+        
         $this->index();
     }
 

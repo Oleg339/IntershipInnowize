@@ -52,6 +52,7 @@ class Database
                 return $entityDB;
             }
         }
+
         return [];
     }
 
@@ -69,10 +70,10 @@ class Database
 
         $dbName = $model::$table;
         $sql = 'UPDATE ' . $dbName . ' SET ';
-        $vars = [];
         $i = 0;
+
         foreach ($model->getValues() as $mysqlValue) {
-            $sql .= "$mysqlVars[$i] = '$mysqlValue', ";
+            $sql .= $mysqlVars[$i] . ' = \'' . $mysqlValue . '\', ';
             $i++;
         }
 

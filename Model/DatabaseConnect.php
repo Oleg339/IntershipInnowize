@@ -24,6 +24,7 @@ class DatabaseConnect
         if (!self::$instance) {
             self::$instance = new DatabaseConnect();
         }
+
         return self::$instance;
     }
 
