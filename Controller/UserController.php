@@ -23,34 +23,40 @@ class UserController
         include 'View/ListOfUsers.php';
     }
 
-    public function update($Request): void
+    public function update($request): void
     {
-        $validator = new \Validator($Request->get());
-        $validated = $validator->validate([
+        $REQUEST = $request->get();
+
+        $userId = $REQUEST['id'];
+        if(!Database::find(User::class, 'id', $userId)){
+            $this->index('There are no User with ' . $userId . 'id');
+        }
+
+        $validator = new \Validator($REQUEST);
+        $isValidated = $validator->validate([
             'gender' => ['required'],
             'status' => ['required'],
             'email' => ['required', 'email'],
             'name' => ['required', 'length:4,20', 'string']
         ]);
 
-        if ($validated) {
-            Database::update(new User($validator->getValidated()));
+        if ($isValidated) {
+            Database::update(new User(array_merge($validator->getValidated(), ['id' => $userId])));
         }
 
         $this->index($validator->getErrors());
     }
 
-    public function edit($Request): void
+    public function edit($request): void
     {
-        $user = new User(Database::find(User::class, 'email', $Request->getGET()['Email']));
-        Database::update($user);
+        $user = new User(Database::find(User::class, 'email', $request->getGET()['Email']));
 
         include 'View/EditUser.php';
     }
 
-    public function delete($Request): void
+    public function delete($request): void
     {
-        Database::delete(new User(Database::find(User::class, 'email', $Request->getGET()['Email'])));
+        Database::delete(new User(Database::find(User::class, 'email', $request->getGET()['Email'])));
 
         $this->index();
     }
@@ -60,9 +66,9 @@ class UserController
         include 'View/AddUser.php';
     }
 
-    public function store($Request): void
+    public function store($request): void
     {
-        $validator = new \Validator($Request->getPOST());
+        $validator = new \Validator($request->getPOST());
         $isValidated = $validator->validate([
             'gender' => ['required'],
             'status' => ['required'],

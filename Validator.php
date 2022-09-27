@@ -9,9 +9,9 @@ class Validator
     private $validated = [];
     private $errors = [];
 
-    public function __construct($data)
+    public function __construct($values)
     {
-        $this->values = $data;
+        $this->values = $values;
     }
 
     public function getErrors()
@@ -35,19 +35,13 @@ class Validator
                 }
             }
 
-            if ($hasErrors) {
-                continue;
+            if (!$hasErrors) {
+                $this->validated = array_merge($this->validated, [$key => $this->values[$key]]);
             }
-
-            $this->validated = array_merge($this->validated, [$key => $this->values[$key]]);
         }
 
         if (sizeof($this->errors)) {
             return false;
-        }
-
-        if (array_key_exists('id', $this->values)) {
-            $this->validated = array_merge($this->validated, ['id' => $this->values['id']]);
         }
 
         return true;
