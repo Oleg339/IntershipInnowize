@@ -10,6 +10,7 @@ class User
     private $status;
     private $id;
     public static $table = 'Users';
+    public static $fields = ['email', 'name', 'gender', 'status'];
 
     public function __construct(array $data)
     {
@@ -17,9 +18,19 @@ class User
         $this->name = $data['name'];
         $this->gender = $data['gender'];
         $this->status = $data['status'];
-        if(array_key_exists('id', $data)){
+        if (array_key_exists('id', $data)) {
             $this->id = $data['id'];
         }
+    }
+
+    public function getValues()
+    {
+        return [
+            'email' => $this->email,
+            'name' => $this->name,
+            'gender' => $this->gender,
+            'status' => $this->status
+        ];
     }
 
     public function getEmail()

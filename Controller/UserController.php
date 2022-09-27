@@ -14,10 +14,9 @@ class UserController
 {
     public function index($errors = []): void
     {
-        $usersDB = Database::select(User::class);
         $users = [];
 
-        foreach ($usersDB as $userDB) {
+        foreach (Database::select(User::class) as $userDB) {
             $users[] = new User($userDB);
         }
 
@@ -43,7 +42,8 @@ class UserController
 
     public function edit($Request): void
     {
-        Database::update(new User(Database::find(User::class, 'email', $Request->getGET()['Email'])));
+        $user = new User(Database::find(User::class, 'email', $Request->getGET()['Email']));
+        Database::update($user);
         include 'View/EditUser.php';
     }
 

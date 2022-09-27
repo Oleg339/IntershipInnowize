@@ -2,9 +2,9 @@
 
 namespace Model;
 
-class SeederUser extends Database
+class UserSeeder extends Database
 {
-    public static function seedUsersInDB($count = 10)
+    public static function run($count = 10)
     {
         for ($i = 0; $i < $count; $i++) {
             $email = self::generateRandomString() . '@gmail.com';

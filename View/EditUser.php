@@ -29,18 +29,18 @@
                                    name="email" required/>
                         </div>
                         <div class="p-1">
-                            <label for="Name">User Name</label>
+                            <label for="name">User Name</label>
                             <input value="<?php echo $user->getName() ?>" class="form-control" name="name" required/>
                         </div>
                         <div class="p-1">
-                            <label for="Gender">Gender</label>
+                            <label for="gender">Gender</label>
                             <select value="<?php echo $user->getGender() ?>" class="form-control" name="gender">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
                         <div class="p-1">
-                            <label for="Status">Status</label>
+                            <label for="status">Status</label>
                             <select value="<?php echo $user->getStatus() ?>" class="form-control" name="status">
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>

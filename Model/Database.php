@@ -9,26 +9,12 @@ class Database
 {
     public static function createTable($model)
     {
-        $methods = [];
-
-        foreach (get_class_methods($model) as $method) {
-            if (substr($method, 0, 3) == 'get' && $method !== 'getId') {
-                $methods[] = $method;
-            }
-        }
-
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
-        $mysqlVars = [];
 
-        foreach ($methods as $method) {
-            $mysqlVars[] = substr($method, 3);
-        }
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $model::$fields .
+            ' (id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, ';
 
-        $table = $model::$table;
-        $sql = "CREATE TABLE IF NOT EXISTS $table (
-        id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
-
-        foreach ($mysqlVars as $var) {
+        foreach ($model::$fields as $var) {
             $sql .= lcfirst($var) . ' VARCHAR(50), ';
         }
 
@@ -39,34 +25,18 @@ class Database
 
     public static function store($model)
     {
-        $methods = [];
-
-        foreach (get_class_methods($model) as $method) {
-            if (substr($method, 0, 3) == 'get' && $method !== 'getId') {
-                $methods[] = $method;
-            }
-        }
-
-        $mysqlValues = [];
-        $mysqlVars = [];
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
 
-        foreach ($methods as $method) {
-            $mysqlVars[] = substr($method, 3);
-            $mysqlValues[] = $mysqli->real_escape_string($model->$method());
-        }
+        $sql = 'INSERT INTO ' . $model::$table . ' ( ';
 
-        $table = $model::$table;
-        $sql = "INSERT INTO  $table (";
-
-        foreach ($mysqlVars as $var) {
+        foreach ($model::$fields as $var) {
             $sql .= lcfirst($var) . ', ';
         }
 
         $sql = substr($sql, 0, -2);
         $sql .= ') VALUES (';
 
-        foreach ($mysqlValues as $value) {
+        foreach ($model->getValues() as $value) {
             $sql .= "'$value', ";
         }
 
@@ -77,8 +47,7 @@ class Database
 
     public static function find($model, $findBy, $parameter)
     {
-        $entitiesDB = self::select($model);
-        foreach ($entitiesDB as $entityDB) {
+        foreach (self::select($model) as $entityDB) {
             if ($entityDB[$findBy] == $parameter) {
                 return $entityDB;
             }
@@ -88,51 +57,35 @@ class Database
 
     public static function delete($model)
     {
-        $dbName = $model::$table;
-        $id = $model->getId();
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
-        $sql = "DELETE FROM $dbName WHERE id = '$id'";
+        $sql = 'DELETE FROM ' . $model::$table . ' WHERE id = \'' . $model->getId() . '\'';
         $mysqli->query($sql);
     }
 
     public static function update($model): void
     {
-        $methods = [];
-
-        foreach (get_class_methods($model) as $method) {
-            if (substr($method, 0, 3) == 'get' && $method !== 'getId') {
-                $methods[] = $method;
-            }
-        }
-
-        $mysqlValues = [];
-        $mysqlVars = [];
+        $mysqlVars = $model::$fields;
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
 
-        foreach ($methods as $method) {
-            $mysqlVars[] = substr($method, 3);
-            $mysqlValues[] = $mysqli->real_escape_string($model->$method());
-        }
-
         $dbName = $model::$table;
-        $sql = "UPDATE $dbName SET ";
-
-        for ($i = 0; $i < sizeof($mysqlVars); $i++) {
-            $sql .= "$mysqlVars[$i] = '$mysqlValues[$i]', ";
+        $sql = 'UPDATE ' . $dbName . ' SET ';
+        $vars = [];
+        $i = 0;
+        foreach ($model->getValues() as $mysqlValue) {
+            $sql .= "$mysqlVars[$i] = '$mysqlValue', ";
+            $i++;
         }
 
         $sql = substr($sql, 0, -2);
-        $id = $model->getId();
 
-        $sql .= " WHERE id=$id";
+        $sql .= ' WHERE id=\'' . $model->getId() . '\'';
         $mysqli->query($sql);
     }
 
     public static function select($model)
     {
-        $table = $model::$table;
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
-        $sql = "SELECT * FROM $table";
+        $sql = 'SELECT * FROM ' . $model::$table;
 
         try {
             $result = $mysqli->query($sql);
