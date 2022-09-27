@@ -61,12 +61,12 @@ class Validator
         $max = $data[1];
 
         if (strlen($this->values[$value]) < $min) {
-            $this->errors = $this->values[$value] . 'size less than' . $min;
+            $this->errors[] = $this->values[$value] . ' size less than' . $min;
             return true;
         }
 
         if (strlen($this->values[$value]) > $max) {
-            $this->errors = $this->values[$value] . 'size greater than' . $max;
+            $this->errors[] = $this->values[$value] . ' size greater than' . $max;
             return true;
         }
         return false;

@@ -51,7 +51,7 @@ class UserController
     public function delete($Request): void
     {
         Database::delete(new User(Database::find(User::class, 'email', $Request->getGET()['Email'])));
-        
+
         $this->index();
     }
 

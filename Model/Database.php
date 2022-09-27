@@ -65,20 +65,17 @@ class Database
 
     public static function update($model): void
     {
-        $mysqlVars = $model::$fields;
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
 
-        $dbName = $model::$table;
-        $sql = 'UPDATE ' . $dbName . ' SET ';
-        $i = 0;
+        $sql = 'UPDATE ' . $model::$table . ' SET ';
 
+        $i = 0;
         foreach ($model->getValues() as $mysqlValue) {
-            $sql .= $mysqlVars[$i] . ' = \'' . $mysqlValue . '\', ';
+            $sql .= $model::$fields[$i] . ' = \'' . $mysqlValue . '\', ';
             $i++;
         }
 
         $sql = substr($sql, 0, -2);
-
         $sql .= ' WHERE id=\'' . $model->getId() . '\'';
         $mysqli->query($sql);
     }
