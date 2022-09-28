@@ -19,7 +19,6 @@ class UserApi
     {
         $data = $this->convertToArray($this->controller->index());
         header('X-Pagination-Total: ' . sizeof($data));
-        header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
     }
 
@@ -34,7 +33,6 @@ class UserApi
         }
 
         header('X-Pagination-Total: 1');
-        header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data->getValues());
     }
 
@@ -44,7 +42,7 @@ class UserApi
         if (!$response) {
             http_response_code(404);
             echo json_encode(["message" => "Resource not found"]);
-            
+
             return;
         }
 

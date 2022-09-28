@@ -4,6 +4,8 @@ use Task13\Router;
 
 include_once('Router.php');
 
+header('Content-Type: application/json; charset=utf-8');
+
 $router = new Router();
 
 $router->get('/', ['Api\UserApi', 'index']);
