@@ -6,14 +6,12 @@ include_once('Router.php');
 
 $router = new Router();
 
-$router->addRoutes([
-    '/' => ['index', 'Controller\UserController'],
-    '/users%GET' => ['index', 'Controller\UserController'],
-    '/users/create%GET' => ['create', 'Controller\UserController'],
-    '/users%POST' => ['store', 'Controller\UserController'],
-    '/users/delete%GET' => ['delete', 'Controller\UserController'],
-    '/users/edit%GET' => ['edit', 'Controller\UserController'],
-    '/users%PUT' => ['update', 'Controller\UserController']
-]);
+$router->get('/', ['Api\UserApi', 'index']);
+$router->get('/users', ['Api\UserApi', 'index']);
+$router->get('/users/create', ['Api\UserApi', 'create']);
+$router->get('/users/{id}/edit', ['Api\UserApi', 'edit']);
+$router->post('/users', ['Api\UserApi', 'store']);
+$router->put('/users/{id}', ['Api\UserApi', 'update']);
+$router->delete('/users/{id}', ['Api\UserApi', 'delete']);
 
-$router->start();
+$router->run();

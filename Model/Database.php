@@ -43,6 +43,8 @@ class Database
         $sql = substr($sql, 0, -2);
         $sql .= ')';
         $mysqli->query($sql);
+
+        return $mysqli->insert_id;
     }
 
     public static function find($model, $findBy, $parameter)
@@ -56,11 +58,11 @@ class Database
         return [];
     }
 
-    public static function delete($model)
+    public static function delete($model): bool
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
         $sql = 'DELETE FROM ' . $model::$table . ' WHERE id = \'' . $model->getId() . '\'';
-        $mysqli->query($sql);
+        return $mysqli->query($sql);
     }
 
     public static function update($model): void

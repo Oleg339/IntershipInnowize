@@ -14,7 +14,7 @@
 <div class="panel panel-success">
     <nav class="navbar navbar-light bg-light">
         <h2 class="p-3">Edit User</h2>
-        <a class="nav-link my-2 my-sm-0" href="/users%GET">Back to UserList</a>
+        <a class="nav-link my-2 my-sm-0" href="/users">Back to UserList</a>
     </nav>
     <div class="panel-body">
         <form class="p-a-1" action="/users%PUT?id=<?php echo $user->getId() ?>" method="post">

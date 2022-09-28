@@ -12,15 +12,15 @@ include_once('Config.php');
 
 class UserController
 {
-    public function index($errors = []): void
+    public function index($errors = []): array
     {
         $users = [];
 
         foreach (Database::select(User::class) as $userDB) {
             $users[] = new User($userDB);
         }
-
-        include 'View/ListOfUsers.php';
+        return $users;
+        //include 'View/ListOfUsers.php';
     }
 
     public function update($request): void
@@ -28,7 +28,7 @@ class UserController
         $REQUEST = $request->get();
 
         $userId = $REQUEST['id'];
-        if(!Database::find(User::class, 'id', $userId)){
+        if (!Database::find(User::class, 'id', $userId)) {
             $this->index('There are no User with ' . $userId . 'id');
         }
 
@@ -47,18 +47,21 @@ class UserController
         $this->index($validator->getErrors());
     }
 
-    public function edit($request): void
+    public function edit($request, $id): void
     {
-        $user = new User(Database::find(User::class, 'email', $request->getGET()['Email']));
-
+        $user = new User(Database::find(User::class, 'id', $id));
         include 'View/EditUser.php';
     }
 
-    public function delete($request): void
+    public function delete($id)
     {
-        Database::delete(new User(Database::find(User::class, 'email', $request->getGET()['Email'])));
+        $user = Database::find(User::class, 'id', $id);
 
-        $this->index();
+        if(!$user){
+            return false;
+        }
+
+        return Database::delete(new User($user));
     }
 
     public static function create()
@@ -66,7 +69,7 @@ class UserController
         include 'View/AddUser.php';
     }
 
-    public function store($request): void
+    public function store($request)
     {
         $validator = new \Validator($request->getPOST());
         $isValidated = $validator->validate([
@@ -77,9 +80,11 @@ class UserController
         ]);
 
         if ($isValidated) {
-            Database::store(new User($validator->getValidated()));
+            $user = new User($validator->getValidated());
+            $user->setId(Database::store($user));
+            return $user;
         }
 
-        $this->index($validator->getErrors());
+        return $validator->getErrors();
     }
 }

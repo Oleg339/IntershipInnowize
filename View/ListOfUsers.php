@@ -26,6 +26,7 @@
                 </tr>
                 </thead>
                 <?php foreach ($users as $user) {
+                    $id = $user->getId();
                     $email = $user->getEmail();
                     $name = $user->getName();
                     $gender = $user->getGender();
@@ -34,12 +35,12 @@
                     echo "<td>$name</td>";
                     echo "<td>$gender</td>";
                     echo "<td>$status</td>";
-                    echo "<td><a href=\"\users\\edit%GET?Email=$email\">Edit</a><br>";
+                    echo "<td><a href=\"\users\\$id\\edit\">Edit</a><br>";
                     echo "<a type =\"button\" class=\"btn btn-danger\" 
-                                     onclick=\"confirmDeleting('$email')\">Delete</a></td></tr>";
+                                     onclick=\"confirmDeleting('$email')\" value=\"delete\">Delete</a></td></tr>";
                 } ?>
             </table>
-            <a type="button" href="\users\create%GET" class="btn btn-primary">Add User</a>
+            <a type="button" href="\users\create" class="btn btn-primary">Add User</a>
         </div>
     </div>
 </body>
@@ -47,7 +48,7 @@
 <script>
     function confirmDeleting(email) {
         if (confirm("Are you sure?")) {
-            document.location.href = "/users/delete%GET?Email=" + email;
+            document.location.href = "/users/delete%DELETE?Email=" + email;
         }
     }
 </script>

@@ -4,11 +4,12 @@ namespace Model;
 
 class User
 {
-    private $email;
-    private $name;
-    private $gender;
-    private $status;
-    private $id;
+    protected $email;
+    protected $name;
+    protected $gender;
+    protected $status;
+    protected $id;
+
     public static $table = 'Users';
     public static $fields = ['email', 'name', 'gender', 'status'];
 
@@ -26,12 +27,13 @@ class User
 
     public function getValues()
     {
-        return [
+        return array_merge([
             'email' => $this->email,
             'name' => $this->name,
             'gender' => $this->gender,
             'status' => $this->status
-        ];
+        ], $this->id ? ['id' => $this->id] : []
+        );
     }
 
     public function getEmail()

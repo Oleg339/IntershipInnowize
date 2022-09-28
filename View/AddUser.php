@@ -14,10 +14,10 @@
 <div class="panel panel-success">
     <nav class="navbar navbar-light bg-light">
         <h2 class="p-3">Add User</h2>
-        <a class="nav-link my-2 my-sm-0" href="/users%GET">Back to UserList</a>
+        <a class="nav-link my-2 my-sm-0" href="/users">Back to UserList</a>
     </nav>
     <div class="panel-body">
-        <form class="p-a-1" action="/users%POST" method="post">
+        <form class="p-a-1" action="/users" method="post">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col col-sm-2">
