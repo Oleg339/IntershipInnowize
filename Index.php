@@ -10,6 +10,7 @@ $router = new Router();
 
 $router->get('/', ['Api\UserApi', 'index']);
 $router->get('/users', ['Api\UserApi', 'index']);
+$router->get('/users/{id}', ['Api\UserApi', 'show']);
 $router->get('/users/create', ['Api\UserApi', 'create']);
 $router->get('/users/{id}/edit', ['Api\UserApi', 'edit']);
 $router->post('/users', ['Api\UserApi', 'store']);

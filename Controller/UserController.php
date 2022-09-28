@@ -53,11 +53,16 @@ class UserController
         include 'View/EditUser.php';
     }
 
+    public function show($id)
+    {
+        return $user = Database::find(User::class, 'id', $id);
+    }
+
     public function delete($id)
     {
         $user = Database::find(User::class, 'id', $id);
 
-        if(!$user){
+        if (!$user) {
             return false;
         }
 

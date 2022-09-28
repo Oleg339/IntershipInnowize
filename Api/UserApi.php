@@ -49,6 +49,19 @@ class UserApi
         http_response_code(204);
     }
 
+    public function show($request, $id)
+    {
+        $user = $this->controller->show($id);
+        if ($user) {
+            http_response_code(200);
+            echo json_encode($user);
+            return;
+        }
+
+        echo json_encode(['message' => 'there are no users with this id']);
+    }
+
+
     private function convertToArray($users)
     {
         $data = [];
