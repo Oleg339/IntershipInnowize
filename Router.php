@@ -47,6 +47,11 @@ class Router
         $request = new Request();
         $server = $request->getSERVER();
         $url = parse_url($server['REQUEST_URI'])['path'];
+        
+        if (str_ends_with($url, '/')) {
+            $url = substr($url, 0, -1);
+        }
+
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         $value = '';
 
@@ -58,7 +63,7 @@ class Router
             $route = str_replace($value, '{id}', $url);
         }
 
-        if(array_key_exists($route, $this->$method)){
+        if (array_key_exists($route, $this->$method)) {
             $controller = new $this->$method[$route][0]();
             $action = $this->$method[$route][1];
             $controller->$action($request, $value);
