@@ -15,6 +15,7 @@ class Router
     private $post = [];
     private $delete = [];
     private $put = [];
+    private $patch = [];
 
     public function get($route, $action): void
     {
@@ -34,6 +35,11 @@ class Router
     public function put($route, $action): void
     {
         $this->put = array_merge($this->put, [$route => $action]);
+    }
+
+    public function patch($route, $action): void
+    {
+        $this->patch = array_merge($this->patch, [$route => $action]);
     }
 
     public function run(): void

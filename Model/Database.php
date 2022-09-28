@@ -71,10 +71,8 @@ class Database
 
         $sql = 'UPDATE ' . $model::$table . ' SET ';
 
-        $i = 0;
-        foreach ($model->getValues() as $mysqlValue) {
-            $sql .= $model::$fields[$i] . ' = \'' . $mysqlValue . '\', ';
-            $i++;
+        foreach ($model::$fields as $field) {
+            $sql .= $field . ' = \'' . $model->getValues()[$field] . '\', ';
         }
 
         $sql = substr($sql, 0, -2);

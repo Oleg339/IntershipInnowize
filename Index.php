@@ -15,6 +15,7 @@ $router->get('/users/create', ['Api\UserApi', 'create']);
 $router->get('/users/{id}/edit', ['Api\UserApi', 'edit']);
 $router->post('/users', ['Api\UserApi', 'store']);
 $router->put('/users/{id}', ['Api\UserApi', 'update']);
+$router->patch('/users/{id}', ['Api\UserApi', 'update']);
 $router->delete('/users/{id}', ['Api\UserApi', 'delete']);
 
 $router->run();

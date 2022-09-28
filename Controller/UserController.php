@@ -23,16 +23,15 @@ class UserController
         //include 'View/ListOfUsers.php';
     }
 
-    public function update($request): void
+    public function update($request, $id): User
     {
         $REQUEST = $request->get();
 
-        $userId = $REQUEST['id'];
-        if (!Database::find(User::class, 'id', $userId)) {
-            $this->index('There are no User with ' . $userId . 'id');
+        if (!Database::find(User::class, 'id', $id)) {
+            $this->index('There are no User with ' . $id . 'id');
         }
 
-        $validator = new \Validator($REQUEST);
+        $validator = new \Validator(array_merge($REQUEST, ['id' => $id]));
         $isValidated = $validator->validate([
             'gender' => ['required'],
             'status' => ['required'],
@@ -41,7 +40,9 @@ class UserController
         ]);
 
         if ($isValidated) {
-            Database::update(new User(array_merge($validator->getValidated(), ['id' => $userId])));
+            $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
+            Database::update($user);
+            return $user;
         }
 
         $this->index($validator->getErrors());

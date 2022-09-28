@@ -31,7 +31,7 @@ class UserApi
 
             return;
         }
-        
+
         echo json_encode($data->getValues());
     }
 
@@ -60,6 +60,10 @@ class UserApi
         echo json_encode(['message' => 'there are no users with this id']);
     }
 
+    public function update($request, $id){
+        $user = $this->controller->update($request, $id);
+        echo json_encode($user->getValues());
+    }
 
     private function convertToArray($users)
     {
