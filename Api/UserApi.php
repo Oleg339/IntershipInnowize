@@ -31,8 +31,7 @@ class UserApi
 
             return;
         }
-
-        header('X-Pagination-Total: 1');
+        
         echo json_encode($data->getValues());
     }
 
