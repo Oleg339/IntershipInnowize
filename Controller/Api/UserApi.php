@@ -88,7 +88,7 @@ class UserApi
 
         http_response_code(404);
 
-        echo json_encode(['message' => 'resource not found']);
+        echo json_encode(['message' => 'Resource not found']);
     }
 
     public function update($request, $data): void
