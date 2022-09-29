@@ -14,6 +14,10 @@ class Validator
         $this->values = $values;
     }
 
+    private function addError($error){
+        $this->errors = array_merge($this->errors, $error);
+    }
+
     public function getErrors()
     {
         return $this->errors;
@@ -55,12 +59,12 @@ class Validator
         $max = $data[1];
 
         if (strlen($this->values[$value]) < $min) {
-            $this->errors[] = $this->values[$value] . ' size less than' . $min;
+            $this->addError(['length' => $this->values[$value] . ' size less than ' . $min]);
             return true;
         }
 
         if (strlen($this->values[$value]) > $max) {
-            $this->errors[] = $this->values[$value] . ' size greater than' . $max;
+            $this->addError(['length' => $this->values[$value] . 'size greater than ' . $max]);
             return true;
         }
         return false;
@@ -72,16 +76,16 @@ class Validator
         $findUser = Database::find(User::class, 'email', $email);
         if (array_key_exists('id', $this->values)) {
             if ($findUser && $findUser['id'] != $this->values['id']) {
-                $this->errors[] = "User with $email email already exist";
+                $this->addError(['email' => "User with $email email already exist"]);
                 return true;
             }
         } elseif ($findUser) {
-            $this->errors[] = "User with $email email already exist";
+            $this->addError(['email' => "User with $email email already exist"]);
             return true;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = "Email $email is invalid";
+            $this->addError(['email' => "Email $email is invalid"]);
             return true;
         }
         return false;
@@ -94,7 +98,7 @@ class Validator
                 return false;
             }
         }
-        $this->errors[] = "$value is required";
+        $this->addError(['required' => "$value is required"]);
         return true;
     }
 
@@ -104,7 +108,7 @@ class Validator
             return false;
         }
 
-        $this->errors[] = "$name is not string";
+        $this->addError(['string' => "$name is not string"]);
         return true;
     }
 

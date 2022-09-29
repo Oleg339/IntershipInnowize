@@ -4,34 +4,34 @@ namespace Task13;
 
 class Request
 {
-    private $SERVER;
-    private $POST;
-    private $GET;
+    private $server;
+    private $post;
+    private $get;
 
     public function __construct()
     {
-        $this->SERVER = $_SERVER;
-        $this->POST = $_POST;
-        $this->GET = $_GET;
+        $this->server = $_SERVER;
+        $this->post = $_POST;
+        $this->get = $_GET;
     }
 
     public function get()
     {
-        return array_merge($this->GET, $this->POST);
+        return array_merge($this->get, $this->post);
     }
 
-    public function getSERVER(): array
+    public function getServer(): array
     {
-        return $this->SERVER;
+        return $this->server;
     }
 
-    public function getPOST(): array
+    public function getPost(): array
     {
-        return $this->POST;
+        return $this->post;
     }
 
-    public function getGET(): array
+    public function getGet(): array
     {
-        return $this->GET;
+        return $this->get;
     }
 }

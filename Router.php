@@ -2,12 +2,10 @@
 
 namespace Task13;
 
-use Controller\UserController;
-use Api\UserApi;
+use \Controller\Api\UserApi;
 
-include_once('Controller/UserController.php');
 include_once('Request.php');
-include_once('Api/UserApi.php');
+include_once('Controller/Api/UserApi.php');
 
 class Router
 {
@@ -45,30 +43,33 @@ class Router
     public function run(): void
     {
         $request = new Request();
-        $server = $request->getSERVER();
+        $server = $request->getServer();
         $url = parse_url($server['REQUEST_URI'])['path'];
-        
-        if (str_ends_with($url, '/')) {
-            $url = substr($url, 0, -1);
-        }
+
+        $url = rtrim($url, '/');
 
         $method = strtolower($_SERVER['REQUEST_METHOD']);
-        $value = '';
+        $values = [];
 
         $route = $url;
         $urlArray = explode('/', $url);
 
-        if (array_key_exists(2, $urlArray) && intval($urlArray[2])) {
-            $value = $urlArray[2];
-            $route = str_replace($value, '{id}', $url);
+        foreach ($urlArray as $item) {
+            if(intval($item)){
+                $values[] = $item;
+                $route = str_replace($item, '{id}', $url);
+            }
         }
 
         if (array_key_exists($route, $this->$method)) {
-            $controller = new $this->$method[$route][0]();
-            $action = $this->$method[$route][1];
-            $controller->$action($request, $value);
+            $value = $this->$method[$route];
+            $controller = new $value[0]();
+            $action = $value[$route][1];
+            $controller->$action($request, $values);
+
             return;
         }
+
         http_response_code(404);
     }
 }
