@@ -14,7 +14,8 @@ class Validator
         $this->values = $values;
     }
 
-    private function addError($error){
+    private function addError($error)
+    {
         $this->errors = array_merge($this->errors, $error);
     }
 

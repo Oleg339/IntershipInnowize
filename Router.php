@@ -55,7 +55,7 @@ class Router
         $urlArray = explode('/', $url);
 
         foreach ($urlArray as $item) {
-            if(intval($item)){
+            if (intval($item)) {
                 $values[] = $item;
                 $route = str_replace($item, '{id}', $url);
             }
@@ -64,7 +64,7 @@ class Router
         if (array_key_exists($route, $this->$method)) {
             $value = $this->$method[$route];
             $controller = new $value[0]();
-            $action = $value[$route][1];
+            $action = $value[1];
             $controller->$action($request, $values);
 
             return;
