@@ -21,7 +21,6 @@ class UserApi
     public function create()
     {
         $errors = '';
-
         include 'View/AddUser.php';
     }
 
@@ -112,7 +111,7 @@ class UserApi
             return;
         }
 
-        $validator = new \Validator($request);
+        $validator = new \Validator(array_merge($request, ['id' => $id]));
 
         $isValidated = $validator->validate([
             'gender' => ['required'],
