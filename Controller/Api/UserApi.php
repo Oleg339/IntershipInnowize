@@ -14,7 +14,7 @@ class UserApi
     public function index()
     {
         $data = json_encode(Database::select(User::class));
-        
+
         include 'View/ListOfUsers.php';
     }
 
@@ -134,16 +134,5 @@ class UserApi
         http_response_code(402);
 
         echo json_encode(['messages' => $validator->getErrors()]);
-    }
-
-    private function convertToArray($users)
-    {
-        $data = [];
-
-        foreach ($users as $user) {
-            $data[] = $user->getValues();
-        }
-
-        return $data;
     }
 }
