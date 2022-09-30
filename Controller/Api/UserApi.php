@@ -112,7 +112,7 @@ class UserApi
             return;
         }
 
-        $validator = new \Validator(array_merge($request, ['id' => $id]));
+        $validator = new \Validator($request);
 
         $isValidated = $validator->validate([
             'gender' => ['required'],
