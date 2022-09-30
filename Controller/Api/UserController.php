@@ -83,7 +83,7 @@ class UserController
         if ($user) {
             http_response_code(200);
 
-            return json_encode($user);
+            return json_encode($user->getValues());
         }
 
         http_response_code(404);
