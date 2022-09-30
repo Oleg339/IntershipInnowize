@@ -101,7 +101,10 @@ class User
 
     public function delete()
     {
-        Database::delete($this);
+        if(self::find($this->id)){
+            Database::delete($this);
+        }
+        return false;
     }
 
     public static function all(): array
