@@ -1,5 +1,5 @@
 <?php
-    $user = json_decode($data);
+$user = json_decode($data);
 ?>
 <!DOCTYPE html>
 
@@ -68,7 +68,7 @@
             </div>
         </form>
         <div class="text-center">
-        <button onclick="confirmForm('<?php echo $user->id?>')" class="btn btn-primary">Submit</button>
+            <button onclick="confirmForm('<?php echo $user->id ?>')" class="btn btn-primary">Submit</button>
         </div>
     </div>
 </div>

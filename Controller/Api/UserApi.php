@@ -36,7 +36,6 @@ class UserApi
     public function edit($request, $value)
     {
         $data = $this->show($request, $value);
-        $errors = '';
 
         include 'View/EditUser.php';
     }

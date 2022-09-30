@@ -13,7 +13,7 @@ class UserSeeder extends Database
             $gender = $value == 1 ? 'Male' : 'Female';
             $value = rand(0, 1) == 1;
             $status = $value == 1 ? 'Active' : 'Inactive';
-            $user = new User(['email' => $email, 'name'=>$name, 'status'=>$status, 'gender'=>$gender]);
+            $user = new User(['email' => $email, 'name' => $name, 'status' => $status, 'gender' => $gender]);
             self::store($user);
         }
     }

@@ -12,7 +12,7 @@
 <?php if ($errors) {
     $errors = json_decode($errors);
     foreach ($errors as $error) {
-        foreach ($error as $value){
+        foreach ($error as $value) {
             echo "<p class=\"text-danger\">$value</p>";
         }
     }

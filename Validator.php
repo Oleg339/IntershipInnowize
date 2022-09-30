@@ -98,8 +98,6 @@ class Validator
 
     private function required($value): bool
     {
-        //var_dump($this->values);
-        //echo $this->values[$value].'<br>';
         if (array_key_exists($value, $this->values)) {
             if (isset($this->values[$value]) && !empty($this->values[$value])) {
                 return false;
