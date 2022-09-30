@@ -109,7 +109,9 @@ class UserApi
     public function update($request, $data): void
     {
         $id = $data[0];
+
         $request = $request->get();
+        
         if (!Database::find(User::class, 'id', $id)) {
             http_response_code(401);
 

@@ -18,7 +18,7 @@ class Request
     public function get()
     {
         parse_str(file_get_contents("php://input"), $post_vars);
-        
+
         return array_merge($this->get, $this->post, $post_vars);
     }
 
