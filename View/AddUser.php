@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 
 <html>
@@ -11,6 +9,14 @@
     </style>
 </head>
 <body>
+<?php if ($errors) {
+    $errors = json_decode($errors);
+    foreach ($errors as $error) {
+        foreach ($error as $value){
+            echo "<p class=\"text-danger\">$value</p>";
+        }
+    }
+} ?>
 <div class="panel panel-success">
     <nav class="navbar navbar-light bg-light">
         <h2 class="p-3">Add User</h2>

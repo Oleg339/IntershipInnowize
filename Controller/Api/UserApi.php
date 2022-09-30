@@ -23,8 +23,24 @@ class UserApi
 
         header('X-Pagination-Total: ' . sizeof($data));
 
-        echo json_encode($data);
+        $data = json_encode($data);
+        include 'View/ListOfUsers.php';
     }
+
+    public function create()
+    {
+        $errors = '';
+        include 'View/AddUser.php';
+    }
+
+    public function edit($request, $value)
+    {
+        $data = $this->show($request, $value);
+        $errors = '';
+
+        include 'View/EditUser.php';
+    }
+
 
     public function store($request)
     {
@@ -43,14 +59,14 @@ class UserApi
 
             http_response_code(201);
 
-            echo json_encode($user->getValues());
-
+            $this->index();
             return;
         }
 
         http_response_code(400);
 
-        echo json_encode(['messages' => $validator->getErrors()]);
+        $errors = json_encode(['messages' => $validator->getErrors()]);
+        include 'View/AddUser.php';
     }
 
     public function delete($request, $data)
@@ -62,7 +78,7 @@ class UserApi
         if (!$user) {
             http_response_code(404);
 
-            echo json_encode(['messages' => 'Resource not found']);
+            echo json_encode(['messages' => ['Resource not found']]);
 
             return;
         }
@@ -70,6 +86,8 @@ class UserApi
         Database::delete(new User($user));
 
         http_response_code(204);
+
+        $this->index();
     }
 
     public function show($request, $data)
@@ -81,25 +99,22 @@ class UserApi
         if ($user) {
             http_response_code(200);
 
-            echo json_encode($user);
-
-            return;
+            return json_encode($user);
         }
 
         http_response_code(404);
 
-        echo json_encode(['message' => 'Resource not found']);
+        echo json_encode(['messages' => ['Resource not found']]);
     }
 
     public function update($request, $data): void
     {
         $id = $data[0];
         $request = $request->get();
-
         if (!Database::find(User::class, 'id', $id)) {
-            http_response_code(404);
+            http_response_code(401);
 
-            echo json_encode(['message' => 'Resource not found']);
+            echo json_encode(['messages' => ['Resource not found']]);
 
             return;
         }
@@ -124,9 +139,9 @@ class UserApi
             return;
         }
 
-        http_response_code(400);
+        http_response_code(402);
 
-        echo json_encode($validator->getErrors());
+        echo json_encode(['messages' => $validator->getErrors()]);
     }
 
     private function convertToArray($users)

@@ -17,7 +17,8 @@ class Request
 
     public function get()
     {
-        return array_merge($this->get, $this->post);
+        parse_str(file_get_contents("php://input"), $post_vars);
+        return array_merge($this->get, $this->post, $post_vars);
     }
 
     public function getServer(): array

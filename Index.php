@@ -4,7 +4,7 @@ use Task13\Router;
 
 include_once('Router.php');
 
-header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE');
 
 $router = new Router();
 

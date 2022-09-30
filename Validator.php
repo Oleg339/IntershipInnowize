@@ -29,6 +29,10 @@ class Validator
         foreach ($data as $key => $values) {
             $hasErrors = false;
 
+            if ($this->required($key)) {
+                continue;
+            }
+
             foreach ($values as $value) {
                 $value = explode(':', $value);
                 $method = $value[0];
@@ -94,22 +98,25 @@ class Validator
 
     private function required($value): bool
     {
+        //var_dump($this->values);
+        //echo $this->values[$value].'<br>';
         if (array_key_exists($value, $this->values)) {
-            if (isset($this->values[$value])) {
+            if (isset($this->values[$value]) && !empty($this->values[$value])) {
                 return false;
             }
         }
+
         $this->addError(['required' => "$value is required"]);
         return true;
     }
 
-    private function string($name)
+    private function string($value)
     {
-        if (is_string($name)) {
+        if (is_string($value)) {
             return false;
         }
 
-        $this->addError(['string' => "$name is not string"]);
+        $this->addError(['string' => "$value is not string"]);
         return true;
     }
 

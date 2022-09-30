@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <title>List Of Users</title>
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css"/>
+    <script type="text/javascript" src="view/js/main.js"></script>
 </head>
 <body>
-<?php if ($errors) {
-    foreach ($errors as $error) {
-        echo "<p class=\"text-danger\">$error</p>";
-    }
-} ?>
 <div class="panel-heading text-center p-3 border bg-light"><h4>List Of Users</h4></div>
 <div class="container-fluid">
     <div class="row">
@@ -25,19 +21,21 @@
                     <th scope="col">Options</th>
                 </tr>
                 </thead>
-                <?php foreach ($users as $user) {
-                    $id = $user->getId();
-                    $email = $user->getEmail();
-                    $name = $user->getName();
-                    $gender = $user->getGender();
-                    $status = $user->getStatus();
+                <?php
+                $values = json_decode($data);
+                foreach ($values as $value) {
+                    $id = $value->id;
+                    $email = $value->email;
+                    $name = $value->name;
+                    $gender = $value->gender;
+                    $status = $value->status;
                     echo "<tr><td>$email</td>";
                     echo "<td>$name</td>";
                     echo "<td>$gender</td>";
                     echo "<td>$status</td>";
                     echo "<td><a href=\"\users\\$id\\edit\">Edit</a><br>";
                     echo "<a type =\"button\" class=\"btn btn-danger\" 
-                                     onclick=\"confirmDeleting('$email')\" value=\"delete\">Delete</a></td></tr>";
+                                     onclick=\"confirmDeleting('$id')\" value=\"delete\">Delete</a></td></tr>";
                 } ?>
             </table>
             <a type="button" href="\users\create" class="btn btn-primary">Add User</a>
@@ -45,10 +43,4 @@
     </div>
 </body>
 </html>
-<script>
-    function confirmDeleting(email) {
-        if (confirm("Are you sure?")) {
-            document.location.href = "/users/delete%DELETE?Email=" + email;
-        }
-    }
-</script>
+
