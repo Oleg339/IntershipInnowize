@@ -22,9 +22,11 @@ async function confirmForm(id) {
     }
 
     let info = await response.json();
+    let errors = document.getElementById('errors');
+    errors.innerHTML = '';
 
     for (const item in info['messages']) {
-        document.getElementById('errors').innerHTML += info['messages'][item] + "<br>";
+        errors.innerHTML += info['messages'][item] + "<br>";
     }
 }
 
