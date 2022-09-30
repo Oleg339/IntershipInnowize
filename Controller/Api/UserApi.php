@@ -13,17 +13,8 @@ class UserApi
 {
     public function index()
     {
-        $users = [];
-
-        foreach (Database::select(User::class) as $userDB) {
-            $users[] = new User($userDB);
-        }
-
-        $data = $this->convertToArray($users);
-
-        header('X-Pagination-Total: ' . sizeof($data));
-
-        $data = json_encode($data);
+        $data = json_encode(Database::select(User::class));
+        
         include 'View/ListOfUsers.php';
     }
 
@@ -111,7 +102,7 @@ class UserApi
         $id = $data[0];
 
         $request = $request->get();
-        
+
         if (!Database::find(User::class, 'id', $id)) {
             http_response_code(401);
 
