@@ -27,7 +27,7 @@ class Database
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
 
-        $sql = 'INSERT INTO ' . $model::$table . ' ( ';
+        $sql = 'INSERT INTO ' . $model::TABLE . ' ( ';
 
         foreach ($model::$fields as $var) {
             $sql .= lcfirst($var) . ', ';
@@ -61,7 +61,7 @@ class Database
     public static function delete($model): bool
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
-        $sql = 'DELETE FROM ' . $model::$table . ' WHERE id = \'' . $model->getId() . '\'';
+        $sql = 'DELETE FROM ' . $model::TABLE . ' WHERE id = \'' . $model->getId() . '\'';
         return $mysqli->query($sql);
     }
 
@@ -69,7 +69,7 @@ class Database
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
 
-        $sql = 'UPDATE ' . $model::$table . ' SET ';
+        $sql = 'UPDATE ' . $model::TABLE . ' SET ';
 
         foreach ($model::$fields as $field) {
             $sql .= $field . ' = \'' . $model->getValues()[$field] . '\', ';
@@ -83,7 +83,7 @@ class Database
     public static function select($model)
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
-        $sql = 'SELECT * FROM ' . $model::$table;
+        $sql = 'SELECT * FROM ' . $model::TABLE;
 
         try {
             $result = $mysqli->query($sql);

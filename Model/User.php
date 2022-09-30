@@ -10,7 +10,7 @@ class User
     protected $status;
     protected $id;
 
-    public static $table = 'Users';
+    const TABLE = 'Users';
     public static $fields = ['email', 'name', 'gender', 'status'];
 
     public function __construct(array $data)
