@@ -114,11 +114,10 @@ class UserController
 
         if ($isValidated) {
             $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
-            $user->update();
 
             http_response_code(200);
 
-            echo json_encode($user->getValues());
+            echo json_encode($user->update()->getValues());
 
             return;
         }
