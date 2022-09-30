@@ -85,4 +85,29 @@ class User
     {
         $this->status = $status;
     }
+
+    public function save(): void
+    {
+        Database::store($this);
+    }
+
+    public function update()
+    {
+        Database::update($this);
+    }
+
+    public function delete()
+    {
+        Database::delete($this);
+    }
+
+    public static function all(): array
+    {
+        return Database::select(self::class);
+    }
+
+    public static function find($id)
+    {
+        return Database::find(User::class, 'id', $id);
+    }
 }

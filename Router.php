@@ -2,10 +2,10 @@
 
 namespace Task13;
 
-use \Controller\Api\UserApi;
+use \Controller\Api\UserController;
 
 include_once('Request.php');
-include_once('Controller/Api/UserApi.php');
+include_once('Controller/Api/UserController.php');
 
 class Router
 {
@@ -65,7 +65,7 @@ class Router
             $value = $this->$method[$route];
             $controller = new $value[0]();
             $action = $value[1];
-            $controller->$action($request, $values);
+            $controller->$action($request, sizeof($values) == 1 ? $values[0] : $values);
 
             return;
         }

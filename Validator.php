@@ -79,12 +79,12 @@ class Validator
     {
         $email = $this->values[$value];
         $findUser = Database::find(User::class, 'email', $email);
-        if (array_key_exists('id', $this->values)) {
-            if ($findUser && $findUser['id'] != $this->values['id']) {
+
+        $isExistsId = array_key_exists('id', $this->values);
+        if ($isExistsId && $findUser && $this->values['id'] !=  $findUser['id']) {
                 $this->addError(['email' => "User with $email email already exist"]);
                 return true;
-            }
-        } elseif ($findUser) {
+        } elseif ($findUser && !$isExistsId) {
             $this->addError(['email' => "User with $email email already exist"]);
             return true;
         }
@@ -98,10 +98,8 @@ class Validator
 
     private function required($value): bool
     {
-        if (array_key_exists($value, $this->values)) {
-            if (isset($this->values[$value]) && !empty($this->values[$value])) {
-                return false;
-            }
+        if (array_key_exists($value, $this->values) && isset($this->values[$value]) && !empty($this->values[$value])) {
+            return false;
         }
 
         $this->addError(['required' => "$value is required"]);

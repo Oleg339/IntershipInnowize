@@ -9,11 +9,11 @@ include_once('Model/Database.php');
 use Model\Database;
 use Model\User;
 
-class UserApi
+class UserController
 {
     public function index()
     {
-        $data = json_encode(Database::select(User::class));
+        $data = json_encode(User::all());
 
         include 'View/ListOfUsers.php';
     }
@@ -45,7 +45,7 @@ class UserApi
 
         if ($isValidated) {
             $user = new User($validator->getValidated());
-            $user->setId(Database::store($user));
+            $user->save();
 
             http_response_code(201);
 
@@ -59,13 +59,11 @@ class UserApi
         include 'View/AddUser.php';
     }
 
-    public function delete($request, $data)
+    public function delete($request, $id)
     {
-        $id = $data[0];
+        $userValues = User::find($id);
 
-        $user = Database::find(User::class, 'id', $id);
-
-        if (!$user) {
+        if (!$userValues) {
             http_response_code(404);
 
             echo json_encode(['messages' => ['Resource not found']]);
@@ -73,18 +71,18 @@ class UserApi
             return;
         }
 
-        Database::delete(new User($user));
+        $user = new User($userValues);
+        $user->delete();
+
 
         http_response_code(204);
 
         $this->index();
     }
 
-    public function show($request, $data)
+    public function show($request, $id)
     {
-        $id = $data[0];
-
-        $user = Database::find(User::class, 'id', $id);
+        $user = User::find($id);
 
         if ($user) {
             http_response_code(200);
@@ -97,13 +95,11 @@ class UserApi
         echo json_encode(['messages' => ['Resource not found']]);
     }
 
-    public function update($request, $data): void
+    public function update($request, $id): void
     {
-        $id = $data[0];
-
         $request = $request->get();
 
-        if (!Database::find(User::class, 'id', $id)) {
+        if (!User::find($id)) {
             http_response_code(401);
 
             echo json_encode(['messages' => ['Resource not found']]);
@@ -122,7 +118,7 @@ class UserApi
 
         if ($isValidated) {
             $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
-            Database::update($user);
+            $user->update();
 
             http_response_code(200);
 
