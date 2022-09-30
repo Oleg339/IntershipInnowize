@@ -11,7 +11,7 @@ class User
     protected $id;
 
     const TABLE = 'Users';
-    public static $fields = ['email', 'name', 'gender', 'status'];
+    const FIELDS = ['email', 'name', 'gender', 'status'];
 
     public function __construct(array $data)
     {

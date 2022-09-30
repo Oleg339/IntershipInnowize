@@ -11,10 +11,10 @@ class Database
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
 
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $model::$fields .
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $model::TABLE .
             ' (id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, ';
 
-        foreach ($model::$fields as $var) {
+        foreach ($model::FIELDS as $var) {
             $sql .= lcfirst($var) . ' VARCHAR(50), ';
         }
 
@@ -29,7 +29,7 @@ class Database
 
         $sql = 'INSERT INTO ' . $model::TABLE . ' ( ';
 
-        foreach ($model::$fields as $var) {
+        foreach ($model::FIELDS as $var) {
             $sql .= lcfirst($var) . ', ';
         }
 
@@ -71,7 +71,7 @@ class Database
 
         $sql = 'UPDATE ' . $model::TABLE . ' SET ';
 
-        foreach ($model::$fields as $field) {
+        foreach ($model::FIELDS as $field) {
             $sql .= $field . ' = \'' . $model->getValues()[$field] . '\', ';
         }
 
