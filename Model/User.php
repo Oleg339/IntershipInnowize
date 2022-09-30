@@ -101,9 +101,10 @@ class User
 
     public function delete()
     {
-        if(self::find($this->id)){
+        if (self::find($this->id)) {
             Database::delete($this);
         }
+        
         return false;
     }
 
