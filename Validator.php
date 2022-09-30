@@ -98,7 +98,10 @@ class Validator
 
     private function required($value): bool
     {
-        if (array_key_exists($value, $this->values) && isset($this->values[$value]) && !empty($this->values[$value])) {
+        if (array_key_exists($value, $this->values) &&
+            isset($this->values[$value]) &&
+            !empty($this->values[$value])
+        ) {
             return false;
         }
 
