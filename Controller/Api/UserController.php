@@ -74,7 +74,6 @@ class UserController
         $user = new User($userValues);
         $user->delete();
 
-
         http_response_code(204);
 
         $this->index();
