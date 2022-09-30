@@ -104,7 +104,7 @@ class User
         if (self::find($this->id)) {
             Database::delete($this);
         }
-        
+
         return false;
     }
 

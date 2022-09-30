@@ -5,7 +5,6 @@ namespace Controller\Api;
 include_once('Validator.php');
 include_once('Model/User.php');
 
-use Model\Database;
 use Model\User;
 
 class UserController
