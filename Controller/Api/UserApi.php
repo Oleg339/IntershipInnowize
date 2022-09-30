@@ -21,6 +21,7 @@ class UserApi
     public function create()
     {
         $errors = '';
+
         include 'View/AddUser.php';
     }
 
