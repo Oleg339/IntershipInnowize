@@ -2,6 +2,8 @@
 
 namespace Model;
 
+include_once('Database.php');
+
 class User
 {
     protected $email;
@@ -86,14 +88,15 @@ class User
         $this->status = $status;
     }
 
-    public function save(): void
+    public function save()
     {
-        Database::store($this);
+        $this->id = Database::store($this);
+        return $this;
     }
 
     public function update()
     {
-        Database::update($this);
+        return Database::update($this);
     }
 
     public function delete()
@@ -108,6 +111,10 @@ class User
 
     public static function find($id)
     {
-        return Database::find(User::class, 'id', $id);
+        $user = Database::find(User::class, 'id', $id);
+        if($user){
+            return new User($user);
+        }
+        return false;
     }
 }

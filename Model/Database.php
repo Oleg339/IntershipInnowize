@@ -65,7 +65,7 @@ class Database
         return $mysqli->query($sql);
     }
 
-    public static function update($model): void
+    public static function update($model)
     {
         $mysqli = DatabaseConnect::getInstance()->getMysqliConnection();
 
@@ -78,6 +78,8 @@ class Database
         $sql = substr($sql, 0, -2);
         $sql .= ' WHERE id=\'' . $model->getId() . '\'';
         $mysqli->query($sql);
+
+        return $model;
     }
 
     public static function select($model)

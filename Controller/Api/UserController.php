@@ -4,9 +4,7 @@ namespace Controller\Api;
 
 include_once('Validator.php');
 include_once('Model/User.php');
-include_once('Model/Database.php');
 
-use Model\Database;
 use Model\User;
 
 class UserController
@@ -61,9 +59,9 @@ class UserController
 
     public function delete($request, $id)
     {
-        $userValues = User::find($id);
+        $user = User::find($id);
 
-        if (!$userValues) {
+        if (!$user) {
             http_response_code(404);
 
             echo json_encode(['messages' => ['Resource not found']]);
@@ -71,7 +69,6 @@ class UserController
             return;
         }
 
-        $user = new User($userValues);
         $user->delete();
 
         http_response_code(204);
