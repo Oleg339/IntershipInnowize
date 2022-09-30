@@ -81,9 +81,9 @@ class Validator
         $findUser = Database::find(User::class, 'email', $email);
 
         $isExistsId = array_key_exists('id', $this->values);
-        if ($isExistsId && $findUser && $this->values['id'] !=  $findUser['id']) {
-                $this->addError(['email' => "User with $email email already exist"]);
-                return true;
+        if ($isExistsId && $findUser && $this->values['id'] != $findUser['id']) {
+            $this->addError(['email' => "User with $email email already exist"]);
+            return true;
         } elseif ($findUser && !$isExistsId) {
             $this->addError(['email' => "User with $email email already exist"]);
             return true;

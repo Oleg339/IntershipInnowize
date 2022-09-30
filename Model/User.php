@@ -112,7 +112,7 @@ class User
     public static function find($id)
     {
         $user = Database::find(User::class, 'id', $id);
-        if($user){
+        if ($user) {
             return new User($user);
         }
         return false;
