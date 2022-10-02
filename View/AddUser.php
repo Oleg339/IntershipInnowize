@@ -4,26 +4,20 @@
 <head>
     <meta name="viewport" content="width=device-width"/>
     <title>Add User</title>
+    <script type="text/javascript" src="/view/js/main.js"></script>
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css"/>
     <style>
     </style>
 </head>
 <body>
-<?php if ($errors) {
-    $errors = json_decode($errors);
-    foreach ($errors as $error) {
-        foreach ($error as $value) {
-            echo "<p class=\"text-danger\">$value</p>";
-        }
-    }
-} ?>
+<p class="text-danger" id="errors"></p>
 <div class="panel panel-success">
     <nav class="navbar navbar-light bg-light">
         <h2 class="p-3">Add User</h2>
-        <a class="nav-link my-2 my-sm-0" href="/users">Back to UserList</a>
+        <a class="nav-link my-2 my-sm-0" href="/">Back to UserList</a>
     </nav>
     <div class="panel-body">
-        <form class="p-a-1" action="/users" method="post">
+        <form class="p-a-1" id="form">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col col-sm-2">
@@ -57,11 +51,11 @@
                 </div>
             </div>
             <div class="p-3">
-                <div class="text-center">
-                    <button class="btn btn-primary" type="submit">submit</button>
-                </div>
             </div>
         </form>
+        <div class="text-center">
+            <button onclick="confirmAddUser()" class="btn btn-primary">submit</button>
+        </div>
     </div>
 </div>
 </body>

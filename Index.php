@@ -4,11 +4,17 @@ use Task13\Router;
 
 include_once('Router.php');
 
-header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE');
+if($url = parse_url($_SERVER['REQUEST_URI'])['path'] === '/'){
+    include 'View/ListOfUsers.php';
+
+    return;
+}
+
+
+header('Content-Type: application/json');
 
 $router = new Router();
 
-$router->get('/', ['Controller\Api\UserController', 'index']);
 $router->get('/users', ['Controller\Api\UserController', 'index']);
 $router->get('/users/{id}', ['Controller\Api\UserController', 'show']);
 $router->get('/users/create', ['Controller\Api\UserController', 'create']);

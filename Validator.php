@@ -65,13 +65,16 @@ class Validator
 
         if (strlen($this->values[$value]) < $min) {
             $this->addError(['length' => $this->values[$value] . ' size less than ' . $min]);
+
             return true;
         }
 
         if (strlen($this->values[$value]) > $max) {
             $this->addError(['length' => $this->values[$value] . 'size greater than ' . $max]);
+
             return true;
         }
+
         return false;
     }
 
@@ -83,16 +86,20 @@ class Validator
         $isExistsId = array_key_exists('id', $this->values);
         if ($isExistsId && $findUser && $this->values['id'] != $findUser['id']) {
             $this->addError(['email' => "User with $email email already exist"]);
+
             return true;
         } elseif ($findUser && !$isExistsId) {
             $this->addError(['email' => "User with $email email already exist"]);
+
             return true;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->addError(['email' => "Email $email is invalid"]);
+
             return true;
         }
+
         return false;
     }
 
@@ -106,16 +113,19 @@ class Validator
         }
 
         $this->addError(['required' => "$value is required"]);
+        
         return true;
     }
 
     private function string($value)
     {
         if (is_string($value)) {
+
             return false;
         }
 
         $this->addError(['string' => "$value is not string"]);
+
         return true;
     }
 

@@ -91,6 +91,7 @@ class User
     public function save()
     {
         $this->id = Database::store($this);
+
         return $this;
     }
 
@@ -101,11 +102,11 @@ class User
 
     public function delete()
     {
-        if (self::find($this->id)) {
-            Database::delete($this);
+        if (!self::find($this->id)) {
+            return false;
         }
 
-        return false;
+        Database::delete($this);
     }
 
     public static function all(): array
@@ -115,10 +116,11 @@ class User
 
     public static function find($id)
     {
-        $user = Database::find(User::class, 'id', $id);
-        if ($user) {
-            return new User($user);
+        $user = Database::find(self::class, 'id', $id);
+        if (!$user) {
+            return false;
         }
-        return false;
+
+        return new User($user);
     }
 }

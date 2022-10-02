@@ -4,6 +4,7 @@ namespace Controller\Api;
 
 include_once('Validator.php');
 include_once('Model/User.php');
+include_once('Response.php');
 
 use Model\User;
 
@@ -11,28 +12,12 @@ class UserController
 {
     public function index()
     {
-        $data = json_encode(User::all());
-
-        include 'View/ListOfUsers.php';
+        \Response::sendData(User::all());
     }
-
-    public function create()
-    {
-        $errors = '';
-        include 'View/AddUser.php';
-    }
-
-    public function edit($request, $value)
-    {
-        $data = $this->show($request, $value);
-
-        include 'View/EditUser.php';
-    }
-
 
     public function store($request)
     {
-        $validator = new \Validator($request->getPost());
+        $validator = new \Validator($request->get());
 
         $isValidated = $validator->validate([
             'gender' => ['required'],
@@ -45,27 +30,21 @@ class UserController
             $user = new User($validator->getValidated());
             $user->save();
 
-            http_response_code(201);
+            \Response::sendData($user->getValues());
 
-            $this->index();
             return;
         }
 
-        http_response_code(400);
-
-        $errors = json_encode(['messages' => $validator->getErrors()]);
-        include 'View/AddUser.php';
+        \Response::validationError($validator->getErrors());
     }
 
     public function delete($request, $id)
     {
-        if (User::find($id)->delete()) {
-            http_response_code(204);
-            $this->index();
+        if (!User::find($id)->delete()) {
+            \Response::notFound();
         }
 
-        http_response_code(404);
-        echo json_encode(['messages' => ['Resource not found']]);
+        \Response::success();
     }
 
     public function show($request, $id)
@@ -73,14 +52,12 @@ class UserController
         $user = User::find($id);
 
         if ($user) {
-            http_response_code(200);
+            \Response::sendData($user->getValues());
 
-            return json_encode($user->getValues());
+            return;
         }
 
-        http_response_code(404);
-
-        echo json_encode(['messages' => ['Resource not found']]);
+        \Response::notFound();
     }
 
     public function update($request, $id): void
@@ -88,9 +65,7 @@ class UserController
         $request = $request->get();
 
         if (!User::find($id)) {
-            http_response_code(401);
-
-            echo json_encode(['messages' => ['Resource not found']]);
+            \Response::notFound();
 
             return;
         }
@@ -107,15 +82,11 @@ class UserController
         if ($isValidated) {
             $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
 
-            http_response_code(200);
-
-            echo json_encode($user->update()->getValues());
+            \Response::sendData($user->getValues());
 
             return;
         }
 
-        http_response_code(402);
-
-        echo json_encode(['messages' => $validator->getErrors()]);
+        \Response::validationError($validator->getErrors());
     }
 }
