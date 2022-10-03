@@ -43,7 +43,7 @@ class UserController
         $user = User::find($id);
 
         if(!$user){
-            return Response::notFound();;
+            return Response::notFound();
         }
 
         $user->delete();
@@ -86,6 +86,6 @@ class UserController
         $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
         $user->update();
 
-        return Response::json($user->getValues(), 200);
+        Response::json($user->getValues(), 200);
     }
 }
