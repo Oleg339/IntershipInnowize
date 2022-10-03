@@ -8,12 +8,14 @@ class Response
         echo json_encode(['messages' => ['Resource not found']]);
     }
 
-    public static function json($code, $data = null)
+    public static function json($data, $code)
     {
         http_response_code($code);
 
-        if ($data) {
-            echo json_encode($data);
+        if (!$data) {
+            return;
         }
+
+        echo json_encode($data);
     }
 }

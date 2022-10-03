@@ -14,7 +14,7 @@ class UserController
 {
     public function index()
     {
-        Response::json(200, User::all());
+        Response::json(User::all(), 200);
     }
 
     public function store($request)
@@ -28,16 +28,14 @@ class UserController
             'name' => ['required', 'length:4,20', 'string']
         ]);
 
-        if ($isValidated) {
-            $user = new User($validator->getValidated());
-            $user->save();
-
-            Response::json(201, $user->getValues());
-
-            return;
+        if (!$isValidated) {
+            return Response::json(['messages' => $validator->getErrors()], 400);
         }
 
-        Response::json(400, ['messages' => $validator->getErrors()]);
+        $user = new User($validator->getValidated());
+        $user->save();
+
+        Response::json($user->getValues(), 201);
     }
 
     public function delete($request, $id)
@@ -45,37 +43,31 @@ class UserController
         $user = User::find($id);
 
         if(!$user){
-            Response::notFound();
-
-            return;
+            return Response::notFound();;
         }
 
         $user->delete();
 
-        Response::json(204);
+        Response::json([], 204);
     }
 
     public function show($request, $id)
     {
         $user = User::find($id);
 
-        if ($user) {
-            Response::json(200, $user->getValues());
-
-            return;
+        if (!$user) {
+            return Response::notFound();
         }
 
-        Response::notFound();
+        Response::json($user->getValues(), 200);
     }
 
-    public function update($request, $id): void
+    public function update($request, $id)
     {
         $request = $request->get();
 
         if (!User::find($id)) {
-            Response::notFound();
-
-            return;
+            return Response::notFound();
         }
 
         $validator = new Validator(array_merge($request, ['id' => $id]));
@@ -87,14 +79,13 @@ class UserController
             'name' => ['required', 'length:4,20', 'string']
         ]);
 
-        if ($isValidated) {
-            $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
-            $user->update();
-            Response::json(200, $user->getValues());
-
-            return;
+        if (!$isValidated) {
+            return Response::json(['messages' => $validator->getErrors()], 400);
         }
 
-        Response::json(400, ['messages' => $validator->getErrors()]);
+        $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
+        $user->update();
+
+        return Response::json($user->getValues(), 200);
     }
 }
