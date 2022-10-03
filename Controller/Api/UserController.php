@@ -14,7 +14,7 @@ class UserController
 {
     public function index()
     {
-        Response::json(User::all(), 200);
+        Response::json(User::all(), 'OK');
     }
 
     public function store($request)
@@ -29,26 +29,26 @@ class UserController
         ]);
 
         if (!$isValidated) {
-            return Response::json(['messages' => $validator->getErrors()], 400);
+            return Response::json(['messages' => $validator->getErrors()], 'BAD_REQUEST');
         }
 
         $user = new User($validator->getValidated());
         $user->save();
 
-        Response::json($user->getValues(), 201);
+        Response::json($user->getValues(), 'CREATED');
     }
 
     public function delete($request, $id)
     {
         $user = User::find($id);
 
-        if(!$user){
+        if (!$user) {
             return Response::notFound();
         }
 
         $user->delete();
 
-        Response::json([], 204);
+        Response::json([], 'NO_CONTENT');
     }
 
     public function show($request, $id)
@@ -59,7 +59,7 @@ class UserController
             return Response::notFound();
         }
 
-        Response::json($user->getValues(), 200);
+        Response::json($user->getValues(), 'OK');
     }
 
     public function update($request, $id)
@@ -80,12 +80,12 @@ class UserController
         ]);
 
         if (!$isValidated) {
-            return Response::json(['messages' => $validator->getErrors()], 400);
+            return Response::json(['messages' => $validator->getErrors()], 'BAD_REQUEST');
         }
 
         $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
         $user->update();
 
-        Response::json($user->getValues(), 200);
+        Response::json($user->getValues(), 'OK');
     }
 }
