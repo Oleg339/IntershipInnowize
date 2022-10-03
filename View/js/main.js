@@ -75,6 +75,7 @@ async function getUser(id) {
     })
 
     let user = await response.json();
+
     document.getElementById('email').setAttribute('value', user['email']);
     document.getElementById('name').setAttribute('value', user['name']);
     document.getElementById('gender').setAttribute('value', user['gender']);

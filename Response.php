@@ -8,20 +8,12 @@ class Response
         echo json_encode(['messages' => ['Resource not found']]);
     }
 
-    public static function validationError($errors)
+    public static function json($code, $data = null)
     {
-        http_response_code(400);
-        echo json_encode(['messages' => $errors]);
-    }
+        http_response_code($code);
 
-    public static function sendData($data)
-    {
-        http_response_code(201);
-        echo json_encode($data);
-    }
-
-    public static function success()
-    {
-        http_response_code(204);
+        if ($data) {
+            echo json_encode($data);
+        }
     }
 }

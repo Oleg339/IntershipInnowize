@@ -7,17 +7,19 @@ include_once('Model/User.php');
 include_once('Response.php');
 
 use Model\User;
+use Response;
+use Validator;
 
 class UserController
 {
     public function index()
     {
-        \Response::sendData(User::all());
+        Response::json(200, User::all());
     }
 
     public function store($request)
     {
-        $validator = new \Validator($request->get());
+        $validator = new Validator($request->get());
 
         $isValidated = $validator->validate([
             'gender' => ['required'],
@@ -30,21 +32,27 @@ class UserController
             $user = new User($validator->getValidated());
             $user->save();
 
-            \Response::sendData($user->getValues());
+            Response::json(201, $user->getValues());
 
             return;
         }
 
-        \Response::validationError($validator->getErrors());
+        Response::json(400, ['messages' => $validator->getErrors()]);
     }
 
     public function delete($request, $id)
     {
-        if (!User::find($id)->delete()) {
-            \Response::notFound();
+        $user = User::find($id);
+
+        if(!$user){
+            Response::notFound();
+
+            return;
         }
 
-        \Response::success();
+        $user->delete();
+
+        Response::json(204);
     }
 
     public function show($request, $id)
@@ -52,12 +60,12 @@ class UserController
         $user = User::find($id);
 
         if ($user) {
-            \Response::sendData($user->getValues());
+            Response::json(200, $user->getValues());
 
             return;
         }
 
-        \Response::notFound();
+        Response::notFound();
     }
 
     public function update($request, $id): void
@@ -65,12 +73,12 @@ class UserController
         $request = $request->get();
 
         if (!User::find($id)) {
-            \Response::notFound();
+            Response::notFound();
 
             return;
         }
 
-        $validator = new \Validator(array_merge($request, ['id' => $id]));
+        $validator = new Validator(array_merge($request, ['id' => $id]));
 
         $isValidated = $validator->validate([
             'gender' => ['required'],
@@ -82,11 +90,11 @@ class UserController
         if ($isValidated) {
             $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
             $user->update();
-            \Response::sendData($user->getValues());
+            Response::json(200, $user->getValues());
 
             return;
         }
 
-        \Response::validationError($validator->getErrors());
+        Response::json(400, ['messages' => $validator->getErrors()]);
     }
 }
