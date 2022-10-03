@@ -17,8 +17,7 @@ async function getUsers() {
         }
     });
 
-    info = '';
-    usersJson = await response.json();
+    let usersJson = await response.json();
 
     for (let i = 0; i < usersJson.length; i++) {
         users.innerHTML += '<tr><td>' + usersJson[i]['email'] + '</td>' +
@@ -29,7 +28,6 @@ async function getUsers() {
             '<a type=\'button\' class="btn btn-danger" onclick=\'confirmDeleting(' + usersJson[i]['id'] + ')\'>Delete</a></td></tr>'
     }
 
-    users.innerHTML += info;
 }
 
 async function confirmEditUser(id) {
@@ -76,7 +74,7 @@ async function getUser(id) {
         }
     })
 
-    user = await response.json();
+    let user = await response.json();
     document.getElementById('email').setAttribute('value', user['email']);
     document.getElementById('name').setAttribute('value', user['name']);
     document.getElementById('gender').setAttribute('value', user['gender']);
