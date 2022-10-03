@@ -81,7 +81,7 @@ class UserController
 
         if ($isValidated) {
             $user = new User(array_merge($validator->getValidated(), ['id' => $id]));
-
+            $user->update();
             \Response::sendData($user->getValues());
 
             return;
