@@ -6,7 +6,6 @@ include_once("Validator.php");
 include_once("Logger/Logger.php");
 
 
-
 use Logger;
 use Validator;
 
@@ -46,7 +45,7 @@ class FileController
 
         if (!file_exists(self::DIRECTORY)) {
             $logger->error('directory does not exists');
-            @mkdir(self::DIRECTORY);
+            @mkdir(self::DIRECTORY);        //use @ to avoid directory creation errors
         }
 
         $location = self::DIRECTORY . '/' . $name;

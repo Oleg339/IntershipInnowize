@@ -40,7 +40,7 @@ class Router
         $this->patch = array_merge($this->patch, [$route => $action]);
     }
 
-    public function run(): void
+    public function run()
     {
         $request = new Request();
         $server = $_SERVER;
@@ -66,8 +66,7 @@ class Router
             $controller = new $value[0]();
             $action = $value[1];
 
-            $controller->$action($request, sizeof($values) == 1 ? $values[0] : $values);
-            return;
+            return $controller->$action($request, sizeof($values) == 1 ? $values[0] : $values);;
         }
 
         http_response_code(404);
