@@ -3,8 +3,6 @@
 class Logger
 {
 
-    private $handler;
-
     private $filename;
 
     const DEFAULT_DATETIME_FORMAT = 'c';
