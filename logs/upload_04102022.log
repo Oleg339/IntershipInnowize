@@ -7,3 +7,22 @@
 2022-10-04T12:54:55+03:00 [LOG]: File was uploaded successfully. name: TOKhOD_Laboratorny_praktikum.txt, size: 618496 bytes
 2022-10-04T12:55:45+03:00 [LOG]: File was uploaded successfully. name: rfghj.png, size: 788688 bytes
 2022-10-04T12:56:20+03:00 [ERROR]: File was not uploaded. Name: rfghj.png, size 788688 bytes, reasons: File already exists
+2022-10-04T17:54:03+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:54:20+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:54:21+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:54:28+03:00 [ERROR]: File was not uploaded. Name: OZI2.docx, size 19193 bytes, reasons: Invalid extention
+2022-10-04T17:54:58+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:55:13+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:55:15+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:55:17+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:55:18+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:55:25+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:56:04+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:56:07+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:56:08+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists
+2022-10-04T17:56:26+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: File does not exists
+2022-10-04T17:56:38+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: File does not exists
+2022-10-04T17:56:45+03:00 [ERROR]: File was not uploaded. Name: База данных1.fg.txt, size 294912 bytes, reasons: File already exists
+2022-10-04T17:58:12+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: File does not exists
+2022-10-04T17:58:18+03:00 [ERROR]: File was not uploaded. Name: TOKhOD_Laboratorny_praktikum.txt, size 618496 bytes, reasons: File already exists
+2022-10-04T17:58:27+03:00 [ERROR]: File was not uploaded. Name: pmotion.log, size 608 bytes, reasons: Invalid extention
