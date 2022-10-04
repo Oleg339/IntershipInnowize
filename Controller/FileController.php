@@ -19,20 +19,14 @@ class FileController
     {
         $response = new Response();
         $logger = new Logger('../logs/upload_' . date_create()->format('dmY') . '.log');
+        $validator = new Validator($_FILES, self::DIRECTORY);
         $name = $_FILES['file']['name'];
-
-        if (!isset($name)) {
-            $logger->critical('file does not exists');
-
-            return $response->addData(['messages' => 'file does not exists'])->send();
-        }
 
         if (!file_exists(self::DIRECTORY)) {
             $logger->error('directory does not exists');
             @mkdir(self::DIRECTORY);
         }
 
-        $validator = new Validator($_FILES, self::DIRECTORY);
         $location = self::DIRECTORY . '/' . $name;
 
         $size = $_FILES['file']['size'];

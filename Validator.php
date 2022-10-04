@@ -18,6 +18,11 @@ class Validator
 
     public function validate()
     {
+        if (!isset($name)) {
+            $this->errors[] = 'File does not exists';
+            return false;
+        }
+
         $this->size();
         $this->extention();
         $this->isExists();
