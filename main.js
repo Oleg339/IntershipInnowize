@@ -19,13 +19,14 @@ async function uploadFile() {
     document.getElementById('fileInf').innerHTML += '<tr><td>name: ' + data['name'] + '</td></tr>'
     document.getElementById('fileInf').innerHTML += '<tr><td>size: ' + data['size'] + ' bytes </td></tr>'
 
-    if(data['meta']){
+    if (data['meta']) {
         document.getElementById('fileInf').innerHTML += '<tr><td>resolution: ' + data['meta'][0] + '/' + data['meta'][1] + '</td></tr>'
         document.getElementById('fileInf').innerHTML += '<tr><td>bits: ' + data['meta']['bits'] + '</td></tr>'
     }
 
     document.getElementById('errors').innerHTML = '';
-    if(data['messages'] !== undefined){
+
+    if (data['messages'] !== undefined) {
         for (let i = 0; i < data['messages'].length; i++) {
             document.getElementById('errors').innerHTML += data['messages'][i] + '<br>';
         }
@@ -34,7 +35,7 @@ async function uploadFile() {
     await getFiles();
 }
 
-async function getFiles(){
+async function getFiles() {
     let response = await fetch('getFiles.php', {
         method: 'GET',
     });

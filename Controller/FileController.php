@@ -23,7 +23,7 @@ class FileController
 
         if (!isset($fileName)) {
             $logger->critical('file does not exists');
-            
+
             return $response->addData(['messages' => 'file does not exists'])->send();
         }
 

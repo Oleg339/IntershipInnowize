@@ -7,6 +7,7 @@ class Response
     public function addData($data)
     {
         $this->data = array_merge($this->data, $data);
+
         return $this;
     }
 
