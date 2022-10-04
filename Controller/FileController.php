@@ -18,10 +18,10 @@ class FileController
     public function upload()
     {
         $response = new Response();
-        $fileName = $_FILES['file']['name'];
         $logger = new Logger('../logs/upload_' . date_create()->format('dmY') . '.log');
+        $name = $_FILES['file']['name'];
 
-        if (!isset($fileName)) {
+        if (!isset($name)) {
             $logger->critical('file does not exists');
 
             return $response->addData(['messages' => 'file does not exists'])->send();
@@ -33,9 +33,8 @@ class FileController
         }
 
         $validator = new Validator($_FILES, self::DIRECTORY);
-        $location = self::DIRECTORY . '/' . $fileName;
+        $location = self::DIRECTORY . '/' . $name;
 
-        $name = $_FILES['file']['name'];
         $size = $_FILES['file']['size'];
 
         if (!$validator->validate()) {
