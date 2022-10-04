@@ -12,12 +12,11 @@ class Logger
     public function __construct($filename)
     {
         $dir = dirname($filename);
+
         if (!file_exists($dir)) {
             $status = @mkdir($dir, 0777, true);
-            if ($status === false && !is_dir($dir)) {
-                throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s"', $dir));
-            }
         }
+
         $this->filename = $filename;
     }
 
