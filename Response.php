@@ -2,28 +2,20 @@
 
 class Response
 {
-    const CODES = [
-        'OK' => 200,
-        'CREATED' => 201,
-        'NO_CONTENT' => 204,
-        'BAD_REQUEST' => 400,
-        'NOT_FOUND' => 404
-    ];
+    private $data = [];
 
-    public static function notFound()
+    public function addData($data)
     {
-        http_response_code(self::CODES['NOT_FOUND']);
-        echo json_encode(['messages' => ['Resource not found']]);
+        $this->data = array_merge($this->data, $data);
+        return $this;
     }
 
-    public static function json($data, $code)
+    public function send()
     {
-        http_response_code(self::CODES[$code]);
-
-        if (!$data) {
+        if (!$this->data) {
             return;
         }
 
-        echo json_encode($data);
+        echo json_encode($this->data);
     }
 }
