@@ -14,8 +14,7 @@ class AuthController
     {
         require_once 'bootstrap.php';
 
-        echo $twig->render('Authentication.html', ['error' => $error]
-        );
+        echo $twig->render('Authentication.html', ['error' => $error]);
     }
 
     public function authenticate($request)
