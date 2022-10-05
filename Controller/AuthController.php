@@ -21,10 +21,7 @@ class AuthController
     {
         $request = $request->get();
 
-        $user = new User([
-            'email' => $request['email'],
-            'password' => $request['password']
-        ]);
+        $user = new User($request);
 
         $validator = new Validator($user->getValues());
 
