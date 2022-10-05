@@ -19,10 +19,10 @@ class User
     {
         $this->email = $data['email'];
         $this->password = $data['password'];
+        $this->name = $data['name'];
 
         if (array_key_exists('id', $data)) {
             $this->id = $data['id'];
-            $this->name = $data['name'];
         }
     }
 
@@ -30,8 +30,10 @@ class User
     {
         return [
             'email' => $this->email,
-            'password' => $this->password
-            ];
+            'password' => $this->password,
+            'name' => $this->name,
+            'id' => $this->id
+        ];
     }
 
     public static function find($findBy, $parameter)
@@ -45,8 +47,8 @@ class User
         return new User($user);
     }
 
-    public function getName()
+    public static function all()
     {
-        return $this->name;
+        return Database::select(self::class);
     }
 }

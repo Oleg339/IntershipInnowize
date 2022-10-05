@@ -10,35 +10,43 @@ use Model\User;
 
 class AuthController
 {
-    public function index($request, $error = '')
+    public function index($request, $errors = [])
     {
         require_once 'bootstrap.php';
 
-        echo $twig->render('Authentication.html', ['error' => $error]);
+        echo $twig->render('Login.html', ['errors' => $errors]);
     }
 
-    public function authenticate($request)
+    public function login($request)
     {
         $request = $request->get();
 
-        $user = new User($request);
-
-        $validator = new Validator($user->getValues());
+        $validator = new Validator($request);
 
         $isValidated = $validator->validate([
             'email' => ['email'],
-            'password' => ['emailCorresponding']
+            'password' => ['password']
         ]);
 
-        if (!$isValidated) {
-            return $this->index($request,'Login is incorrect');
+        $isAuth = false;
+
+        foreach (User::all() as $user){
+            if($user['email'] === $request['email'] && password_verify($request['password'], $user['password'])){
+                $isAuth = true;
+            }
         }
+
+        if (!$isValidated || !$isAuth) {
+            return $this->index($request,$validator->getErrors());
+        }
+
+        $user = User::find('email', $request['email']);
 
         require_once 'bootstrap.php';
 
         echo $twig->render(
             'Congrats.html',
-            ['name' => $user::find('email', $request['email'])->getName()]
+            ['user' => $user->getValues()]
         );
     }
 }

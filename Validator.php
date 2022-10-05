@@ -1,12 +1,5 @@
 <?php
 
-include_once('Model/Database.php');
-include_once('Model/User.php');
-
-use Model\Database;
-use Model\User;
-
-
 class Validator
 {
     private $values;
@@ -69,18 +62,20 @@ class Validator
         return false;
     }
 
-    private function emailCorresponding($value)
+    private function password($value)
     {
         $password = $this->values[$value];
-        $email = $this->values['email'];
 
-        foreach (Database::select(User::class) as $user){
-            if($user['email'] === $email && password_verify($password, $user['password'])){
-                return false;
-            }
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
+
+        if($uppercase && $lowercase && $number && $specialChars && strlen($password) >= 8) {
+            return false;
         }
 
-        $this->addError(['password' => 'Wrong password']);
+        $this->addError(['password' => 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character']);
 
         return true;
     }

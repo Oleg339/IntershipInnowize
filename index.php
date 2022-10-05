@@ -6,7 +6,7 @@ use Task16\Router;
 
 $router = new Router();
 
-$router->get('/authentication', ['Controller\AuthController', 'index']);
-$router->post('/authentication', ['Controller\AuthController', 'authenticate']);
+$router->get('/login', ['Controller\AuthController', 'index']);
+$router->post('/login', ['Controller\AuthController', 'login']);
 
 $router->run();

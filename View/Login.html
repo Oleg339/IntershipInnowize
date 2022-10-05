@@ -10,8 +10,8 @@
     </style>
 </head>
 <body>
-{% if(error) %}
-<p class="text-danger">{{error}}</p>
+{% if(errors) %}
+<p class="text-danger">Login incorrect</p>
 {% endif %}
 <p class="text-danger" id="errors"></p>
 <div class="panel panel-success">
@@ -19,7 +19,7 @@
         <h2 class="p-3">Authentication</h2>
     </nav>
     <div class="panel-body">
-        <form class="p-a-1" id="form" action="/authentication" method="post">
+        <form class="p-a-1" id="form" action="/login" method="post">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col col-sm-2">
