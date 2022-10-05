@@ -19,7 +19,8 @@ class Validator
     public function validate()
     {
         if ($this->file['name'] === '') {
-            $this->errors[] = 'File does not exists';
+            $this->errors[] = 'File not found';
+
             return false;
         }
 

@@ -2,7 +2,6 @@
 
 class Logger
 {
-
     private $filename;
 
     const DEFAULT_DATETIME_FORMAT = 'c';
@@ -14,7 +13,7 @@ class Logger
         $dir = dirname($filename);
 
         if (!file_exists($dir)) {
-            $status = @mkdir($dir, 0777, true);
+            @mkdir($dir, 0777, true);
         }
 
         $this->filename = $filename;

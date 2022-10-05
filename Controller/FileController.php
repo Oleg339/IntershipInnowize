@@ -5,7 +5,6 @@ namespace Controller;
 include_once("Validator.php");
 include_once("Logger/Logger.php");
 
-
 use Logger;
 use Validator;
 
@@ -13,7 +12,7 @@ class FileController
 {
     const DIRECTORY = 'uploads';
 
-    public function index($data = [], $twig = '')
+    public function index($data = [])
     {
         require_once 'bootstrap.php';
 
@@ -27,15 +26,13 @@ class FileController
             }
         }
 
-
         echo $twig->render('Files.html', ['files' => $files, 'data' => $data]);
     }
 
     public function upload($request)
     {
-        require_once 'bootstrap.php';
-
         $logger = new Logger('logs/upload_' . date_create()->format('dmY') . '.log');
+
         $file = $request->get()['file'];
 
         $validator = new Validator($file, self::DIRECTORY);
@@ -44,11 +41,9 @@ class FileController
         $size = $file['size'];
 
         if (!file_exists(self::DIRECTORY)) {
-            $logger->error('directory does not exists');
-            @mkdir(self::DIRECTORY);        //use @ to avoid directory creation errors
+            @mkdir(self::DIRECTORY, 0777, true);
+            $logger->log('directory was created');
         }
-
-        $location = self::DIRECTORY . '/' . $name;
 
         if (!$validator->validate()) {
             $logger->error(
@@ -56,8 +51,10 @@ class FileController
                 ['name' => $name, 'size' => $size . ' bytes', 'errors' => implode(', ', $validator->getErrors())]
             );
 
-            return $this->index(['errors' => $validator->getErrors()], $twig);;
+            return $this->index(['errors' => $validator->getErrors()]);
         }
+
+        $location = self::DIRECTORY . '/' . $name;
 
         move_uploaded_file($file['tmp_name'], $location);
 
@@ -66,7 +63,7 @@ class FileController
             ['size' => $size . ' bytes', 'name' => $name]
         );
 
-        $this->index(['size' => $size, 'name' => $name, 'meta' => getimagesize($location)], $twig);
+        $this->index(['size' => $size, 'name' => $name, 'meta' => getimagesize($location)]);
     }
 }
 
