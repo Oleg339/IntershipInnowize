@@ -68,7 +68,7 @@ class Router
 
             return $controller->$action($request, sizeof($values) == 1 ? $values[0] : $values);;
         }
-        echo 'dskfn;djf';
-        //http_response_code(404);
+
+        http_response_code(404);
     }
 }
