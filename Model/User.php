@@ -30,9 +30,7 @@ class User
     {
         return [
             'email' => $this->email,
-            'name' => $this->name,
-            'password' => $this->password,
-            $this->id ? ['id' => $this->id] : ''
+            'password' => $this->password
             ];
     }
 

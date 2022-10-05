@@ -14,7 +14,10 @@ class AuthController
     {
         require_once 'bootstrap.php';
 
-        echo $twig->render('Authentication.html', ['error' => $error]);
+        echo $twig->render(
+            'Authentication.html',
+            ['error' => $error]
+        );
     }
 
     public function authenticate($request)
@@ -36,6 +39,9 @@ class AuthController
 
         require_once 'bootstrap.php';
 
-        echo $twig->render('Congrats.html', ['name' => $user::find('email', $request['email'])->getName()]);
+        echo $twig->render(
+            'Congrats.html',
+            ['name' => $user::find('email', $request['email'])->getName()]
+        );
     }
 }
