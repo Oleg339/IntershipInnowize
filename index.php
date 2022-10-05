@@ -8,6 +8,5 @@ $router = new Router();
 
 $router->get('/authentication', ['Controller\AuthController', 'index']);
 $router->post('/authentication', ['Controller\AuthController', 'Authenticate']);
-//$router->post('/files', ['Controller\FileController', 'upload']);
 
 $router->run();
