@@ -11,12 +11,18 @@ class Database
     {
         $pdo = DatabaseConnect::getInstance()->getPdoConnection();
 
+        $pdo->beginTransaction();
+
         $pdo->query($model::CREATE_TABLE_SQL);
+
+        $pdo->commit();
     }
 
     public static function store($model)
     {
         $pdo = DatabaseConnect::getInstance()->getPdoConnection();
+
+        $pdo->beginTransaction();
 
         $sql = 'INSERT INTO ' . $model::TABLE . ' ( ';
 
@@ -35,7 +41,11 @@ class Database
 
         $sql .= 'CURRENT_TIMESTAMP())';
 
+        echo $sql;
+
         $pdo->query($sql);
+
+        $pdo->commit();
 
         return $pdo->lastInsertId();
     }
@@ -55,6 +65,8 @@ class Database
     {
         $pdo = DatabaseConnect::getInstance()->getPdoConnection();
 
+        $pdo->beginTransaction();
+
         $sql = 'SELECT * FROM ' . $model::TABLE;
 
         try {
@@ -63,6 +75,8 @@ class Database
             self::createTable($model);
             $result = $pdo->query($sql);
         }
+
+        $pdo->commit();
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
