@@ -48,7 +48,7 @@ class RegistrationController
             return $this->index($request, array_merge($validator->getErrors(), $errors), $validator->getValidated());
         }
 
-        $user = new User($request);
+        $user = new User($validator->getValidated());
 
         try {
             $user->save();
