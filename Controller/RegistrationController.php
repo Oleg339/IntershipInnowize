@@ -25,30 +25,38 @@ class RegistrationController
 
         $isValidated = $validator->validate([
             'email' => ['email'],
+            'confirm_email' => ['email'],
             'first_name' => ['string', 'length:3,12'],
             'last_name' => ['string', 'length:3,12'],
-            'password' => ['password']
+            'password' => ['password'],
+            'confirm_password' => ['password']
         ]);
+
+        $validated = $validator->getValidated();
+
+        if (!$isValidated) {
+            return $this->index($request, $validator->getErrors(), $validated);
+        }
 
         $errors = [];
 
-        if ($request['email'] != $request['confirm_email']) {
+        if ($validated['email'] != $validated['confirm_email']) {
             $errors[] = 'Input correspond email to "confirm email" field';
         }
 
-        if ($request['password'] != $request['confirm_password']) {
+        if ($validated['password'] != $validated['confirm_password']) {
             $errors[] = 'Input correspond password to "confirm password" field';
         }
 
-        if (User::find('email', $request['email'])) {
+        if (User::find('email', $validated['email'])) {
             $errors[] = 'User with this email already exists';
         }
 
-        if ($errors || !$isValidated) {
-            return $this->index($request, array_merge($validator->getErrors(), $errors), $validator->getValidated());
+        if ($errors) {
+            return $this->index($request, $errors, $validated);
         }
 
-        $user = new User($validator->getValidated());
+        $user = new User($validated);
 
         try {
             $user->save();
