@@ -41,8 +41,6 @@ class Database
 
         $sql .= 'CURRENT_TIMESTAMP())';
 
-        echo $sql;
-
         $pdo->query($sql);
 
         $pdo->commit();
