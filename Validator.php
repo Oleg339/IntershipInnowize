@@ -13,6 +13,12 @@ class FieldsValidator
 
     private $errors = [];
 
+    private $file;
+
+    private $directory;
+
+    const EXTENSIONS = ['png', 'img', 'txt', 'jpg'];
+
     public function __construct($values)
     {
         $this->values = $values;
@@ -34,6 +40,10 @@ class FieldsValidator
             $hasErrors = false;
 
             if ($this->required($key)) {
+                continue;
+            }
+
+            if($this->isUploaded($key)){
                 continue;
             }
 
@@ -113,6 +123,17 @@ class FieldsValidator
         return false;
     }
 
+    private function isUploaded($value)
+    {
+        if ($this->values[$value]['name'] !== '') {
+            return false;
+        }
+
+        $this->errors[] = 'File not exists';
+
+        return true;
+    }
+
     private function required($value): bool
     {
         if (array_key_exists($value, $this->values) &&
@@ -136,6 +157,39 @@ class FieldsValidator
         $this->addError(['string' => "$value is not string"]);
 
         return true;
+    }
+
+    private function isExists($value)
+    {
+        if (file_exists($this->values['directory'] . '/' . $this->values[$value]['name'])) {
+            $this->errors[] = 'File already exists';
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private function size($value) //TODO: Проверять в контроллере
+    {
+        if ($this->values[$value]['size'] > disk_free_space("C:")) {
+            $this->errors[] = 'Size too big';
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private function extention($value)
+    {
+        if (!in_array(end(explode('.', $this->values[$value]['name'])), self::EXTENSIONS)) {
+            $this->errors[] = 'Invalid extention';
+
+            return true;
+        }
+
+        return false;
     }
 
     public function getValidated(): array
