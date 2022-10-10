@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Authentication</title>
+    <script type="text/javascript" src="/view/js/main.js"></script>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css"/>
+    <style>
+    </style>
+</head>
+<body>
+{% if(errors) %}
+<p class="text-danger">Login incorrect</p>
+{% endif %}
+<p class="text-danger" id="errors"></p>
+<div class="panel panel-success">
+    <nav class="navbar navbar-light bg-light">
+        <h2 class="p-3">Authentication</h2>
+    </nav>
+    <div class="panel-body">
+        <form class="p-a-1" id="form" action="/login" method="post">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col col-sm-3">
+                    </div>
+                    <div class="col-md offset-md p-5">
+                        <div class="p-1">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" required/>
+                        </div>
+                        <div class="p-1">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                    </div>
+                    <div class="col col-sm-3">
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+            </div>
+            <div class="text-center p-3">
+                <input type="checkbox" name="remember" checked>
+                <label>Remember me for a week</label>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary">submit</button>
+            </div>
+            <div class="p-5 text-center">
+                <a href="/registration">Sign-in</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

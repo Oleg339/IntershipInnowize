@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Task15</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css"/>
+    <style>
+    </style>
+</head>
+<body>
+<p class="text-danger" id="errors">
+    {% for error in data.errors %}
+    {{ error }}<br>
+    {% endfor %}
+</p>
+<div class="p-3">
+    <a href="/login">Exit</a>
+</div>
+<form class="p-a-1" action="/files" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-5 offset-md p-5">
+                <div class="p-1">
+                    <input type="file" name="file">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class ="p-3">
+        <div class="text-center">
+            <button class="btn btn-warning" type="submit">
+                submit
+            </button>
+        </div>
+    </div>
+</form>
+{% if(data.name) %}
+<p class="text-center">File Info</p>
+<table id="fileInf" class="table table-striped">
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Size</td>
+        {% if(data.meta) %}
+        <td>Resolution</td>
+        <td>Bits</td>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{ data.name }} </td>
+        <td>{{ data.size }} </td>
+        {% if(data.meta) %}
+        <td>{{ data.meta.0 }} / {{ data.meta.1 }} </td>
+        <td>{{ data.meta.bits }} </td>
+        {% endif %}
+    </tr>
+    </tbody>
+</table>
+{% endif %}
+<br><br><br>
+<table id="files" class="table table-striped">
+    <thead>
+    <tr>
+        <td>Files</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for file in files %}
+    <tr>
+        <td>{{ file }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</body>
+</html>
