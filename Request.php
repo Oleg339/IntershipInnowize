@@ -46,7 +46,8 @@ class Request
         return $this->get;
     }
 
-    public function getSession(){
+    public function getSession()
+    {
         return $this->session;
     }
 }

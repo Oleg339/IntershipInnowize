@@ -124,8 +124,6 @@ class Logger
             $output = str_replace('%' . $var . '%', $val, $output);
         }
 
-        echo $output;
-
         file_put_contents($this->filename, $output . PHP_EOL, FILE_APPEND);
     }
 }

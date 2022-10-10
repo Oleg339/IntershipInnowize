@@ -22,7 +22,7 @@ class Ban
     {
         $this->ip = $data['ip'];
 
-        if(!array_key_exists('id', $data)){
+        if (!array_key_exists('id', $data)) {
             $logger = new Logger('logs/Task18_' . date_create()->format('dmY') . '.log');
 
             $logger->log(

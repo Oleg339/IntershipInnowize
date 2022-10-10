@@ -14,8 +14,8 @@ class RegistrationController
 {
     public function index($request, $errors = [], $validated = [])
     {
-        setcookie("email", "", time()-3600);
-        setcookie("password", "", time()-3600);
+        setcookie("email", "", time() - 3600);
+        setcookie("password", "", time() - 3600);
 
         $twig = TwigLoader::run();
 

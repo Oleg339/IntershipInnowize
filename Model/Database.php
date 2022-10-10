@@ -35,7 +35,7 @@ class Database
         $values = $model->getValues();
 
         foreach ($model::FIELDS as $var) {
-            $sql .= '\''.$values[$var].'\', ';
+            $sql .= '\'' . $values[$var] . '\', ';
         }
 
         $sql = substr($sql, 0, -2);

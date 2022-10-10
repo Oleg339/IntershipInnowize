@@ -2,14 +2,12 @@
 
 namespace Controller;
 
-include_once('Logger.php');
 include_once('Model/User.php');
 include_once('TwigLoader.php');
 include_once('Model/Ban.php');
 
 use Model\Ban;
 use Model\User;
-use Task18\Logger;
 use Task18\TwigLoader;
 
 class LoginController
@@ -33,8 +31,7 @@ class LoginController
     public function login($request)
     {
 
-        if (!isset($_SESSION['CountOfAttempts']))
-        {
+        if (!isset($_SESSION['CountOfAttempts'])) {
             $_SESSION['CountOfAttempts'] = 0;
         }
 
@@ -62,12 +59,11 @@ class LoginController
 
         if (!$user || !password_verify($request['password'], $user->getValues()['password'])) {
             $_SESSION['CountOfAttempts']++;
+
             return $this->index(new \Task18\Request(), ['Login incorrect']);
         }
 
         $_SESSION['CountOfAttempts'] = 0;
-
-        echo $user->getValues()['password'];
 
         if ($request['remember']) {
             setcookie('email', $user->getValues()['email'], time() + 3600 * 24 * 7);
