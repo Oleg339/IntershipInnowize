@@ -15,7 +15,7 @@ class RegistrationController
     public function index($request, $errors = [], $validated = [])
     {
         session_destroy();
-        
+
         echo TwigLoader::run()->render('Registration.html', ['errors' => $errors, 'validated' => $validated]);
     }
 

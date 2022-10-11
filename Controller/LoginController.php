@@ -14,7 +14,9 @@ class LoginController
 {
     public function index($request, $errors = [])
     {
-        session_destroy();
+        if (!array_key_exists('CountOfAttempts', $_SESSION) || $_SESSION['CountOfAttempts'] === 0) {
+            session_destroy();
+        }
 
         $ip = $request->getServer()['REMOTE_ADDR'];
 
