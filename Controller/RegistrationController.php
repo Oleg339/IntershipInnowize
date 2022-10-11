@@ -67,7 +67,7 @@ class RegistrationController
         $_SESSION['email'] = $user->getValues()['email'];
 
         if ($request['remember']) {
-            setcookie(session_id(), time() + 3600 * 24 * 7);
+            setcookie('id', session_id(), time() + 3600 * 24 * 7);
         }
 
         header("Location: http://localhost:8001/files");

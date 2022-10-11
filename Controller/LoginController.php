@@ -14,7 +14,8 @@ class LoginController
 {
     public function index($request, $errors = [])
     {
-        if (!array_key_exists('CountOfAttempts', $_SESSION) || $_SESSION['CountOfAttempts'] === 0) {
+        if (!isset($_SESSION['CountOfAttempts']) || $_SESSION['CountOfAttempts'] === 0) {
+            setcookie('id', '', time() - 60);
             session_destroy();
         }
 
@@ -66,7 +67,7 @@ class LoginController
         $_SESSION['email'] = $user->getValues()['email'];
 
         if ($values['remember']) {
-            setcookie(session_id());
+            setcookie('id', session_id(), time() + 3600 * 24 * 7);
         }
 
         header("Location: http://localhost:8001/files");
