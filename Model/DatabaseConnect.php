@@ -14,7 +14,7 @@ class DatabaseConnect
         $host = 'localhost:3307';
         $db = 'Task18';
         $user = 'root';
-        $pass = 'root';
+        $pass = '';
         $charset = 'utf8';
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -50,7 +50,7 @@ class DatabaseConnect
 
     public static function create()
     {
-        $pdo = new PDO("mysql:host=localhost:3307", 'root', 'root');
+        $pdo = new PDO("mysql:host=localhost:3307", 'root', '');
 
         $pdo->query("CREATE DATABASE IF NOT EXISTS Task18");
     }

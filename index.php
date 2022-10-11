@@ -4,6 +4,10 @@ include_once('Router.php');
 
 use Task18\Router;
 
+if (array_key_exists('id', $_COOKIE)) {
+    session_id($_COOKIE['id']);
+}
+
 session_start();
 
 $router = new Router();

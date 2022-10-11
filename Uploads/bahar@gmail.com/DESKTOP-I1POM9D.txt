@@ -1,0 +1,399 @@
+CPU-Z - Текстовый отчет
+-------------------------------------------------------------------------
+
+Binaries
+-------------------------------------------------------------------------
+
+CPU-Z version			1.74.0.x32
+
+Процессоры
+-------------------------------------------------------------------------
+
+Number of processors		1
+Number of threads		4
+
+APICs
+-------------------------------------------------------------------------
+
+Процессор 0	
+	-- Core 0	
+		-- Thread 0	0
+		-- Thread 1	1
+	-- Core 1	
+		-- Thread 0	2
+		-- Thread 1	3
+
+Timers
+-------------------------------------------------------------------------
+
+	Perf timer		10.000 MHz
+	Sys timer		1.000 KHz
+
+
+Processors Information
+-------------------------------------------------------------------------
+
+Процессор 1			ID = 0
+	Number of cores		2 (max 8)
+	Number of threads	4 (max 16)
+	Name			Intel Core i3
+	Codename		Haswell ULT
+	Specification		Intel(R) Core(TM) i3-4030U CPU @ 1.90GHz
+	Package 		
+	CPUID			6.5.1
+	Extended CPUID		6.45
+	Core Stepping		C0
+	Technology		22 нм
+	Tjmax			100.0 °C
+	Core Speed		1895.6 МГц
+	Stock frequency		1900 МГц
+	Instructions sets	MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, EM64T, VT-x, AES, AVX, AVX2, FMA3
+	L1 Data cache		2 x 32 КБ, 8-way set associative, 64-byte line size
+	L1 Instruction cache	2 x 32 КБ, 8-way set associative, 64-byte line size
+	L2 cache		2 x 256 КБ, 8-way set associative, 64-byte line size
+	L3 cache		3 MБ, 12-way set associative, 64-byte line size
+	FID/VID Control		yes
+
+
+	Turbo Mode		not supported
+
+
+
+Thread dumps
+-------------------------------------------------------------------------
+
+CPU Thread 0	
+	APIC ID			0
+	Topology		Processor ID 0, Core ID 0, Thread ID 0
+	Type			01020200h
+	Max CPUID level		0000000Dh
+	Max CPUID ext. level	80000008h
+	Cache descriptor	Level 1, D, 32 KB, 2 thread(s)
+	Cache descriptor	Level 1, I, 32 KB, 2 thread(s)
+	Cache descriptor	Level 2, U, 256 KB, 2 thread(s)
+	Cache descriptor	Level 3, U, 3 MB, 16 thread(s)
+
+	CPUID		 
+	0x00000000		0x0000000D	0x756E6547	0x6C65746E	0x49656E69
+	0x00000001		0x00040651	0x00100800	0x7FFAFBBF	0xBFEBFBFF
+	0x00000002		0x76036301	0x00F0B5FF	0x00000000	0x00C10000
+	0x00000003		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000004		0x1C004121	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004122	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004143	0x01C0003F	0x000001FF	0x00000000
+	0x00000004		0x1C03C163	0x02C0003F	0x00000FFF	0x00000006
+	0x00000005		0x00000040	0x00000040	0x00000003	0x11142120
+	0x00000006		0x00000077	0x00000002	0x00000009	0x00000000
+	0x00000007		0x00000000	0x000027AB	0x00000000	0x9C000400
+	0x00000008		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000009		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000A		0x07300403	0x00000000	0x00000000	0x00000603
+	0x0000000B		0x00000001	0x00000002	0x00000100	0x00000000
+	0x0000000B		0x00000004	0x00000004	0x00000201	0x00000000
+	0x0000000C		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000D		0x00000007	0x00000340	0x00000340	0x00000000
+	0x80000000		0x80000008	0x00000000	0x00000000	0x00000000
+	0x80000001		0x00000000	0x00000000	0x00000021	0x2C100000
+	0x80000002		0x65746E49	0x2952286C	0x726F4320	0x4D542865
+	0x80000003		0x33692029	0x3330342D	0x43205530	0x40205550
+	0x80000004		0x392E3120	0x7A484730	0x00000000	0x00000000
+	0x80000005		0x00000000	0x00000000	0x00000000	0x00000000
+	0x80000006		0x00000000	0x00000000	0x01006040	0x00000000
+	0x80000007		0x00000000	0x00000000	0x00000000	0x00000100
+	0x80000008		0x00003027	0x00000000	0x00000000	0x00000000
+
+
+CPU Thread 1	
+	APIC ID			1
+	Topology		Processor ID 0, Core ID 0, Thread ID 1
+	Type			01020200h
+	Max CPUID level		0000000Dh
+	Max CPUID ext. level	80000008h
+	Cache descriptor	Level 1, D, 32 KB, 2 thread(s)
+	Cache descriptor	Level 1, I, 32 KB, 2 thread(s)
+	Cache descriptor	Level 2, U, 256 KB, 2 thread(s)
+	Cache descriptor	Level 3, U, 3 MB, 16 thread(s)
+
+	CPUID		 
+	0x00000000		0x0000000D	0x756E6547	0x6C65746E	0x49656E69
+	0x00000001		0x00040651	0x01100800	0x7FFAFBBF	0xBFEBFBFF
+	0x00000002		0x76036301	0x00F0B5FF	0x00000000	0x00C10000
+	0x00000003		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000004		0x1C004121	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004122	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004143	0x01C0003F	0x000001FF	0x00000000
+	0x00000004		0x1C03C163	0x02C0003F	0x00000FFF	0x00000006
+	0x00000005		0x00000040	0x00000040	0x00000003	0x11142120
+	0x00000006		0x00000077	0x00000002	0x00000009	0x00000000
+	0x00000007		0x00000000	0x000027AB	0x00000000	0x9C000400
+	0x00000008		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000009		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000A		0x07300403	0x00000000	0x00000000	0x00000603
+	0x0000000B		0x00000001	0x00000002	0x00000100	0x00000001
+	0x0000000B		0x00000004	0x00000004	0x00000201	0x00000001
+	0x0000000C		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000D		0x00000007	0x00000340	0x00000340	0x00000000
+	0x80000000		0x80000008	0x00000000	0x00000000	0x00000000
+	0x80000001		0x00000000	0x00000000	0x00000021	0x2C100000
+	0x80000002		0x65746E49	0x2952286C	0x726F4320	0x4D542865
+	0x80000003		0x33692029	0x3330342D	0x43205530	0x40205550
+	0x80000004		0x392E3120	0x7A484730	0x00000000	0x00000000
+	0x80000005		0x00000000	0x00000000	0x00000000	0x00000000
+	0x80000006		0x00000000	0x00000000	0x01006040	0x00000000
+	0x80000007		0x00000000	0x00000000	0x00000000	0x00000100
+	0x80000008		0x00003027	0x00000000	0x00000000	0x00000000
+
+
+CPU Thread 2	
+	APIC ID			2
+	Topology		Processor ID 0, Core ID 1, Thread ID 0
+	Type			01020200h
+	Max CPUID level		0000000Dh
+	Max CPUID ext. level	80000008h
+	Cache descriptor	Level 1, D, 32 KB, 2 thread(s)
+	Cache descriptor	Level 1, I, 32 KB, 2 thread(s)
+	Cache descriptor	Level 2, U, 256 KB, 2 thread(s)
+	Cache descriptor	Level 3, U, 3 MB, 16 thread(s)
+
+	CPUID		 
+	0x00000000		0x0000000D	0x756E6547	0x6C65746E	0x49656E69
+	0x00000001		0x00040651	0x02100800	0x7FFAFBBF	0xBFEBFBFF
+	0x00000002		0x76036301	0x00F0B5FF	0x00000000	0x00C10000
+	0x00000003		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000004		0x1C004121	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004122	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004143	0x01C0003F	0x000001FF	0x00000000
+	0x00000004		0x1C03C163	0x02C0003F	0x00000FFF	0x00000006
+	0x00000005		0x00000040	0x00000040	0x00000003	0x11142120
+	0x00000006		0x00000077	0x00000002	0x00000009	0x00000000
+	0x00000007		0x00000000	0x000027AB	0x00000000	0x9C000400
+	0x00000008		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000009		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000A		0x07300403	0x00000000	0x00000000	0x00000603
+	0x0000000B		0x00000001	0x00000002	0x00000100	0x00000002
+	0x0000000B		0x00000004	0x00000004	0x00000201	0x00000002
+	0x0000000C		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000D		0x00000007	0x00000340	0x00000340	0x00000000
+	0x80000000		0x80000008	0x00000000	0x00000000	0x00000000
+	0x80000001		0x00000000	0x00000000	0x00000021	0x2C100000
+	0x80000002		0x65746E49	0x2952286C	0x726F4320	0x4D542865
+	0x80000003		0x33692029	0x3330342D	0x43205530	0x40205550
+	0x80000004		0x392E3120	0x7A484730	0x00000000	0x00000000
+	0x80000005		0x00000000	0x00000000	0x00000000	0x00000000
+	0x80000006		0x00000000	0x00000000	0x01006040	0x00000000
+	0x80000007		0x00000000	0x00000000	0x00000000	0x00000100
+	0x80000008		0x00003027	0x00000000	0x00000000	0x00000000
+
+
+CPU Thread 3	
+	APIC ID			3
+	Topology		Processor ID 0, Core ID 1, Thread ID 1
+	Type			01020200h
+	Max CPUID level		0000000Dh
+	Max CPUID ext. level	80000008h
+	Cache descriptor	Level 1, D, 32 KB, 2 thread(s)
+	Cache descriptor	Level 1, I, 32 KB, 2 thread(s)
+	Cache descriptor	Level 2, U, 256 KB, 2 thread(s)
+	Cache descriptor	Level 3, U, 3 MB, 16 thread(s)
+
+	CPUID		 
+	0x00000000		0x0000000D	0x756E6547	0x6C65746E	0x49656E69
+	0x00000001		0x00040651	0x03100800	0x7FFAFBBF	0xBFEBFBFF
+	0x00000002		0x76036301	0x00F0B5FF	0x00000000	0x00C10000
+	0x00000003		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000004		0x1C004121	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004122	0x01C0003F	0x0000003F	0x00000000
+	0x00000004		0x1C004143	0x01C0003F	0x000001FF	0x00000000
+	0x00000004		0x1C03C163	0x02C0003F	0x00000FFF	0x00000006
+	0x00000005		0x00000040	0x00000040	0x00000003	0x11142120
+	0x00000006		0x00000077	0x00000002	0x00000009	0x00000000
+	0x00000007		0x00000000	0x000027AB	0x00000000	0x9C000400
+	0x00000008		0x00000000	0x00000000	0x00000000	0x00000000
+	0x00000009		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000A		0x07300403	0x00000000	0x00000000	0x00000603
+	0x0000000B		0x00000001	0x00000002	0x00000100	0x00000003
+	0x0000000B		0x00000004	0x00000004	0x00000201	0x00000003
+	0x0000000C		0x00000000	0x00000000	0x00000000	0x00000000
+	0x0000000D		0x00000007	0x00000340	0x00000340	0x00000000
+	0x80000000		0x80000008	0x00000000	0x00000000	0x00000000
+	0x80000001		0x00000000	0x00000000	0x00000021	0x2C100000
+	0x80000002		0x65746E49	0x2952286C	0x726F4320	0x4D542865
+	0x80000003		0x33692029	0x3330342D	0x43205530	0x40205550
+	0x80000004		0x392E3120	0x7A484730	0x00000000	0x00000000
+	0x80000005		0x00000000	0x00000000	0x00000000	0x00000000
+	0x80000006		0x00000000	0x00000000	0x01006040	0x00000000
+	0x80000007		0x00000000	0x00000000	0x00000000	0x00000100
+	0x80000008		0x00003027	0x00000000	0x00000000	0x00000000
+
+
+
+
+Memory SPD
+-------------------------------------------------------------------------
+
+
+Мониторинг
+-------------------------------------------------------------------------
+
+Mainboard Model		EA50_HB (0x000001D4 - 0x00540742)
+
+LPCIO
+-------------------------------------------------------------------------
+
+Hardware Monitors
+-------------------------------------------------------------------------
+
+Hardware monitor		Battery
+	Voltage 0		12.60 вольт [0x3136] (Current Voltage)
+	Capacity 0		55944 МВт/ч [0xDA88] (Designed Capacity)
+	Capacity 1		42236 МВт/ч [0xA4FC] (Full Charge Capacity)
+	Capacity 2		41503 МВт/ч [0xA21F] (Current Capacity)
+	Level 0			25 pc [0x4B] (Wear Level)
+	Level 1			98 pc [0x62] (Charge Level)
+
+
+DMI
+-------------------------------------------------------------------------
+
+DMI BIOS		
+	vendor			Insyde Corp.
+	version			V1.32
+	date			09/15/2015
+	ROM size		6144 KB
+
+DMI System Information		
+	manufacturer		Acer
+	product			Aspire E5-571
+	version			V1.32
+	serial			NXMPTEU005426144013400
+	UUID			{CDBBCBD5-EEF8-E311-9304-F8A963A3DDDF}
+	SKU			Aspire E5-571_0866_V1.32
+	family			HSW
+
+DMI Baseboard		
+	vendor			Acer
+	model			EA50_HB
+	revision		V1.32
+	serial			NBML811002426861833400
+
+DMI System Enclosure		
+	manufacturer		Acer
+	chassis type		Notebook
+	chassis serial		Chassis Serial Number
+
+DMI Processor		
+	manufacturer		Intel(R) Corporation
+	model			Intel(R) Core(TM) i3-4030U CPU @ 1.90GHz
+	clock speed		1800.0 МГц
+	FSB speed		100.0 МГц
+	multiplier		18.0x
+
+DMI OEM Strings		
+	string[0]		Acer System
+	string[1]		String2 for Original Equipment Manufacturer
+	string[2]		String3 for Original Equipment Manufacturer
+	string[3]		String4 for Original Equipment Manufacturer
+	string[4]		String5 for Original Equipment Manufacturer
+
+DMI Physical Memory Array		
+	location		Motherboard
+	usage			System Memory
+	correction		None
+	max capacity		32768 MБ
+	max# of devices		4
+
+DMI Memory Device		
+	designation		DIMM0
+	format			SODIMM
+	type			unknown
+	total width		64 бит
+	data width		64 бит
+	size			4096 MБ
+
+DMI Memory Device		
+	designation		DIMM1
+	format			DIMM
+	type			unknown
+
+DMI Memory Device		
+	designation		DIMM2
+	format			SODIMM
+	type			unknown
+	total width		64 бит
+	data width		64 бит
+	size			4096 MБ
+
+DMI Memory Device		
+	designation		DIMM3
+	format			DIMM
+	type			unknown
+
+
+Хранилище
+-------------------------------------------------------------------------
+
+Drive	0
+	Device Path		\\?\scsi#disk&ven_hitachi&prod_hts545025b9a300#4&14c44c70&0&010000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}
+	Type			Fixed
+	Name			Hitachi HTS545025B9A300                 
+	Revision		PB2OC60N
+	Serial			100308PBN206ASC4EHZL
+	Capacity		232.9 GB
+	SMART Support		Yes
+
+Drive	1
+	Device Path		\\?\scsi#disk&ven_kingston&prod_sa400s37120g#4&14c44c70&0&000000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}
+	Type			Fixed
+	Name			KINGSTON SA400S37120G                   
+	Revision		SBFKB1D1
+	Serial			50026B778257649D    
+	Capacity		111.8 GB
+	SMART Support		Yes
+
+USB Devices
+-------------------------------------------------------------------------
+
+USB Device			Generic USB Hub, class=0x09, subclass=0x00, vendor=0x8087, product=0x8000
+USB Device			Составное USB устройство, class=0x00, subclass=0x00, vendor=0x046D, product=0xC534
+USB Device			Bluetooth USB Module, class=0xE0, subclass=0x01, vendor=0x04CA, product=0x300B
+USB Device			Составное USB устройство, class=0xEF, subclass=0x02, vendor=0x04F2, product=0xB469
+
+Видеосистема
+-------------------------------------------------------------------------
+
+Number of adapters		0
+
+Graphic APIs
+-------------------------------------------------------------------------
+
+
+Display Adapters
+-------------------------------------------------------------------------
+
+Win32_VideoController		AdapterRAM = 0x40000000 (1073741824)
+Win32_VideoController		DriverVersion = 20.19.15.4531
+Win32_VideoController		DriverDate = 09/29/2016
+
+Monitor 0	
+	Model			 ()
+	ID			AUO47EC
+	Serial			
+	Manufacturing Date	Week 0, Year 2013
+	Size			15.3 inches
+	Max Resolution		1366 x 768 @ 60 Hz
+	Horizontal Freq. Range	0-0 kHz
+	Vertical Freq. Range	0-0 Hz
+	Max Pixel Clock		0 МГц
+	Gamma Factor		2.2
+
+
+Программа
+-------------------------------------------------------------------------
+
+Версия Windows			Microsoft Windows 10 (10.0) Professional 64-bit   (сборка 19044) 
+Версия DirectX			12.0
+
+
+Register Spaces
+-------------------------------------------------------------------------
+

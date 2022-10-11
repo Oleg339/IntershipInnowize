@@ -1,0 +1,16 @@
+2022-10-11T11:14:03+03:00 [LOG]: directory was created
+2022-10-11T11:14:03+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: Invalid extention, File already exists, File not exists
+2022-10-11T11:14:16+03:00 [LOG]: База данных1.fg.txt-294912bytes-Uploads/baharoleg224@gmail.com-294912bytes
+2022-10-11T11:30:32+03:00 [USER WITH IP {IP} WAS BANNED FOR {DATE_START}-{DATE_END} FOR TRYING TO ENTER IN {EMAIL} ACCOUNT]: Array
+2022-10-11T11:33:10+03:00 [NOTICE]: User with ip 127.0.0.1 was banned for 11-10-22 11:33:10-1319269690 for trying to enter in baharoleg224@gmail.com account
+2022-10-11T11:36:16+03:00 [NOTICE]: User with ip 127.0.0.1 was banned for 11-10-22 11:36:16-22-10-11 11:51:16 for trying to enter in baharoleg224@gmail.com account
+2022-10-11T11:45:16+03:00 [ERROR]: File was not uploaded. Name: children room.pmp, size 4569 bytes, reasons: Invalid extention
+2022-10-11T11:45:38+03:00 [ERROR]: File was not uploaded. Name: База данных1.fg.txt, size 294912 bytes, reasons: File already exists
+2022-10-11T11:45:51+03:00 [NOTICE]: IMG_20220222_131943.jpg-4412735bytes-Uploads/baharoleg224@gmail.com-4707647bytes
+2022-10-11T11:49:23+03:00 [NOTICE]: TOKhOD_Laboratorny_praktikum.txt-618496bytes-Uploads/baharoleg224@gmail.com-5326143bytes
+2022-10-11T11:49:32+03:00 [ERROR]: File was not uploaded. Name: Бахар О.А. Сиозрип.docx, size 13594039 bytes, reasons: Invalid extention
+2022-10-11T13:02:13+03:00 [ERROR]: File was not uploaded. Name: База данных1.fg.txt, size 294912 bytes, reasons: File already exists
+2022-10-11T13:02:37+03:00 [ERROR]: File was not uploaded. Name: База данных1.fg.txt, size 294912 bytes, reasons: File already exists
+2022-10-11T13:05:46+03:00 [INFO]: 8852f3b30380a18acde61d101f116ad5.jpg-45437bytes-Uploads/baharoleg224@gmail.com-5371580bytes
+2022-10-11T13:05:53+03:00 [ERROR]: File was not uploaded. Name: IMG_20220222_131943.jpg, size 4412735 bytes, reasons: File already exists
+2022-10-11T13:05:58+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: File already exists, File not exists, Invalid extention

@@ -2,7 +2,11 @@
 
 namespace Task18;
 
-class Logger
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Psr\Log\AbstractLogger;
+
+class Logger extends AbstractLogger
 {
     private $filename;
 
@@ -21,84 +25,11 @@ class Logger
         $this->filename = $filename;
     }
 
-
-    public function emergency($message, array $context = array())
+    public function log($level, $message, array $context = array()): void
     {
         $this->handle([
             'message' => self::interpolate((string)$message, $context),
-            'level' => "EMERGENCY",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function alert($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "ALERT",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function critical($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "CRITICAL",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function error($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "ERROR",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function warning($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "ERROR",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function notice($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "NOTICE",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function info($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "INFO",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function debug($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "DEBUG",
-            'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
-        ]);
-    }
-
-    public function log($message, array $context = array())
-    {
-        $this->handle([
-            'message' => self::interpolate((string)$message, $context),
-            'level' => "LOG",
+            'level' => strtoupper($level),
             'timestamp' => (new \DateTimeImmutable())->format(self::DEFAULT_DATETIME_FORMAT),
         ]);
     }
@@ -106,13 +37,11 @@ class Logger
     protected static function interpolate(string $message, array $context = []): string
     {
         $replace = [];
-
         foreach ($context as $key => $val) {
             if (is_string($val) || method_exists($val, '__toString')) {
                 $replace['{' . $key . '}'] = $val;
             }
         }
-
         return strtr($message, $replace);
     }
 

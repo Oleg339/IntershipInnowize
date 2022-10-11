@@ -42,8 +42,6 @@ class Database
 
         $sql .= ')';
 
-        echo $sql;
-
         $pdo->query($sql);
 
         return $pdo->lastInsertId();

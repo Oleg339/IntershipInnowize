@@ -5,9 +5,13 @@ namespace Task18;
 class Request
 {
     private $server;
+
     private $post;
+
     private $get;
+
     private $session;
+
     private $cookie;
 
     public function __construct()

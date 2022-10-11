@@ -2,6 +2,7 @@
 
 namespace Model;
 
+use Psr\Log\LogLevel;
 use Task18\Logger;
 
 class Ban
@@ -26,10 +27,11 @@ class Ban
             $logger = new Logger('logs/Task18_' . date_create()->format('dmY') . '.log');
 
             $logger->log(
+                LogLevel::NOTICE,
                 'User with ip {ip} was banned for {date_start}-{date_end} for trying to enter in {email} account',
                 [
                     'ip' => $data['ip'], 'date_start' => date('d-m-y h:i:s'),
-                    'date_end' => date(strtotime(date('d-m-y h:i:s') . '+' . self::DURATION)),
+                    'date_end' => date('d-m-y h:i:s', strtotime(date('d-m-y h:i:s') . '+' . self::DURATION)),
                     'email' => $data['email']
                 ]
             );

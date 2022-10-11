@@ -14,14 +14,13 @@ class LoginController
 {
     public function index($request, $errors = [])
     {
+        session_destroy();
+
         $ip = $request->getServer()['REMOTE_ADDR'];
 
         if (Ban::get($ip)) {
             $this->banned();
         }
-
-        setcookie("email", "", time() - 3600);
-        setcookie("password", "", time() - 3600);
 
         $twig = TwigLoader::run();
 
@@ -30,7 +29,6 @@ class LoginController
 
     public function login($request)
     {
-
         if (!isset($_SESSION['CountOfAttempts'])) {
             $_SESSION['CountOfAttempts'] = 0;
         }
@@ -53,24 +51,22 @@ class LoginController
             $this->banned();
         }
 
-        $request = $request->getPost();
+        $values = $request->getPost();
 
-        $user = User::find('email', $request['email']);
+        $user = User::find('email', $values['email']);
 
-        if (!$user || !password_verify($request['password'], $user->getValues()['password'])) {
+        if (!$user || !password_verify($values['password'], $user->getValues()['password'])) {
             $_SESSION['CountOfAttempts']++;
 
-            return $this->index(new \Task18\Request(), ['Login incorrect']);
+            return $this->index($request, ['Login incorrect']);
         }
 
         $_SESSION['CountOfAttempts'] = 0;
 
-        if ($request['remember']) {
-            setcookie('email', $user->getValues()['email'], time() + 3600 * 24 * 7);
-            setcookie('password', $user->getValues()['password'], time() + 3600 * 24 * 7);
-        } else {
-            setcookie('email', $user->getValues()['email'], time() + 3600);
-            setcookie('password', $user->getValues()['password'], time() + 3600);
+        $_SESSION['email'] = $user->getValues()['email'];
+
+        if ($values['remember']) {
+            setcookie(session_id());
         }
 
         header("Location: http://localhost:8001/files");

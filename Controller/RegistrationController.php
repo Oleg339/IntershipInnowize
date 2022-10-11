@@ -3,19 +3,18 @@
 namespace Controller;
 
 include_once('Model/User.php');
-include_once('FieldsValidator.php');
+include_once('Validator.php');
 include_once('TwigLoader.php');
 
 use Model\User;
 use Task18\TwigLoader;
-use Task18\FieldsValidator;
+use Task18\Validator;
 
 class RegistrationController
 {
     public function index($request, $errors = [], $validated = [])
     {
-        setcookie("email", "", time() - 3600);
-        setcookie("password", "", time() - 3600);
+        session_destroy();
 
         $twig = TwigLoader::run();
 
@@ -26,15 +25,15 @@ class RegistrationController
     {
         $request = $request->get();
 
-        $validator = new FieldsValidator($request);
+        $validator = new Validator($request);
 
         $isValidated = $validator->validate([
-            'email' => ['email'],
-            'confirm_email' => ['email'],
-            'first_name' => ['string', 'length:3,12'],
-            'last_name' => ['string', 'length:3,12'],
-            'password' => ['password'],
-            'confirm_password' => ['password']
+            'email' => ['email', 'required'],
+            'confirm_email' => ['email', 'required'],
+            'first_name' => ['string', 'length:3,12', 'required'],
+            'last_name' => ['string', 'length:3,12', 'required'],
+            'password' => ['password', 'required'],
+            'confirm_password' => ['password', 'required']
         ]);
 
         $validated = $validator->getValidated();
@@ -67,15 +66,10 @@ class RegistrationController
 
         $user->save();
 
-        try {
-            $a = 0;
-        } catch (\PDOException) {
-            $this->index($request, ['Error with store user in database']);
-        }
+        $_SESSION['email'] = $user->getValues()['email'];
 
         if ($request['remember']) {
-            setcookie('email', $user->getValues()['email'], time() + 3600 * 24 * 7);
-            setcookie('password', $user->getValues()['password'], time() + 3600 * 24 * 7);
+            setcookie(session_id(), time() + 3600 * 24 * 7);
         }
 
         header("Location: http://localhost:8001/files");
