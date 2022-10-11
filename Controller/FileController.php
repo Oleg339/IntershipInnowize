@@ -22,8 +22,6 @@ class FileController
 
     public function index($request, $data = [])
     {
-        $twig = TwigLoader::run();
-
         $email = AuthChecker::getUserEmail($request->getSession());
 
         $files = [];
@@ -36,7 +34,7 @@ class FileController
             }
         }
 
-        echo $twig->render('Files.html', ['files' => $files, 'data' => $data]);
+        echo TwigLoader::run()->render('Files.html', ['files' => $files, 'data' => $data]);
     }
 
     public function upload($request)

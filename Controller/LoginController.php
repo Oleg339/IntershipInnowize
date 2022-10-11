@@ -22,9 +22,7 @@ class LoginController
             $this->banned();
         }
 
-        $twig = TwigLoader::run();
-
-        echo $twig->render('Login.html', ['errors' => $errors]);
+        echo TwigLoader::run()->render('Login.html', ['errors' => $errors]);
     }
 
     public function login($request)
@@ -74,9 +72,7 @@ class LoginController
 
     public function banned()
     {
-        $twig = TwigLoader::run();
-
-        echo $twig->render('Banned.html');
+        echo TwigLoader::run()->render('Banned.html');
 
         exit();
     }
