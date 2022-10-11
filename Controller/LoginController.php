@@ -39,7 +39,7 @@ class LoginController
             $this->banned();
         }
 
-        if ($request->getSession()['CountOfAttempts'] >= 3) {
+        if ($_SESSION['CountOfAttempts'] >= 3) {
             $_SESSION['CountOfAttempts'] = 0;
 
             $ban = new Ban(['ip' => $ip, 'email' => $request->getPost()['email']]);

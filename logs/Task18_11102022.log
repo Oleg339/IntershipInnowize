@@ -14,3 +14,4 @@
 2022-10-11T13:05:46+03:00 [INFO]: 8852f3b30380a18acde61d101f116ad5.jpg-45437bytes-Uploads/baharoleg224@gmail.com-5371580bytes
 2022-10-11T13:05:53+03:00 [ERROR]: File was not uploaded. Name: IMG_20220222_131943.jpg, size 4412735 bytes, reasons: File already exists
 2022-10-11T13:05:58+03:00 [ERROR]: File was not uploaded. Name: , size 0 bytes, reasons: File already exists, File not exists, Invalid extention
+2022-10-11T13:49:57+03:00 [NOTICE]: User with ip 127.0.0.1 was banned for 11-10-22 01:49:57-22-10-11 02:04:57 for trying to enter in baharoleg224@gmail.com account
