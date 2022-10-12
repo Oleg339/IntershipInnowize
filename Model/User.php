@@ -1,15 +1,60 @@
 <?php
 
+namespace Model;
+
+use ModelDB;
+
 class User implements ModelDB
 {
+    const TABLE = 'Users';
+
+    const FIELDS = ['email', 'first_name', 'last_name', 'password'];
+
+    protected $firstName;
+
+    protected $lastName;
+
+    protected $password;
+
+    protected $email;
+
+    protected $id;
+
+    public function __construct($data)
+    {
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+        $this->firstName = $data['first_name'];
+        $this->lastName = $data['last_name'];
+
+        return $this;
+    }
 
     public function getTable()
     {
-        // TODO: Implement getTable() method.
+        return self::TABLE;
     }
 
     public function getId()
     {
-        // TODO: Implement getId() method.
+        return $this->id;
+    }
+
+    public function save()
+    {
+        $this->id = Database::store($this);
+
+        return $this;
+    }
+
+    public function getValues(): array
+    {
+        return [
+            'email' => $this->email,
+            'password' => $this->password,
+            'first_name' => $this->firstName,
+            'lastName' => $this->lastName,
+            'id' => $this->id
+        ];
     }
 }

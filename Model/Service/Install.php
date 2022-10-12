@@ -6,14 +6,10 @@ use ServiceAbstract;
 
 class Install extends ServiceAbstract
 {
+    const SERVICE = 'Install';
 
     public function getService()
     {
-        // TODO: Implement getService() method.
-    }
-
-    public function getId()
-    {
-        // TODO: Implement getId() method.
+        return self::SERVICE;
     }
 }
