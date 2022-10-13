@@ -1,6 +1,6 @@
 <?php
 
-use Model\Database;
+namespace Model;
 
 abstract class ServiceAbstract implements ModelDB
 {

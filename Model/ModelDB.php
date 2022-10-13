@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Database.php';
+
 interface ModelDB
 {
     public function getTable();

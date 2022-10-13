@@ -1,14 +1,19 @@
 <?php
 
-use Model\Database;
+use Model\ServiceAbstract;
+use Model\User;
+
+require_once 'ModelDB.php';
 
 abstract class ProductAbstract implements ModelDB
 {
     const TABLE = 'Products';
 
-    const FIELDS = ['name', 'cost', 'manufacture', 'date', 'service'];
+    const FIELDS = ['name', 'cost', 'manufacture', 'date', 'service', 'product'];
 
     protected ServiceAbstract $service;
+
+    protected User $user;
 
     protected $id;
 
@@ -27,6 +32,7 @@ abstract class ProductAbstract implements ModelDB
         $this->manufacture = $data['manufacture'];
         $this->cost = $data['cost'];
         $this->service = $data['service'];
+        $this->user = $data['user'];
 
         return $this;
     }
@@ -42,6 +48,11 @@ abstract class ProductAbstract implements ModelDB
         return self::TABLE;
     }
 
+    public static function hello(){
+        echo 'hello';
+    }
+
+
     public function getValues(): array
     {
         return [
@@ -50,6 +61,7 @@ abstract class ProductAbstract implements ModelDB
             'manufacture' => $this->manufacture,
             'cost' => $this->cost,
             'service' => $this->service->getService(),
+            'product' => $this->getProduct(),
             'id' => $this->id
         ];
     }

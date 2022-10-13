@@ -2,13 +2,14 @@
 
 namespace Model;
 
-include_once('DatabaseConnect.php');
-include_once('Config.php');
-include_once('Model/Ban.php');
+require_once 'DatabaseConnect.php';
+require_once 'Config.php';
+require_once 'Products';
+require_once 'Service';
+require_once 'Model';
 
-use Model\Ban;
+use Config;
 use PDO;
-use Task18\Config;
 
 class Database
 {
@@ -35,7 +36,9 @@ class Database
         $values = $model->getValues();
 
         foreach ($model::FIELDS as $var) {
-            $sql .= '\'' . $values[$var] . '\', ';
+            if (array_key_exists($var, $values)) {
+                $sql .= '\'' . $values[$var] . '\', ';
+            }
         }
 
         $sql = substr($sql, 0, -2);
