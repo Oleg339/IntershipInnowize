@@ -4,9 +4,9 @@ namespace Model;
 
 require_once 'DatabaseConnect.php';
 require_once 'Config.php';
-require_once 'Products';
-require_once 'Service';
-require_once 'Model';
+require_once 'ProductAbstract.php';
+require_once 'ServiceAbstract.php';
+require_once 'User.php';
 
 use Config;
 use PDO;
@@ -17,7 +17,9 @@ class Database
     {
         $pdo = DatabaseConnect::getInstance()->getPdoConnection();
 
-        $pdo->exec(Config::TABLE_SQLS[$model]);
+        foreach (Config::TABLE_SQLS as $var){
+            $pdo->exec($var);
+        }
     }
 
     public static function store($model)
@@ -35,6 +37,8 @@ class Database
 
         $values = $model->getValues();
 
+        var_dump($values);
+
         foreach ($model::FIELDS as $var) {
             if (array_key_exists($var, $values)) {
                 $sql .= '\'' . $values[$var] . '\', ';
@@ -44,6 +48,8 @@ class Database
         $sql = substr($sql, 0, -2);
 
         $sql .= ')';
+
+        echo $sql;
 
         $pdo->query($sql);
 
@@ -83,6 +89,8 @@ class Database
             self::createTable($model);
             $result = $pdo->query($sql);
         }
+
+        echo $sql;
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }

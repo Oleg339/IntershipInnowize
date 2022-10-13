@@ -8,7 +8,7 @@ abstract class ProductAbstract implements ModelDB
 {
     const TABLE = 'Products';
 
-    const FIELDS = ['name', 'cost', 'manufacture', 'date', 'service', 'product'];
+    const FIELDS = ['name', 'cost', 'manufacture', 'date', 'service', 'product', 'user_email'];
 
     protected ServiceAbstract $service;
 

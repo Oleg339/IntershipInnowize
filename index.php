@@ -16,7 +16,7 @@ $router->get('/registration', ['Controller\RegistrationController', 'index']);
 $router->post('/registration', ['Controller\RegistrationController', 'registration']);
 $router->get('/login', ['Controller\LoginController', 'index']);
 $router->post('/login', ['Controller\LoginController', 'login']);
-$router->get('/files', ['Controller\FileController', 'index']);
-$router->post('/files', ['Controller\FileController', 'upload']);
+$router->get('/checkout', ['Controller\CheckoutController', 'index']);
+$router->post('/checkout', ['Controller\CheckoutController', 'add']);
 
 $router->run();

@@ -12,7 +12,7 @@ class DatabaseConnect
     private function __construct()
     {
         $host = 'localhost:3307';
-        $db = 'Task18';
+        $db = 'Task19';
         $user = 'root';
         $pass = '';
         $charset = 'utf8';
@@ -25,13 +25,15 @@ class DatabaseConnect
             PDO::ATTR_PERSISTENT => true
         ];
 
-        try {
-            $this->pdo = new PDO($dsn, $user, $pass, $opt);
-        } catch (\PDOException) {
+        $pdo = new PDO("mysql:host=localhost:3307", 'root', '');
+        $result = $pdo->query("show databases like 'db_name'");
+        if ($result->fetchAll(PDO::FETCH_ASSOC) == []) {
             self::create();
-
-            $this->pdo = new PDO($dsn, $user, $pass, $opt);
+            echo '456789';
+            return $this->pdo = new PDO($dsn, $user, $pass, $opt);
         }
+
+        $this->pdo = new PDO($dsn, $user, $pass, $opt);
     }
 
     public static function getInstance()
@@ -52,6 +54,6 @@ class DatabaseConnect
     {
         $pdo = new PDO("mysql:host=localhost:3307", 'root', '');
 
-        $pdo->query("CREATE DATABASE IF NOT EXISTS Task18");
+        $pdo->query("CREATE DATABASE IF NOT EXISTS Task19");
     }
 }

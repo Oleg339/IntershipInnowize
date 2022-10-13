@@ -2,7 +2,7 @@
 
 namespace Model;
 
-use ModelDB;
+include_once('ModelDB.php');
 
 class User implements ModelDB
 {
@@ -53,8 +53,19 @@ class User implements ModelDB
             'email' => $this->email,
             'password' => $this->password,
             'first_name' => $this->firstName,
-            'lastName' => $this->lastName,
+            'last_name' => $this->lastName,
             'id' => $this->id
         ];
+    }
+
+    public static function find($findBy, $parameter)
+    {
+        $user = Database::find(self::class, $findBy, $parameter);
+
+        if (!$user) {
+            return false;
+        }
+
+        return new User($user);
     }
 }

@@ -43,7 +43,8 @@ abstract class ServiceAbstract implements ModelDB
     {
         return [
             'deadline' => $this->deadline,
-            'cost' => $this->cost
+            'cost' => $this->cost,
+            'service' => $this->getService()
         ];
     }
 }
