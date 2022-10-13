@@ -1,5 +1,7 @@
 <?php
 
+namespace Model;
+
 require_once 'Database.php';
 
 interface ModelDB

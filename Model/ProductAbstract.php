@@ -1,7 +1,6 @@
 <?php
 
-use Model\ServiceAbstract;
-use Model\User;
+namespace Model;
 
 require_once 'ModelDB.php';
 
@@ -46,6 +45,19 @@ abstract class ProductAbstract implements ModelDB
     public function getTable()
     {
         return self::TABLE;
+    }
+
+    public static function find($findBy, $parameter)
+    {
+        $product = Database::find(self::class, $findBy, $parameter);
+
+        if (!$product) {
+            return false;
+        }
+
+        $class = $product['product'];
+
+        return new $class($product);
     }
 
     public static function hello(){
