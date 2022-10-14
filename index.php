@@ -17,6 +17,6 @@ $router->post('/registration', ['Controller\RegistrationController', 'registrati
 $router->get('/login', ['Controller\LoginController', 'index']);
 $router->post('/login', ['Controller\LoginController', 'login']);
 $router->get('/checkout', ['Controller\CheckoutController', 'index']);
-$router->post('/checkout', ['Controller\CheckoutController', 'add']);
+$router->post('/checkout', ['Controller\CheckoutController', 'checkout']);
 
 $router->run();

@@ -2,8 +2,8 @@
 
 namespace Model\Service;
 
-use ServiceAbstract;
-use User;
+use Model\ServiceAbstract;
+use Model\User;
 
 class Configure extends ServiceAbstract
 {

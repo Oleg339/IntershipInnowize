@@ -1,9 +1,6 @@
 <?php
 
-include_once('Request.php');
-include_once('Controller/RegistrationController.php');
-include_once('Controller/LoginController.php');
-include_once('Controller/CheckoutController.php');
+require_once 'vendor/autoload.php';
 
 class Router
 {
@@ -63,6 +60,7 @@ class Router
 
         if (array_key_exists($route, $this->$method)) {
             $value = $this->$method[$route];
+            echo $value[0];
             $controller = new $value[0]();
             $action = $value[1];
 

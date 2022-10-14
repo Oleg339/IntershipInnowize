@@ -2,9 +2,13 @@
 
 namespace Model;
 
+require_once 'vendor/autoload.php';
+
 abstract class ServiceAbstract implements ModelDB
 {
     const TABLE = 'Services';
+
+    const FIELDS = ['deadline', 'cost', 'service'];
 
     protected $id;
 

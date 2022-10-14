@@ -2,7 +2,7 @@
 
 namespace Model;
 
-require_once 'ModelDB.php';
+require_once 'vendor/autoload.php';
 
 abstract class ProductAbstract implements ModelDB
 {
@@ -10,9 +10,9 @@ abstract class ProductAbstract implements ModelDB
 
     const FIELDS = ['name', 'cost', 'manufacture', 'date', 'service', 'product', 'user_email'];
 
-    protected ServiceAbstract $service;
+    protected $service;
 
-    protected User $user;
+    protected $user;
 
     protected $id;
 
@@ -30,8 +30,8 @@ abstract class ProductAbstract implements ModelDB
         $this->date = $data['date'];
         $this->manufacture = $data['manufacture'];
         $this->cost = $data['cost'];
-        $this->service = $data['service'];
-        $this->user = $data['user'];
+        $this->service = array_key_exists('service', $data) ? $data['service'] : '';
+        $this->user = $data['email'];
 
         return $this;
     }
@@ -49,21 +49,23 @@ abstract class ProductAbstract implements ModelDB
 
     public static function find($findBy, $parameter)
     {
-        $product = Database::find(self::class, $findBy, $parameter);
+        $products = Database::find(self::class, $findBy, $parameter);
 
-        if (!$product) {
+        if (!$products) {
             return false;
         }
 
-        $class = $product['product'];
+        $data = [];
 
-        return new $class($product);
+        foreach ($products as $product){
+            if($product['service']){//TODO: переделать таблицу сервис и подгружать оттуда данные если есть значение в  ячейке
+                //$data[] = array_merge($product, ['service_cost' => new $product['service']()])
+            }
+        }
+
+
+        return $products;
     }
-
-    public static function hello(){
-        echo 'hello';
-    }
-
 
     public function getValues(): array
     {
@@ -72,15 +74,10 @@ abstract class ProductAbstract implements ModelDB
             'date' => $this->date,
             'manufacture' => $this->manufacture,
             'cost' => $this->cost,
-            'service' => $this->service->getService(),
+            'service' => $this->service ? '' : $this->service->getService(),
             'product' => $this->getProduct(),
-            'id' => $this->id
+            'user_email' => $this->user
         ];
-    }
-
-    public function setService(ServiceAbstract $service)
-    {
-        $this->service = $service;
     }
 
     public abstract function getProduct();
@@ -88,25 +85,5 @@ abstract class ProductAbstract implements ModelDB
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getCost()
-    {
-        return $this->cost;
-    }
-
-    public function getManufacture()
-    {
-        return $this->manufacture;
-    }
-
-    public function getDate()
-    {
-        return $this->date;
     }
 }

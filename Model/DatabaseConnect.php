@@ -29,7 +29,7 @@ class DatabaseConnect
         $result = $pdo->query("show databases like 'db_name'");
         if ($result->fetchAll(PDO::FETCH_ASSOC) == []) {
             self::create();
-            echo '456789';
+
             return $this->pdo = new PDO($dsn, $user, $pass, $opt);
         }
 

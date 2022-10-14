@@ -2,9 +2,7 @@
 
 namespace Controller;
 
-include_once('Model/User.php');
-include_once('TwigLoader.php');
-include_once('Model/Ban.php');
+require_once 'vendor/autoload.php';
 
 use Model\Ban;
 use Model\User;

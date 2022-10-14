@@ -2,11 +2,7 @@
 
 namespace Model;
 
-require_once 'DatabaseConnect.php';
-require_once 'Config.php';
-require_once 'ProductAbstract.php';
-require_once 'ServiceAbstract.php';
-require_once 'User.php';
+require_once 'vendor/autoload.php';
 
 use Config;
 use PDO;
@@ -28,19 +24,19 @@ class Database
 
         $sql = 'INSERT INTO ' . $model::TABLE . ' ( ';
 
+        $values = $model->getValues();
+
         foreach ($model::FIELDS as $var) {
-            $sql .= lcfirst($var) . ', ';
+            if(array_key_exists($var, $values) && $values[$var]){
+                $sql .= lcfirst($var) . ', ';
+            }
         }
 
         $sql = substr($sql, 0, -2);
         $sql .= ') VALUES (';
 
-        $values = $model->getValues();
-
-        var_dump($values);
-
         foreach ($model::FIELDS as $var) {
-            if (array_key_exists($var, $values)) {
+            if (array_key_exists($var, $values) && $values[$var]) {
                 $sql .= '\'' . $values[$var] . '\', ';
             }
         }
@@ -66,6 +62,8 @@ class Database
             }
         }
 
+        var_dump($data);
+
         if (sizeof($data) === 1) {
             return $data[0];
         }
@@ -89,8 +87,6 @@ class Database
             self::createTable($model);
             $result = $pdo->query($sql);
         }
-
-        echo $sql;
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }

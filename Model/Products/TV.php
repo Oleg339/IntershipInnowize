@@ -2,7 +2,7 @@
 
 namespace Model\Products;
 
-use ProductAbstract;
+use Model\ProductAbstract;
 
 class TV extends ProductAbstract
 {

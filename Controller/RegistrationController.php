@@ -2,9 +2,7 @@
 
 namespace Controller;
 
-include_once('Model/User.php');
-include_once('Validator.php');
-include_once('TwigLoader.php');
+require_once 'vendor/autoload.php';
 
 use Model\User;
 use Task18\TwigLoader;

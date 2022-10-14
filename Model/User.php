@@ -2,7 +2,7 @@
 
 namespace Model;
 
-include_once('ModelDB.php');
+require_once 'vendor/autoload.php';
 
 class User implements ModelDB
 {

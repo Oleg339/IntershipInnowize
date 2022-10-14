@@ -173,6 +173,17 @@ class Validator
         return false;
     }
 
+    private function number($value)
+    {
+        if (!intval($this->values[$value])) {
+            $this->errors[] = $this->values[$value] . ' is not number';
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function getValidated(): array
     {
         return $this->validated;

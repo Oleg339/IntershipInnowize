@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Service;
+namespace Service;
 
-use ServiceAbstract;
+use Model\ServiceAbstract;
 
 class Delivery extends ServiceAbstract
 {
