@@ -10,7 +10,7 @@ abstract class ProductAbstract implements ModelDB
 
     const FIELDS = ['name', 'cost', 'manufacture', 'date', 'service', 'product', 'user_email'];
 
-    protected $service;
+    protected $service = '';
 
     protected $user;
 
@@ -30,7 +30,6 @@ abstract class ProductAbstract implements ModelDB
         $this->date = $data['date'];
         $this->manufacture = $data['manufacture'];
         $this->cost = $data['cost'];
-        $this->service = array_key_exists('service', $data) ? $data['service'] : '';
         $this->user = $data['email'];
 
         return $this;
@@ -39,6 +38,13 @@ abstract class ProductAbstract implements ModelDB
     public function save()
     {
         $this->id = Database::store($this);
+        return $this;
+    }
+
+    public function addService($id)
+    {
+        $this->service = $id;
+
         return $this;
     }
 
@@ -55,14 +61,11 @@ abstract class ProductAbstract implements ModelDB
             return false;
         }
 
-        $data = [];
-
-        foreach ($products as $product){
-            if($product['service']){//TODO: переделать таблицу сервис и подгружать оттуда данные если есть значение в  ячейке
-                //$data[] = array_merge($product, ['service_cost' => new $product['service']()])
+        for ($i = 0; $i < sizeof($products); $i++) {
+            if (isset($products[$i]['service'])) {
+                $products[$i]['service'] = Database::find(ServiceAbstract::class, 'id', $products[$i]['id']);
             }
         }
-
 
         return $products;
     }
@@ -74,7 +77,7 @@ abstract class ProductAbstract implements ModelDB
             'date' => $this->date,
             'manufacture' => $this->manufacture,
             'cost' => $this->cost,
-            'service' => $this->service ? '' : $this->service->getService(),
+            'service' => $this->service,
             'product' => $this->getProduct(),
             'user_email' => $this->user
         ];

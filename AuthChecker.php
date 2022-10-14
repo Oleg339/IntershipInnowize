@@ -10,6 +10,7 @@ class AuthChecker
     {
         if (!isset($session['email'])) {
             echo TwigLoader::run()->render('Login.html');
+
             exit();
         }
 

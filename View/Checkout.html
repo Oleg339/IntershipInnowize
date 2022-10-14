@@ -21,36 +21,6 @@
             </div>
         </div>
     </div>
-    <div class ="p-3">
-        {%if(products)%}
-        <table id="files" class="table table-striped">
-            <thead>
-            <tr>
-                <td>Products</td>
-                <td>Name</td>
-                <td>Cost</td>
-                <td>Date</td>
-                <td>Manufacture</td>
-                <td>Service</td>
-                <td>Service Cost</td>
-            </tr>
-            </thead>
-            <tbody>
-            {% for product in products %}
-            <tr>
-                <td>{{ product.product }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.cost }}</td>
-                <td>{{ product.date }}</td>
-                <td>{{ product.manufacture }}</td>
-                <td>{{ product.service }}</td>
-                <td></td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        {%endif%}
-    </div>
     <form id="form" action="/checkout" method="post">
         <div class="container">
             <div class="row justify-content-md-center">
@@ -123,6 +93,42 @@
             <button class="btn btn-primary">Add</button>
         </div>
     </form>
+    <div class ="p-2">
+        <div class="text-center p-3 text-bg-success">
+            Total: {{total}}$
+        </div>
+        {%if(products)%}
+        <table id="files" class="table table-striped">
+            <thead>
+            <tr>
+                <td>Products</td>
+                <td>Name</td>
+                <td>Cost</td>
+                <td>Date</td>
+                <td>Manufacture</td>
+                <td>Service</td>
+                <td>Service Deadline</td>
+                <td>Service Cost</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.product }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.cost }}</td>
+                <td>{{ product.date }}</td>
+                <td>{{ product.manufacture }}</td>
+                <td>{{ product.service.service }}</td>
+                <td>{{ product.service.deadline }}</td>
+                <td>{{ product.service.cost }}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {%endif%}
+    </div>
 </div>
 </body>
 </html>

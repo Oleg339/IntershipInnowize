@@ -60,7 +60,6 @@ class Router
 
         if (array_key_exists($route, $this->$method)) {
             $value = $this->$method[$route];
-            echo $value[0];
             $controller = new $value[0]();
             $action = $value[1];
 

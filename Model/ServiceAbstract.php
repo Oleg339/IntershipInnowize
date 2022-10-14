@@ -43,6 +43,17 @@ abstract class ServiceAbstract implements ModelDB
         return $this;
     }
 
+    public static function find($findBy, $parameter)
+    {
+        $service = Database::find(self::class, $findBy, $parameter);
+
+        if (!$service) {
+            return false;
+        }
+
+        return $service;
+    }
+
     public function getValues(): array
     {
         return [

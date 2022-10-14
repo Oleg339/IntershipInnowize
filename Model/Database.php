@@ -13,7 +13,7 @@ class Database
     {
         $pdo = DatabaseConnect::getInstance()->getPdoConnection();
 
-        foreach (Config::TABLE_SQLS as $var){
+        foreach (Config::TABLE_SQLS as $var) {
             $pdo->exec($var);
         }
     }
@@ -27,7 +27,7 @@ class Database
         $values = $model->getValues();
 
         foreach ($model::FIELDS as $var) {
-            if(array_key_exists($var, $values) && $values[$var]){
+            if (array_key_exists($var, $values) && $values[$var]) {
                 $sql .= lcfirst($var) . ', ';
             }
         }
@@ -45,8 +45,6 @@ class Database
 
         $sql .= ')';
 
-        echo $sql;
-
         $pdo->query($sql);
 
         return $pdo->lastInsertId();
@@ -61,8 +59,6 @@ class Database
                 $data[] = $entityDB;
             }
         }
-
-        var_dump($data);
 
         if (sizeof($data) === 1) {
             return $data[0];

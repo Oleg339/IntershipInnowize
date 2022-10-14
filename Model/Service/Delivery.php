@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace Model\Service;
 
 use Model\ServiceAbstract;
 
