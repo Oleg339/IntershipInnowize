@@ -8,9 +8,9 @@ use Model\Service;
 
 class Configure extends Service
 {
-    private $deadline;
-
     private $cost;
+
+    private $deadline;
 
     public function __construct($cost, $deadline)
     {

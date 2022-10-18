@@ -8,9 +8,9 @@ use Model\Service;
 
 class Warranty extends Service
 {
-    private $deadline;
-
     private $cost;
+
+    private $deadline;
 
     public function __construct($cost, $deadline)
     {
