@@ -3,14 +3,16 @@
 require_once 'vendor/autoload.php';
 
 use Model\OrderBuilder;
-use Model\Products\PhoneBuilder;
-use Model\Services\WarrantyBuilder;
+use Model\Products\Phone;
+use Model\Products\ProductBuilder;
+use Model\Services\Delivery;
+use Model\Services\ServiceBuilder;
 
-$phone = (new PhoneBuilder())->setName('IPhone 16S')->setCost('50$')->setDate('12.02.2003')->setManufacture('Apple')->build()->get();
+$phone = (new ProductBuilder(Phone::class))->setName('IPhone 16S')->setCost('50$')->setDate('12.02.2003')->setManufacture('Apple')->build()->get();
 
-$warranty = (New WarrantyBuilder())->setCost('12$')->setDeadline('13.09.2004')->build()->get();
+$delivery = (new ServiceBuilder(Delivery::class))->setDeadline('12$')->setCost('90')->build()->get();
 
-$order = (New OrderBuilder())->setProduct($phone)->setService($warranty)->build()->get();
+$order = (New OrderBuilder())->setProduct($phone)->setService($delivery)->build()->get();
 
 echo $order->getService()->getCost() . '<br>' .
      $order->getProduct()->getName() . '<br>' .

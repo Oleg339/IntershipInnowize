@@ -2,6 +2,8 @@
 
 namespace Model;
 
+use Exception;
+
 require_once 'vendor/autoload.php';
 
 class OrderBuilder
@@ -14,6 +16,10 @@ class OrderBuilder
 
     public function setService(Service $service): OrderBuilder
     {
+        if (!isset($this->product)) {
+            throw new Exception('Product not selected');
+        }
+
         $this->service = $service;
 
         return $this;
