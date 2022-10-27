@@ -51,7 +51,14 @@
                         <div>
                             <form action="{{route('services.edit', $service)}}" method="post" class="mr-1">
                                 @csrf
-                                <button type="submit" class="text-red-700">edit</button>
+                                <button type="submit" class="text-blue-700">edit</button>
+                            </form>
+                        </div>
+                        <div>
+                            <form action="{{route('services.destroy', $service)}}" method="post" class="mr-1">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="text-red-700">delete</button>
                             </form>
                         </div>
                     </div>

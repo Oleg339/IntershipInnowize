@@ -41,16 +41,22 @@ class ServiceController extends Controller
     {
         $this->validate($request, [
             'cost' => 'required|integer|min:0',
-            'deadline' => 'required|date',
-            'type' => 'in:Configure,Delivery,Install,Maintenance'
+            'deadline' => 'required|date'
         ]);
 
-        $class = 'App\Models\Services\\' . $request->type;
+        $class = $service::class;
 
         $class::where('id', $service->id)->update([
             'cost' => $request->cost,
-            'deadline' => $request->deadline,
+            'deadline' => $request->deadline
         ]);
+
+        return redirect()->route('services');
+    }
+
+    public function destroy(Service $service)
+    {
+        $service->delete();
 
         return redirect()->route('services');
     }

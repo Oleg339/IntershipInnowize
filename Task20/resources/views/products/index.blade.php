@@ -68,6 +68,12 @@
                         <p class="mb-2">Product Name: {{$product->name}}</p>
                         <p class="mb-2">Cost: {{$product->cost}} BYN</p>
                         <span class="~text-gray-500 text-sm">Release Date: {{$product->release_date}}</span>
+                        <div>
+                            <form action="{{route('products.edit', $product)}}" method="post" class="mr-1">
+                                @csrf
+                                <button type="submit" class="text-blue-700">edit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -23,17 +23,6 @@
                     <div class="text-red-500 mt-2 text-sm">{{$message}}</div>
                     @enderror
                 </div>
-                <div class="mb-4">
-                    <label for="type">
-                        <select name="type" id="type" class="bg-gray-100 border-2 w-full p-4 rounded-lg">
-                            @foreach ($types as $type)
-                                <option value="{{ $type }}" @selected(last(explode('\\', get_class($service))) == $type)>
-                                    {{ $type }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </label>
-                </div>
                 <div>
                     <button type="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Submit
                     </button>

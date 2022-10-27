@@ -21,4 +21,5 @@ Route::get('services', [ServiceController::class, 'index'])->name('services');
 Route::post('services',[ServiceController::class, 'store']);
 Route::post('services/{service}/edit', [ServiceController::class, 'edit'])->name('services.edit');
 Route::put('services/{service}', [ServiceController::class, 'update'])->name('services.update');
+Route::delete('services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 

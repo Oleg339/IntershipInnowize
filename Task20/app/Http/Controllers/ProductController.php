@@ -36,4 +36,29 @@ class ProductController extends Controller
         return redirect()->route('products');
     }
 
+    public function edit(Product $product)
+    {
+        return view('products.edit', ['product' => $product, 'types' => Product::CHILDS]);
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'cost' => 'required|integer|min:0',
+            'release_date' => 'required|date',
+            'company' => 'required|max:255'
+        ]);
+
+        $class = $product::class;
+
+        $class::where('id', $product->id)->update([
+            'name' => $request->name,
+            'cost' => $request->cost,
+            'release_date' => $request->release_date,
+            'company' => $request->company
+        ]);
+
+        return redirect()->route('products');
+    }
 }
