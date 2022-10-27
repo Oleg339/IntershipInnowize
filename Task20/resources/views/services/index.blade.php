@@ -1,0 +1,64 @@
+@extends('layouts.app')
+@section('content')
+    <div class="flex justify-center p-6">
+        <div class="shadow-xl text-center p-6 w-8/12 bg-white rounded-lg">
+            <form action="{{route('services')}}" method="post">
+                @csrf
+                <div class="mb-4">
+                    <label for="cost"></label>
+                    <input type="number" name="cost" id="cost" placeholder="Cost"
+                           class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('cost') border-red-500"
+                           value="{{old('cost')}} @enderror">
+                    @error('cost')
+                    <div class="text-red-500 mt-2 text-sm">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="deadline"></label>
+                    <input type="date" name="deadline" id="deadline" placeholder="DeadLine"
+                           class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('deadline') border-red-500 @enderror"
+                           value="{{old('deadline')}}">
+                    @error('deadline')
+                    <div class="text-red-500 mt-2 text-sm">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="type">
+                        <select name="type" id="type" class="bg-gray-100 border-2 w-full p-4 rounded-lg">
+                            @foreach ($types as $type)
+                                <option value="{{ $type }}" @selected(old('type') == $type)>
+                                    {{ $type }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <button type="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if($services->count())
+        @foreach($services as $service)
+            <div class="flex justify-center p-3">
+                <div class="p-6 shadow-xl p-1 w-8/12 bg-white rounded-lg">
+                    <div class="mb-4">
+                        <p class="font-bold">{{last(explode('\\', get_class($service)))}}</p>
+                        <p class="mb-2">Cost: {{$service->cost}} BYN</p>
+                        <span class="~text-gray-500 text-sm">DeadLine: {{$service->deadline}}</span>
+                        <div>
+                            <form action="{{route('services.edit', $service)}}" method="post" class="mr-1">
+                                @csrf
+                                <button type="submit" class="text-red-700">edit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @else
+        <p>There no services</p>
+    @endif
+@endsection
