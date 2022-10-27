@@ -74,6 +74,13 @@
                                 <button type="submit" class="text-blue-700">edit</button>
                             </form>
                         </div>
+                        <div>
+                            <form action="{{route('products.destroy', $product)}}" method="post" class="mr-1">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="text-red-700">delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
