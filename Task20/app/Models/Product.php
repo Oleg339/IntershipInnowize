@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 abstract class Product extends Model
 {
     use HasFactory;
 
-    const CHILDS = ['Fridge', 'Phone', 'Laptop', 'TV'];
+    const PRODUCTS = ['Fridge', 'Phone', 'Laptop', 'TV'];
 
     protected $fillable = [
         'name',
@@ -25,8 +26,8 @@ abstract class Product extends Model
     /**
      * Create a new instance of the given model.
      *
-     * @param  array  $attributes
-     * @param  bool  $exists
+     * @param array $attributes
+     * @param bool $exists
      * @return static
      */
     public function newInstance($attributes = [], $exists = false)
@@ -49,7 +50,7 @@ abstract class Product extends Model
 
         $model->mergeCasts($this->casts);
 
-        $model->fill((array) $attributes);
+        $model->fill((array)$attributes);
 
         return $model;
     }
@@ -57,13 +58,13 @@ abstract class Product extends Model
     /**
      * Create a new model instance that is existing.
      *
-     * @param  array  $attributes
-     * @param  string|null  $connection
+     * @param array $attributes
+     * @param string|null $connection
      * @return static
      */
     public function newFromBuilder($attributes = [], $connection = null)
     {
-        $attributes = (array) $attributes;
+        $attributes = (array)$attributes;
 
         $model = $this->newInstance([
             'type' => $attributes['type'] ?? null

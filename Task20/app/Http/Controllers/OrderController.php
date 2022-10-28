@@ -5,42 +5,46 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
+use App\Repositories\ProductRepository;
+use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function index()
+    private ProductRepository $productRepository;
+
+    private ServiceRepository $serviceRepository;
+
+    public function __construct(ProductRepository $productRepository, ServiceRepository $serviceRepository)
     {
-        $dataProducts = DB::table('products')->get();
-        $dataServices = DB::table('services')->get();
-
-        $products = collect();
-        $services = collect();
-
-        foreach ($dataProducts as $item) {
-            $products->push($item->type::where('id', $item->id)->get()->first());
-        }
-
-        foreach ($dataServices as $item) {
-            $services->push($item->type::where('id', $item->id)->get()->first());
-        }
-
-        return view('catalog', ['products' => $products, 'services' => $services]);
+        $this->productRepository = $productRepository;
+        $this->serviceRepository = $serviceRepository;
     }
 
-    public function store(Request $request, $product)
+    public function index()
     {
-        $product = DB::table('products')->where('id', $product)->get()->first()
-            ->type::where('id', $product)->get()->first();
+        return view('catalog', [
+            'products' => $this->productRepository->all(),
+            'services' => $this->serviceRepository->all()
+        ]);
+    }
 
-        $service = $request->serviceId;
-        if($service === "none"){
-            return view('confirmation', ['order' => new Order($product)]);
+    public function store(Request $request, $productId)
+    {
+        $productId = $this->productRepository->get($productId);
+
+        $serviceId = $request->serviceId;
+        
+        if($serviceId === "none"){
+            return view('confirmation', ['order' => new Order($productId)]);
         }
-        $service = DB::table('services')->where('id', $service)->get()->first()
-            ->type::where('id', $service)->get()->first();
 
-        return view('confirmation', ['order' => new Order($product, $service)]);
+        return view('confirmation',
+            ['order' => new Order(
+                $productId,
+                $this->productRepository->get($serviceId)
+            )]
+        );
     }
 }

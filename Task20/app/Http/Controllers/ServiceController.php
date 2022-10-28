@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
+use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
+    private ServiceRepository $serviceRepository;
+
+    public function __construct(ServiceRepository $serviceRepository)
+    {
+        $this->serviceRepository = $serviceRepository;
+    }
+
     public function index()
     {
-        $data = DB::table('services')->get();
-
-        $services = collect();
-
-        foreach ($data as $item) {
-            $services->push($item->type::where('id', $item->id)->get()->first());
-        }
-
-        return view('services.index', ['services' => $services, 'types' => Service::CHILDS]);
+        return view('services.index', ['services' => $this->serviceRepository->all(), 'types' => Service::CHILDS]);
     }
 
     public function store(Request $request)
@@ -31,45 +31,31 @@ class ServiceController extends Controller
             'type' => 'in:Configure,Delivery,Install,Warranty'
         ]);
 
-        $class = 'App\Models\Services\\' . $request->type;
-
-        $class::create([
-            'cost' => $request->cost,
-            'deadline' => $request->deadline,
-        ]);
+        $this->serviceRepository->create($request);
 
         return redirect()->route('services');
     }
 
-    public function edit($service)
+    public function edit($serviceId)
     {
-        $service = DB::table('services')->where('id', $service)->get()->first()
-            ->type::where('id', $service)->get()[0];
-
-        return view('services.edit', ['service' => $service]);
+        return view('services.edit', ['service' => $this->serviceRepository->get($serviceId)]);
     }
 
-    public function update(Request $request, $service)
+    public function update(Request $request, $serviceId)
     {
         $this->validate($request, [
             'cost' => 'required|integer|min:0',
             'deadline' => 'required|date'
         ]);
 
-        $class = DB::table('services')->where('id', $service)->get()->first()->type;
-
-        $class::where('id', $service)->update([
-            'cost' => $request->cost,
-            'deadline' => $request->deadline
-        ]);
+        $this->serviceRepository->update($request, $serviceId);
 
         return redirect()->route('services');
     }
 
-    public function destroy($service)
+    public function destroy($serviceId)
     {
-        DB::table('services')->where('id', $service)->get()->first()
-            ->type::where('id', $service)->get()[0]->delete();
+        $this->serviceRepository->delete($serviceId);
 
         return redirect()->route('services');
     }

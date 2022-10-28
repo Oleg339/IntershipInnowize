@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    private ProductRepository $productRepository;
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     public function index()
     {
-        $data = DB::table('products')->get();
-
-        $products = collect();
-
-        foreach ($data as $item) {
-            $products->push($item->type::where('id', $item->id)->get()[0]);
-        }
-
-        return view('products.index', ['products' => $products, 'types' => Product::CHILDS]);
+        return view('products.index', ['products' => $this->productRepository->all(), 'types' => Product::PRODUCTS]);
     }
 
     public function store(Request $request)
@@ -33,27 +33,17 @@ class ProductController extends Controller
             'type' => 'in:Fridge,Phone,TV,Laptop'
         ]);
 
-        $class = 'App\Models\Products\\' . $request->type;
-
-        $class::create([
-            'name' => $request->name,
-            'cost' => $request->cost,
-            'release_date' => $request->release_date,
-            'company' => $request->company
-        ]);
+        $this->productRepository->create($request);
 
         return redirect()->route('products');
     }
 
-    public function edit($product)
+    public function edit($productId)
     {
-        $product = DB::table('products')->where('id', $product)->get()[0]
-        ->type::where('id', $product)->get()[0];
-
-        return view('products.edit', ['product' => $product]);
+        return view('products.edit', ['product' => $this->productRepository->get($productId)]);
     }
 
-    public function update(Request $request, $product)
+    public function update(Request $request, $productId)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
@@ -62,22 +52,14 @@ class ProductController extends Controller
             'company' => 'required|max:255'
         ]);
 
-        $class = DB::table('products')->where('id', $product)->get()->first()->type;
-
-        $class::where('id', $product)->update([
-            'name' => $request->name,
-            'cost' => $request->cost,
-            'release_date' => $request->release_date,
-            'company' => $request->company
-        ]);
+        $this->productRepository->update($request, $productId);
 
         return redirect()->route('products');
     }
 
-    public function destroy($product)
+    public function destroy($productId)
     {
-        DB::table('products')->where('id', $product)->get()->first()
-            ->type::where('id', $product)->get()[0]->delete();
+        $this->productRepository->delete($productId);
 
         return redirect()->route('products');
     }
