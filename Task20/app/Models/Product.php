@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class Product extends Model
+abstract class Product extends Model
 {
     use HasFactory;
 

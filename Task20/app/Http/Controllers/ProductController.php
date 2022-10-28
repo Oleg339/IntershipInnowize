@@ -6,12 +6,21 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        return view('products.index', ['products' => Product::all(), 'types' => Product::CHILDS]);
+        $data = DB::table('products')->get();
+
+        $products = collect();
+
+        foreach ($data as $item) {
+            $products->push($item->type::where('id', $item->id)->get()[0]);
+        }
+
+        return view('products.index', ['products' => $products, 'types' => Product::CHILDS]);
     }
 
     public function store(Request $request)
@@ -36,12 +45,15 @@ class ProductController extends Controller
         return redirect()->route('products');
     }
 
-    public function edit(Product $product)
+    public function edit($product)
     {
-        return view('products.edit', ['product' => $product, 'types' => Product::CHILDS]);
+        $product = DB::table('products')->where('id', $product)->get()[0]
+        ->type::where('id', $product)->get()[0];
+
+        return view('products.edit', ['product' => $product]);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $product)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
@@ -50,9 +62,9 @@ class ProductController extends Controller
             'company' => 'required|max:255'
         ]);
 
-        $class = $product::class;
+        $class = DB::table('products')->where('id', $product)->get()->first()->type;
 
-        $class::where('id', $product->id)->update([
+        $class::where('id', $product)->update([
             'name' => $request->name,
             'cost' => $request->cost,
             'release_date' => $request->release_date,
@@ -62,9 +74,10 @@ class ProductController extends Controller
         return redirect()->route('products');
     }
 
-    public function destroy(Product $product)
+    public function destroy($product)
     {
-        $product->delete();
+        DB::table('products')->where('id', $product)->get()->first()
+            ->type::where('id', $product)->get()[0]->delete();
 
         return redirect()->route('products');
     }
