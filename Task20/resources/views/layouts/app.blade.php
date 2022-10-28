@@ -12,7 +12,7 @@
 <nav class="p-3 shadow-xl bg-gray-100 flex items-center justify-between ml-auto">
     <ul class="flex items-center">
         <li>
-            <a href="{{route('home')}}" class="p-3">Home</a>
+            <a href="{{route('catalog')}}" class="p-3">Home</a>
         </li>
         <li>
             <a href="{{route('products')}}" class="p-3">Products</a>
