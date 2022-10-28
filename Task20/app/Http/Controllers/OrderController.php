@@ -35,11 +35,12 @@ class OrderController extends Controller
             ->type::where('id', $product)->get()->first();
 
         $service = $request->serviceId;
+        if($service === "none"){
+            return view('confirmation', ['order' => new Order($product)]);
+        }
         $service = DB::table('services')->where('id', $service)->get()->first()
             ->type::where('id', $service)->get()->first();
 
-        $order = new Order($product, $service);
-
-        dd($order);
+        return view('confirmation', ['order' => new Order($product, $service)]);
     }
 }

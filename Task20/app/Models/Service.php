@@ -10,7 +10,7 @@ abstract class Service extends Model
 {
     use HasFactory;
 
-    const CHILDS = ['Configure', 'Install', 'Delivery', 'Maintenance'];
+    const CHILDS = ['Configure', 'Install', 'Delivery', 'Warranty'];
 
     protected $fillable = [
         'deadline',

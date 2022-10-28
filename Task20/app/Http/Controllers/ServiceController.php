@@ -28,7 +28,7 @@ class ServiceController extends Controller
         $this->validate($request, [
             'cost' => 'required|integer|min:0',
             'deadline' => 'required|date',
-            'type' => 'in:Configure,Delivery,Install,Maintenance'
+            'type' => 'in:Configure,Delivery,Install,Warranty'
         ]);
 
         $class = 'App\Models\Services\\' . $request->type;

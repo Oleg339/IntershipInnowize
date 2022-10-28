@@ -22,6 +22,9 @@
                                                 Deadline {{$service->deadline }}, Cost {{$service->cost}} BYN
                                             </option>
                                         @endforeach
+                                            <option value="none">
+                                                none
+                                            </option>
                                     </select>
                                 </label>
                             </div>

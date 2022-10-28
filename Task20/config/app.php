@@ -127,7 +127,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Maintenance Mode Driver
+    | Warranty Mode Driver
     |--------------------------------------------------------------------------
     |
     | These configuration options determine the driver used to determine and
