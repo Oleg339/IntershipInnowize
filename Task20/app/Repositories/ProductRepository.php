@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,25 +39,25 @@ class ProductRepository
         return DB::table('products')->where('id', $id)->get()->first()->type;
     }
 
-    public function create(Request $request)
+    public function create(array $request)
     {
-        $class = 'App\Models\Products\\' . $request->type;
+        $class = 'App\Models\Products\\' . $request['type'];
 
         return $class::create([
-            'name' => $request->name,
-            'cost' => $request->cost,
-            'release_date' => $request->release_date,
-            'company' => $request->company
+            'name' => $request['name'],
+            'cost' => $request['cost'],
+            'release_date' => $request['release_date'],
+            'company' => $request['company']
         ]);
     }
 
-    public function update(Request $request, $productId)
+    public function update(array $request, $productId)
     {
         return $this->getClass($productId)::where('id', $productId)->update([
-            'name' => $request->name,
-            'cost' => $request->cost,
-            'release_date' => $request->release_date,
-            'company' => $request->company
+            'name' => $request['name'],
+            'cost' => $request['cost'],
+            'release_date' => $request['release_date'],
+            'company' => $request['company']
         ]);
     }
 }

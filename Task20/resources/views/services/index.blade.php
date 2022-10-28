@@ -49,7 +49,7 @@
                         <p class="mb-2">Cost: {{$service->cost}} BYN</p>
                         <span class="~text-gray-500 text-sm">DeadLine: {{$service->deadline}}</span>
                         <div>
-                            <form action="{{route('services.edit', $service)}}" method="post" class="mr-1">
+                            <form action="{{route('services.edit', $service)}}" method="get" class="mr-1">
                                 @csrf
                                 <button type="submit" class="text-blue-700">edit</button>
                             </form>

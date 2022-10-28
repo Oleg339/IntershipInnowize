@@ -36,21 +36,21 @@ class ServiceRepository
         return DB::table('services')->where('id', $id)->get()->first()->type;
     }
 
-    public function create(Request $request)
+    public function create(array $request)
     {
-        $class = 'App\Models\Services\\' . $request->type;
+        $class = 'App\Models\Services\\' . $request['type'];
 
         return $class::create([
-            'cost' => $request->cost,
-            'deadline' => $request->deadline,
+            'cost' => $request['cost'],
+            'deadline' => $request['deadline'],
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(array $request, $id)
     {
         return $this->getClass($id)::where('id', $id)->update([
-            'cost' => $request->cost,
-            'deadline' => $request->deadline
+            'cost' => $request['cost'],
+            'deadline' => $request['deadline']
         ]);
     }
 }

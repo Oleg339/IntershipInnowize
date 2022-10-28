@@ -13,7 +13,7 @@ class UpdateServiceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cost' => 'required|integer|min:0',
+            'deadline' => 'required|date'
         ];
     }
 }

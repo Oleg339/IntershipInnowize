@@ -23,17 +23,9 @@ class ProductController extends Controller
         return view('products.index', ['products' => $this->productRepository->all(), 'types' => Product::PRODUCTS]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'cost' => 'required|integer|min:0',
-            'release_date' => 'required|date',
-            'company' => 'required|max:255',
-            'type' => 'in:Fridge,Phone,TV,Laptop'
-        ]);
-
-        $this->productRepository->create($request);
+        $this->productRepository->create($request->validated());
 
         return redirect()->route('products');
     }
@@ -43,16 +35,9 @@ class ProductController extends Controller
         return view('products.edit', ['product' => $this->productRepository->get($productId)]);
     }
 
-    public function update(Request $request, $productId)
+    public function update(UpdateProductRequest $request, $productId)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'cost' => 'required|integer|min:0',
-            'release_date' => 'required|date',
-            'company' => 'required|max:255'
-        ]);
-
-        $this->productRepository->update($request, $productId);
+        $this->productRepository->update($request->validated(), $productId);
 
         return redirect()->route('products');
     }

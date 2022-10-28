@@ -13,7 +13,7 @@ class StoreServiceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cost' => 'required|integer|min:0',
+            'deadline' => 'required|date',
+            'type' => 'in:Configure,Delivery,Install,Warranty'
         ];
     }
 }

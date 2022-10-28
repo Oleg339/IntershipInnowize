@@ -32,19 +32,20 @@ class OrderController extends Controller
 
     public function store(Request $request, $productId)
     {
-        $productId = $this->productRepository->get($productId);
+        $product = $this->productRepository->get($productId);
 
         $serviceId = $request->serviceId;
-        
-        if($serviceId === "none"){
-            return view('confirmation', ['order' => new Order($productId)]);
+
+        if ($serviceId === "none") {
+            return view('confirmation', ['order' => new Order($product)]);
         }
 
         return view('confirmation',
             ['order' => new Order(
-                $productId,
-                $this->productRepository->get($serviceId)
-            )]
+                $product,
+                $this->serviceRepository->get($serviceId)
+            )
+            ]
         );
     }
 }
