@@ -34,7 +34,7 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
-        return view('services.edit', ['services' => Service::all(), 'types' => Service::CHILDS, 'service' => $service]);
+        return view('services.edit', ['services' => Service::all(), 'service' => $service]);
     }
 
     public function update(Request $request, Service $service)
