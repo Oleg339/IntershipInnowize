@@ -63,7 +63,7 @@
             <div class="flex justify-center p-3">
                 <div class="p-6 shadow-xl p-1 w-8/12 bg-white rounded-lg">
                     <div class="mb-4">
-                        <p class="font-bold">{{$product->type}}</p>
+                        <p class="font-bold">{{{last(explode('\\', get_class($product)))}}}</p>
                         <p class="font-bold">Company: {{$product->company}}</p>
                         <p class="mb-2">Product Name: {{$product->name}}</p>
                         <p class="mb-2">Cost: {{$product->cost}} BYN</p>

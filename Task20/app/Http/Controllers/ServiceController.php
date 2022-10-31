@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
+use App\Models\ServiceFactory;
 use App\Repositories\Repository;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
@@ -12,21 +13,21 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
-    private Repository $serviceRepository;
+    private ServiceFactory $serviceFactory;
 
     public function __construct()
     {
-        $this->serviceRepository = new Repository(Service::class);
+        $this->serviceFactory = new ServiceFactory();
     }
 
     public function index()
     {
-    return view('services.index', ['services' => $this->serviceRepository->all(), 'types' => Service::SERVICES]);
+    return view('services.index', ['services' => $this->serviceFactory->all(), 'types' => Service::SERVICES]);
     }
 
     public function store(StoreServiceRequest $request)
     {
-        $this->serviceRepository->create($request->validated());
+        $this->serviceFactory->create($request->validated());
 
         return redirect()->route('services');
     }
@@ -38,14 +39,14 @@ class ServiceController extends Controller
 
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        $this->serviceRepository->update($request->validated(), $service);
+        $service->update($request->validated());
 
         return redirect()->route('services');
     }
 
     public function destroy(Service $service)
     {
-        $this->serviceRepository->delete($service);
+        $service->delete();
 
         return redirect()->route('services');
     }

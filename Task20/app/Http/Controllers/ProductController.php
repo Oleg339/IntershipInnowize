@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\ProductFactory;
 use App\Repositories\ProductRepository;
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
@@ -12,21 +13,23 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    private Repository $productRepository;
+    private ProductFactory $productFactory;
 
     public function __construct()
     {
-        $this->productRepository = new Repository(Product::class);
+        $this->productFactory = new ProductFactory();
     }
 
     public function index()
     {
-        return view('products.index', ['products' => $this->productRepository->all(), 'types' => Product::PRODUCTS]);
+        return view('products.index', ['products' => $this->productFactory->all(), 'types' => Product::PRODUCTS]);
     }
 
     public function store(StoreProductRequest $request)
     {
-        $this->productRepository->create($request->validated());
+        $product =  $request->validated();
+
+        $this->productFactory->create($product);
 
         return redirect()->route('products');
     }
@@ -38,14 +41,14 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $this->productRepository->update($request->validated(), $product);
+        $product->update($request->validated());
 
         return redirect()->route('products');
     }
 
     public function destroy(Product $product)
     {
-        $this->productRepository->delete($product);
+        $product->delete();
 
         return redirect()->route('products');
     }

@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Service;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ServiceSeeder extends Seeder
 {
@@ -17,7 +19,7 @@ class ServiceSeeder extends Seeder
         DB::table('services')->insert([
             'cost' => fake()->name(),
             'deadline' => fake()->unique()->safeEmail(),
-            'type' => 'App\Models\Product' . array_rand(Service::SERVICES)
+            'type' => 'App\\Models\\Services\\' . array_rand(Service::SERVICES)
         ]);
     }
 }

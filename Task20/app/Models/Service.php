@@ -11,6 +11,7 @@ class Service extends Model
     use HasFactory;
 
     const SERVICES = ['Configure', 'Install', 'Delivery', 'Warranty'];
+    const TABLE = ['services'];
 
     protected $fillable = [
         'deadline',

@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
             'company' => fake()->unique()->safeEmail(),
             'release_date' => now(),
             'cost' => random_int(0,1000),
-            'type' => 'App\Models\Product' . array_rand(Product::PRODUCTS)
+            'type' => 'App\\Models\\Products\\' . Product::PRODUCTS[array_rand(Product::PRODUCTS)]
         ]);
     }
 }

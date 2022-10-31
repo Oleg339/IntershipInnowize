@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductFactory;
 use App\Models\Service;
+use App\Models\ServiceFactory;
 use App\Repositories\ProductRepository;
 use App\Repositories\Repository;
 use App\Repositories\ServiceRepository;
@@ -13,21 +15,21 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    private Repository $productRepository;
+    private ProductFactory $productFactory;
 
-    private Repository $serviceRepository;
+    private ServiceFactory $serviceFactory;
 
     public function __construct()
     {
-        $this->productRepository = new Repository(Product::class);
-        $this->serviceRepository = new Repository(Service::class);
+        $this->productFactory = new ProductFactory;
+        $this->serviceFactory = new ServiceFactory;
     }
 
     public function index()
     {
         return view('catalog', [
-            'products' => $this->productRepository->all(),
-            'services' => $this->serviceRepository->all()
+            'products' => $this->productFactory->all(),
+            'services' => $this->serviceFactory->all()
         ]);
     }
 
@@ -42,7 +44,7 @@ class OrderController extends Controller
         return view('confirmation',
             ['order' => new Order(
                 $product,
-                $this->serviceRepository->get($serviceId)
+                Service::get('id', $serviceId)->first()
             )
             ]
         );
