@@ -17,7 +17,9 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'deadline' => now(),
+            'cost' => random_int(0,1000),
+            'type' => ['Fridge','Phone','TV','Laptop'][array_rand(['Configure','Delivery','Install','Warranty'])]
         ];
     }
 }

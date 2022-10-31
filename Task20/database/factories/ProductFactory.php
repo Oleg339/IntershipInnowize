@@ -21,10 +21,10 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'company' => fake()->unique()->safeEmail(),
+            'company' => fake()->name(),
             'release_date' => now(),
             'cost' => random_int(0,1000),
-            'type' => array_rand(Product::PRODUCTS)
+            'type' => ['Fridge','Phone','TV','Laptop'][array_rand(['Fridge','Phone','TV','Laptop'])]
         ];
     }
 }

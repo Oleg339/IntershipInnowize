@@ -25,11 +25,18 @@
                 <div class="mb-4">
                     <label for="type">
                         <select name="type" id="type" class="bg-gray-100 border-2 w-full p-4 rounded-lg">
-                            @foreach ($types as $type)
-                                <option value="{{ $type }}" @selected(old('type') == $type)>
-                                    {{ $type }}
-                                </option>
-                            @endforeach
+                            <option value="Configure">
+                                Configure
+                            </option>
+                            <option value="Delivery">
+                                Delivery
+                            </option>
+                            <option value="Install">
+                                Install
+                            </option>
+                            <option value="Warranty">
+                                Warranty
+                            </option>
                         </select>
                     </label>
                 </div>

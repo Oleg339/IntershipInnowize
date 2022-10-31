@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +12,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return view('products.index', ['products' => $products, 'types' => Product::PRODUCTS]);
+        return view('products.index', ['products' => $products]);
     }
 
     public function store(StoreProductRequest $request)

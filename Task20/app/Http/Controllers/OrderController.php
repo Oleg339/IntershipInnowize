@@ -6,7 +6,6 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -23,11 +22,13 @@ class OrderController extends Controller
         $serviceId = $request->serviceId;
 
         if ($serviceId === "none") {
-            return view('confirmation', ['order' => new Order($product)]);
+            $product = new Order($product);
+            return view('confirmation', ['order' => $product]);
         }
 
         $service = Service::where('id', $serviceId)->get()->first();
+        $order = new Order($product, $service);
 
-        return view('confirmation', ['order' => new Order($product, $service)]);
+        return view('confirmation', ['order' => $order]);
     }
 }

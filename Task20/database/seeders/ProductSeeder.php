@@ -17,12 +17,6 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert([
-            'name' => fake()->name(),
-            'company' => fake()->unique()->safeEmail(),
-            'release_date' => now(),
-            'cost' => random_int(0,1000),
-            'type' => 'App\\Models\\Products\\' . Product::PRODUCTS[array_rand(Product::PRODUCTS)]
-        ]);
+        Product::factory()->count(5)->create();
     }
 }

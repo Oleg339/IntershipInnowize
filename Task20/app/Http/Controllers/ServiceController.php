@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -14,7 +12,7 @@ class ServiceController extends Controller
     {
         $services = Service::all();
 
-        return view('services.index', ['services' => $services, 'types' => Service::SERVICES]);
+        return view('services.index', ['services' => $services]);
     }
 
     public function store(StoreServiceRequest $request)
