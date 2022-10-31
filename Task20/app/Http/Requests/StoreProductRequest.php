@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'cost' => 'required|integer|min:0',
-            'release_date' => 'required|date',
+            'release_date' => 'required',
             'company' => 'required|max:255',
             'type' => 'in:Fridge,Phone,TV,Laptop'
         ];

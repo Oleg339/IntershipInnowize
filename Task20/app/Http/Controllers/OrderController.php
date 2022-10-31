@@ -6,20 +6,21 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
 use App\Repositories\ProductRepository;
+use App\Repositories\Repository;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    private ProductRepository $productRepository;
+    private Repository $productRepository;
 
-    private ServiceRepository $serviceRepository;
+    private Repository $serviceRepository;
 
-    public function __construct(ProductRepository $productRepository, ServiceRepository $serviceRepository)
+    public function __construct()
     {
-        $this->productRepository = $productRepository;
-        $this->serviceRepository = $serviceRepository;
+        $this->productRepository = new Repository(Product::class);
+        $this->serviceRepository = new Repository(Service::class);
     }
 
     public function index()
@@ -30,10 +31,8 @@ class OrderController extends Controller
         ]);
     }
 
-    public function store(Request $request, $productId)
+    public function store(Request $request, Product $product)
     {
-        $product = $this->productRepository->get($productId);
-
         $serviceId = $request->serviceId;
 
         if ($serviceId === "none") {

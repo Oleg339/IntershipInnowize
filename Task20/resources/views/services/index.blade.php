@@ -45,7 +45,7 @@
             <div class="flex justify-center p-3">
                 <div class="p-6 shadow-xl p-1 w-8/12 bg-white rounded-lg">
                     <div class="mb-4">
-                        <p class="font-bold">{{last(explode('\\', get_class($service)))}}</p>
+                        <p class="font-bold">{{$service->type}}</p>
                         <p class="mb-2">Cost: {{$service->cost}} BYN</p>
                         <span class="~text-gray-500 text-sm">DeadLine: {{$service->deadline}}</span>
                         <div>

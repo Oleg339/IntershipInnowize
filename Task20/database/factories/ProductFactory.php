@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use Faker\Core\Number;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -13,11 +15,16 @@ class ProductFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
+     * @throws \Exception
      */
     public function definition()
     {
         return [
-            //
+            'name' => fake()->name(),
+            'company' => fake()->unique()->safeEmail(),
+            'release_date' => now(),
+            'cost' => random_int(0,1000),
+            'type' => array_rand(Product::PRODUCTS)
         ];
     }
 }

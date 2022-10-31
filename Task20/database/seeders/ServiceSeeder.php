@@ -14,6 +14,10 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('services')->insert([
+            'cost' => fake()->name(),
+            'deadline' => fake()->unique()->safeEmail(),
+            'type' => 'App\Models\Product' . array_rand(Service::SERVICES)
+        ]);
     }
 }

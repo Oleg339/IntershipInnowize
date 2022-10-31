@@ -6,16 +6,17 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
+use App\Repositories\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    private ProductRepository $productRepository;
+    private Repository $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct()
     {
-        $this->productRepository = $productRepository;
+        $this->productRepository = new Repository(Product::class);
     }
 
     public function index()
@@ -30,21 +31,21 @@ class ProductController extends Controller
         return redirect()->route('products');
     }
 
-    public function edit($productId)
+    public function edit(Product $product)
     {
-        return view('products.edit', ['product' => $this->productRepository->get($productId)]);
+        return view('products.edit', ['product' => $product]);
     }
 
-    public function update(UpdateProductRequest $request, $productId)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $this->productRepository->update($request->validated(), $productId);
+        $this->productRepository->update($request->validated(), $product);
 
         return redirect()->route('products');
     }
 
-    public function destroy($productId)
+    public function destroy(Product $product)
     {
-        $this->productRepository->delete($productId);
+        $this->productRepository->delete($product);
 
         return redirect()->route('products');
     }

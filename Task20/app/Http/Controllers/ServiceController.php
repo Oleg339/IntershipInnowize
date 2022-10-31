@@ -5,57 +5,47 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
+use App\Repositories\Repository;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
-    private ServiceRepository $serviceRepository;
+    private Repository $serviceRepository;
 
-    public function __construct(ServiceRepository $serviceRepository)
+    public function __construct()
     {
-        $this->serviceRepository = $serviceRepository;
+        $this->serviceRepository = new Repository(Service::class);
     }
 
     public function index()
     {
-        return view('services.index', ['services' => $this->serviceRepository->all(), 'types' => Service::CHILDS]);
+    return view('services.index', ['services' => $this->serviceRepository->all(), 'types' => Service::SERVICES]);
     }
 
-    public function store(Request $request)
+    public function store(StoreServiceRequest $request)
     {
-        $this->validate($request, [
-            'cost' => 'required|integer|min:0',
-            'deadline' => 'required|date',
-            'type' => 'in:Configure,Delivery,Install,Warranty'
-        ]);
-
-        $this->serviceRepository->create($request);
+        $this->serviceRepository->create($request->validated());
 
         return redirect()->route('services');
     }
 
-    public function edit($serviceId)
+    public function edit(Service $service)
     {
-        return view('services.edit', ['service' => $this->serviceRepository->get($serviceId)]);
+        return view('services.edit', ['service' => $service]);
     }
 
-    public function update(Request $request, $serviceId)
+    public function update(UpdateServiceRequest $request, Service $service)
     {
-        $this->validate($request, [
-            'cost' => 'required|integer|min:0',
-            'deadline' => 'required|date'
-        ]);
-
-        $this->serviceRepository->update($request, $serviceId);
+        $this->serviceRepository->update($request->validated(), $service);
 
         return redirect()->route('services');
     }
 
-    public function destroy($serviceId)
+    public function destroy(Service $service)
     {
-        $this->serviceRepository->delete($serviceId);
+        $this->serviceRepository->delete($service);
 
         return redirect()->route('services');
     }
