@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
+use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::all();
+        $filter = new Filter();
+
+        $services = $filter->run($request, Service::class)
+            ->orderBy('cost')
+            ->paginate(10);
 
         return view('services.index', ['services' => $services]);
     }

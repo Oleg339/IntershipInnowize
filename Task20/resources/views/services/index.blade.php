@@ -47,6 +47,47 @@
             </form>
         </div>
     </div>
+    <form action="{{route('services')}}" method="get">
+        <div class="flex justify-center p-3">
+            <div class="shadow-xl p-6 w-8/12 bg-white rounded-lg">
+                <label for="order">
+                    Order By:
+                    <select name="order" id="order" class="bg-gray-100 border-2 p-3 rounded-lg">
+                        <option value="cost">
+                            Cost
+                        </option>
+                    </select>
+                </label>
+                <label for="minCost"></label>
+                <input type="number" name="minCost" id="minCost" placeholder="Min Cost BYN"
+                       class="bg-gray-100 border p-2 rounded-lg">
+                <label for="maxCost"></label>
+                <input type="number" name="maxCost" id="maxCost" placeholder="Max Cost BYN"
+                       class="bg-gray-100 border p-2 rounded-lg">
+                <label for="type" class="p-4">
+                    <select name="type" id="type" class="bg-gray-100 border-2 p-3 rounded-lg">
+                        <option value="Install">
+                            Install
+                        </option>
+                        <option value="Configure">
+                            Configure
+                        </option>
+                        <option value="Warranty">
+                            Warranty
+                        </option>
+                        <option value="Delivery">
+                            Delivery
+                        </option>
+                        <option value="All">
+                            All
+                        </option>
+                    </select>
+                </label>
+                <button type="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium"> Submit
+                </button>
+            </div>
+        </div>
+    </form>
     @if($services->count())
         @foreach($services as $service)
             <div class="flex justify-center p-3">

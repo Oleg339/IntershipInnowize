@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\QueryBuilders\Filter;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
@@ -9,9 +10,14 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $filter = new Filter();
+
+        $products = $filter->run($request, Product::class)
+            ->orderBy($request->order ?: 'release_date')
+            ->paginate(10);
+
         $services = Service::all();
 
         return view('catalog', ['products' => $products, 'services' => $services]);

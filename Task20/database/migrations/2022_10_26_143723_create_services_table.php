@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->string('deadline');
-            $table->string('cost');
+            $table->integer('cost');
             $table->timestamps();
         });
     }

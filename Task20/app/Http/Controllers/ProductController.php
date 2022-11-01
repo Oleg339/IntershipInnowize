@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $filter = new Filter();
+
+        $products = $filter->run($request, Product::class)
+            ->orderBy($request->order ?: 'release_date')
+            ->paginate(10);
 
         return view('products.index', ['products' => $products]);
     }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('name');
             $table->string('company');
-            $table->string('cost');
-            $table->string('release_date');
+            $table->integer('cost');
+            $table->dateTime('release_date');
             $table->timestamps();
         });
     }
