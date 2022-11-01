@@ -59,7 +59,7 @@
                     </label>
                 </div>
                 <div>
-                    <button type="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Submit
+                    <button type="submit" name="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Submit
                     </button>
                 </div>
             </form>
