@@ -33,7 +33,7 @@ class OrderTest extends TestCase
 
         $order = new Order($product, $service);
 
-        $this->assertTrue($product->cost + $service->cost === $order->getCost());
+        $this->assertEquals($product->cost + $service->cost, $order->getCost());
     }
 
     public function testNewOrderTotalCostWithoutService()
@@ -42,6 +42,6 @@ class OrderTest extends TestCase
 
         $order = new Order($product);
 
-        $this->assertTrue($product->cost === $order->getCost());
+        $this->assertEquals($product->cost, $order->getCost());
     }
 }

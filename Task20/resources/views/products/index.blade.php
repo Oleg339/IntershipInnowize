@@ -62,6 +62,8 @@
                     <button type="submit" name="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Submit
                     </button>
                 </div>
+                <div>
+                </div>
             </form>
         </div>
     </div>
@@ -112,6 +114,10 @@
                 </div>
             </div>
         </form>
+    <form action="{{route('import')}}" method="get" class="mr-1 flex justify-center">
+        @csrf
+        <button type="submit" class="bg-yellow-500 px-4 py-3 text-white rounded font-medium shadow-xl">Import to csv</button>
+    </form>
     @if($products->count())
         @foreach($products as $product)
             <div class="flex justify-center p-3">
