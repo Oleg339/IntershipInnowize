@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{route('products')}}" method="get">
+    <form action="{{route('catalog')}}" method="get">
         <div class="flex justify-center p-3">
             <div class="shadow-xl p-6 w-8/12 bg-white rounded-lg">
                 <label for="order">
@@ -38,7 +38,7 @@
                         <option value="TV">
                             TV
                         </option>
-                        <option value="All">
+                        <option selected="selected" value="All">
                             All
                         </option>
                     </select>

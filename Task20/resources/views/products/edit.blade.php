@@ -36,7 +36,7 @@
                     <label for="release_date"></label>
                     <input type="date" name="release_date" id="release_date" placeholder="Release Date"
                            class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('release_date') border-red-500 @enderror"
-                    value="{{$product->release_date}}">
+                    value="{{substr($product->release_date, 0, 10)}}">
                     @error('release_date')
                     <div class="text-red-500 mt-2 text-sm">{{$message}}</div>
                     @enderror

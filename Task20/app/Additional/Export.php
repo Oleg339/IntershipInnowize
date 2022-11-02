@@ -2,10 +2,7 @@
 
 namespace App\Additional;
 
-use App\Mail\Products;
-use App\Models\Product;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
