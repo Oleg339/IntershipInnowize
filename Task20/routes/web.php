@@ -1,6 +1,9 @@
 <?php
 
 use App\Additional\ImportProducts;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
@@ -12,7 +15,7 @@ Route::get('/', function () {
 });
 
 Route::get('catalog', [OrderController::class, 'index'])->name('catalog');
-Route::post('catalog/{product}', [OrderController::class, 'store'])->name('catalog.store');
+Route::post('catalog', [OrderController::class, 'store'])->name('catalog.store');
 
 Route::get('products', [ProductController::class, 'index'])->name('products');
 Route::post('products', [ProductController::class, 'store']);
@@ -27,3 +30,11 @@ Route::put('services/{service}', [ServiceController::class, 'update'])->name('se
 Route::delete('services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
 Route::get('import', [ImportProducts::class, 'import'])->name('import');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store']);
+
+Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+
+Route::get('register', [RegisterController::class, 'index'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);

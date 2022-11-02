@@ -45,7 +45,7 @@ class ImportProducts
         $contents = Storage::disk('s3')->put('user-uploads', File::get($filename));
 
         if ($contents) {
-            Mail::to('baharoleg224@gmail.com')->send(new Products());
+            Mail::to(auth()->user()->email)->send(new Products());
         }
 
         return redirect()->route('products');

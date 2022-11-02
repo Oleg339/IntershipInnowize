@@ -23,13 +23,16 @@ class OrderController extends Controller
         return view('catalog', ['products' => $products, 'services' => $services]);
     }
 
-    public function store(Request $request, Product $product)
+    public function store(Request $request)
     {
+        $productId = $request->productId;
         $serviceId = $request->serviceId;
 
+        $product = Product::where('id', $productId)->get()->first();
+
         if ($serviceId === "none") {
-            $product = new Order($product);
-            return view('confirmation', ['order' => $product]);
+            $order = new Order($product);
+            return view('confirmation', ['order' => $order]);
         }
 
         $service = Service::where('id', $serviceId)->get()->first();

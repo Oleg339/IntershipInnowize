@@ -12,7 +12,6 @@ class Product extends Model
 {
     use HasFactory;
 
-    const PRODUCTS = ['Fridge', 'Phone', 'Laptop', 'TV'];
     const TABLE = 'products';
 
     protected $fillable = [
