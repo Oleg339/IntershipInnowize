@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-class ImportToStorage
+class ImportProducts
 {
     public function import()
     {
@@ -27,7 +27,7 @@ class ImportToStorage
             "Name",
             "Company",
             "Release Date",
-            "Cost"
+            "Cost(BYN)"
         ]);
 
         foreach ($products as $product) {
@@ -36,7 +36,7 @@ class ImportToStorage
                 $product->name,
                 $product->company,
                 $product->release_date,
-                $product->cost . ' BYN'
+                $product->cost
             ]);
         }
 

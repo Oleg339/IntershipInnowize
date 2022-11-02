@@ -1,6 +1,6 @@
 <?php
 
-use App\Additional\ImportToStorage;
+use App\Additional\ImportProducts;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
@@ -26,4 +26,4 @@ Route::get('services/{service}/edit', [ServiceController::class, 'edit'])->name(
 Route::put('services/{service}', [ServiceController::class, 'update'])->name('services.update');
 Route::delete('services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
-Route::get('import', [ImportToStorage::class, 'import'])->name('import');
+Route::get('import', [ImportProducts::class, 'import'])->name('import');
