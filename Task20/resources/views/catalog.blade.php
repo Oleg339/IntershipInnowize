@@ -50,7 +50,7 @@
     </form>
     @if($products->count())
         @foreach($products as $product)
-            <form action="{{route('catalog.store', $product)}}" method="post">
+            <form action="{{route('catalog.store')}}" method="post">
                 @csrf
                 <div class="flex justify-center p-3">
                     <div class="p-6 shadow-xl p-1 w-8/12 bg-white rounded-lg">
@@ -76,7 +76,7 @@
                                 </label>
                             </div>
                             <div>
-                                <button type="submit"
+                                <button type="submit" name="productId" value="{{$product->id}}"
                                         class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Buy
                                 </button>
                             </div>
