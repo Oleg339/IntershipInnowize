@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Additional\Export;
 use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Mail\Products;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
@@ -52,8 +55,14 @@ class ProductController extends Controller
         return redirect()->route('products');
     }
 
-    public function import()
+    public function export()
     {
+        $uploaded = Export::export(Product::class);
 
+        if ($uploaded) {
+            Mail::to(auth()->user()->email)->send(new Products());
+        }
+
+        return redirect()->route('products');
     }
 }

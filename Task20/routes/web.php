@@ -1,6 +1,6 @@
 <?php
 
-use App\Additional\ImportProducts;
+use App\Additional\Export;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -22,14 +22,13 @@ Route::post('products', [ProductController::class, 'store']);
 Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::get('products/export', [ProductController::class, 'export'])->name('products.export');
 
 Route::get('services', [ServiceController::class, 'index'])->name('services');
 Route::post('services', [ServiceController::class, 'store']);
 Route::get('services/{service}/edit', [ServiceController::class, 'edit'])->name('services.edit');
 Route::put('services/{service}', [ServiceController::class, 'update'])->name('services.update');
 Route::delete('services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
-
-Route::get('import', [ImportProducts::class, 'import'])->name('import');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);

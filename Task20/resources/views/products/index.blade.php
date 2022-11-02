@@ -114,7 +114,7 @@
                 </div>
             </div>
         </form>
-    <form action="{{route('import')}}" method="get" class="mr-1 flex justify-center">
+    <form action="{{route('products.export')}}" method="get" class="mr-1 flex justify-center">
         @csrf
         <button type="submit" class="bg-yellow-500 px-4 py-3 text-white rounded font-medium shadow-xl">Import to csv</button>
     </form>
