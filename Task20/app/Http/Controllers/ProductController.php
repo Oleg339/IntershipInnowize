@@ -6,9 +6,9 @@ use App\Additional\Export;
 use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Mail\Products;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Attachment;
 use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
@@ -60,7 +60,11 @@ class ProductController extends Controller
         $uploaded = Export::export(Product::class);
 
         if ($uploaded) {
-            Mail::to(auth()->user()->email)->send(new Products());
+            Mail::send('emails.products', [], function($message)
+            {
+                $message->to(auth()->user()->email)->subject('Products');
+                $message->attach(Attachment::fromPath("files/products.csv"));
+            });
         }
 
         return redirect()->route('products');
