@@ -95,7 +95,7 @@
                     <div class="mb-4">
                         <p class="font-bold">{{$service->type}}</p>
                         <p class="mb-2">Cost: {{$service->cost}} BYN</p>
-                        <span class="~text-gray-500 text-sm">DeadLine: {{$service->deadline}}</span>
+                        <span class="~text-gray-500 text-sm">DeadLine: {{substr($service->deadline, 0, 10)}}</span>
                         <div>
                             <form action="{{route('services.edit', $service)}}" method="get" class="mr-1">
                                 @csrf

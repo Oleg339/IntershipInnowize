@@ -59,7 +59,8 @@
                     </label>
                 </div>
                 <div>
-                    <button type="submit" name="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Submit
+                    <button type="submit" name="submit"
+                            class="bg-blue-500 px-4 py-3 text-white rounded font-medium w-full"> Submit
                     </button>
                 </div>
                 <div>
@@ -67,57 +68,59 @@
             </form>
         </div>
     </div>
+    <div class="flex justify-center p-6">
+        <div class="shadow-xl p-6 w-8/12 bg-white rounded-lg">
         <form action="{{route('products')}}" method="get">
-            <div class="flex justify-center p-3">
-                <div class="shadow-xl p-6 w-8/12 bg-white rounded-lg">
-                    <label for="order">
-                        Order By:
-                        <select name="order" id="order" class="bg-gray-100 border-2 p-3 rounded-lg">
-                            <option value="release_date">
-                                Release Date
-                            </option>
-                            <option value="name">
-                                Name
-                            </option>
-                            <option value="cost">
-                                Cost
-                            </option>
-                        </select>
-                    </label>
-                    <label for="minCost"></label>
-                    <input type="number" name="minCost" id="minCost" placeholder="Min Cost BYN"
-                           class="bg-gray-100 border p-2 rounded-lg">
-                    <label for="maxCost"></label>
-                    <input type="number" name="maxCost" id="maxCost" placeholder="Max Cost BYN"
-                           class="bg-gray-100 border p-2 rounded-lg">
-                    <label for="type" class="p-4">
-                        <select name="type" id="type" class="bg-gray-100 border-2 p-3 rounded-lg">
-                            <option value="Laptop">
-                                Laptop
-                            </option>
-                            <option value="Phone">
-                                Phone
-                            </option>
-                            <option value="Fridge">
-                                Fridge
-                            </option>
-                            <option value="TV">
-                                TV
-                            </option>
-                            <option value="All">
-                                All
-                            </option>
-                        </select>
-                    </label>
-                    <button type="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium"> Submit
-                    </button>
-                </div>
-            </div>
+                <label for="order">
+                    Order By:
+                    <select name="order" id="order" class="bg-gray-100 border-2 p-3 rounded-lg">
+                        <option value="release_date">
+                            Release Date
+                        </option>
+                        <option value="name">
+                            Name
+                        </option>
+                        <option value="cost">
+                            Cost
+                        </option>
+                    </select>
+                </label>
+                <label for="minCost"></label>
+                <input type="number" name="minCost" id="minCost" placeholder="Min Cost BYN"
+                       class="bg-gray-100 border p-2 rounded-lg">
+                <label for="maxCost"></label>
+                <input type="number" name="maxCost" id="maxCost" placeholder="Max Cost BYN"
+                       class="bg-gray-100 border p-2 rounded-lg">
+                <label for="type" class="p-4">
+                    <select name="type" id="type" class="bg-gray-100 border-2 p-3 rounded-lg">
+                        <option value="Laptop">
+                            Laptop
+                        </option>
+                        <option value="Phone">
+                            Phone
+                        </option>
+                        <option value="Fridge">
+                            Fridge
+                        </option>
+                        <option value="TV">
+                            TV
+                        </option>
+                        <option selected="selected" value="All">
+                            All
+                        </option>
+                    </select>
+                </label>
+                <button type="submit" class="bg-blue-500 px-4 py-3 text-white rounded font-medium"> Submit
+                </button>
         </form>
-    <form action="{{route('products.export')}}" method="get" class="mr-1 flex justify-center">
-        @csrf
-        <button type="submit" class="bg-yellow-500 px-4 py-3 text-white rounded font-medium shadow-xl">Import to csv</button>
-    </form>
+        </div>
+        <form action="{{route('products.export')}}" method="get" class="flex justify-center">
+            @csrf
+            <button type="submit" class="bg-yellow-500 px-4 py-3 text-white rounded-lg font-medium shadow-xl">Import to
+                csv
+            </button>
+        </form>
+    </div>
     @if($products->count())
         @foreach($products as $product)
             <div class="flex justify-center p-3">
@@ -127,7 +130,8 @@
                         <p class="font-bold">Company: {{$product->company}}</p>
                         <p class="mb-2">Product Name: {{$product->name}}</p>
                         <p class="mb-2">Cost: {{$product->cost}} BYN</p>
-                        <span class="~text-gray-500 text-sm">Release Date: {{$product->release_date}}</span>
+                        <span
+                            class="~text-gray-500 text-sm">Release Date: {{substr($product->release_date, 0, 10)}}</span>
                         <div>
                             <form action="{{route('products.edit', $product->id)}}" method="get" class="mr-1">
                                 @csrf

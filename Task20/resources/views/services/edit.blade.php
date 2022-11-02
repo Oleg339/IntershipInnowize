@@ -18,7 +18,7 @@
                     <label for="deadline"></label>
                     <input type="date" name="deadline" id="deadline" placeholder="DeadLine"
                            class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('deadline') border-red-500 @enderror"
-                           value="{{$service->deadline}}">
+                           value="{{substr($service->deadline, 0, 10)}}">
                     @error('deadline')
                     <div class="text-red-500 mt-2 text-sm">{{$message}}</div>
                     @enderror
