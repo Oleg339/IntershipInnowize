@@ -25,3 +25,5 @@ Homestead.json
 .phpunit.result.cache
 
 
+minio
+minio.1
