@@ -7,19 +7,17 @@ use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Attachment;
 use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth']);
-    }
-
     public function index(Request $request)
     {
+        $this->authorize('view', Product::class);
+
         $filter = new Filter();
 
         $products = $filter->run($request, Product::class)
@@ -31,6 +29,8 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        $this->authorize('create', Product::class);
+
         Product::create($request->validated());
 
         return redirect()->route('products');
@@ -38,11 +38,15 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $this->authorize('edit', Product::class);
+
         return view('products.edit', ['product' => $product]);
     }
 
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->authorize('update', Product::class);
+
         $product->update($request->validated());
 
         return redirect()->route('products');
@@ -50,6 +54,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        $this->authorize('delete', Product::class);
+
         $product->delete();
 
         return redirect()->route('products');
@@ -57,6 +63,8 @@ class ProductController extends Controller
 
     public function export()
     {
+        $this->authorize('export', Product::class);
+
         $uploaded = Export::export(Product::class);
 
         if ($uploaded) {
