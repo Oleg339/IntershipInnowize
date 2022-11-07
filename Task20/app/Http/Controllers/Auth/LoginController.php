@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Requests\UpdateCurrency;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
