@@ -129,7 +129,7 @@
                         <p class="font-bold">{{$product->type}}</p>
                         <p class="font-bold">Company: {{$product->company}}</p>
                         <p class="mb-2">Product Name: {{$product->name}}</p>
-                        <p class="mb-2">Cost: {{$product->cost}} BYN</p>
+                        <p class="mb-2">Cost: {{$product->cost}} BYN | {{round($product->cost / $usd, 2)}} USD</p>
                         <span
                             class="~text-gray-500 text-sm">Release Date: {{substr($product->release_date, 0, 10)}}</span>
                         <div>

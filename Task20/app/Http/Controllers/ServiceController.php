@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use App\Models\Currency;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,9 @@ class ServiceController extends Controller
             ->orderBy('cost')
             ->paginate(10);
 
-        return view('services.index', ['services' => $services]);
+        $usd = Currency::where('currency', 'usd')->first()->rate;
+
+        return view('services.index', ['services' => $services, 'usd' => $usd]);
     }
 
     public function store(StoreServiceRequest $request)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\QueryBuilders\Filter;
+use App\Models\Currency;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
@@ -20,7 +21,9 @@ class OrderController extends Controller
 
         $services = Service::all();
 
-        return view('catalog', ['products' => $products, 'services' => $services]);
+        $usd = Currency::where('currency', 'usd')->first()->rate;
+
+        return view('catalog', ['products' => $products, 'services' => $services, 'usd' => $usd]);
     }
 
     public function store(Request $request)

@@ -94,7 +94,7 @@
                 <div class="p-6 shadow-xl p-1 w-8/12 bg-white rounded-lg">
                     <div class="mb-4">
                         <p class="font-bold">{{$service->type}}</p>
-                        <p class="mb-2">Cost: {{$service->cost}} BYN</p>
+                        <p class="mb-2">Cost: {{$service->cost}} BYN | {{round($service->cost / $usd, 2)}} USD</p>
                         <span class="~text-gray-500 text-sm">DeadLine: {{substr($service->deadline, 0, 10)}}</span>
                         <div>
                             <form action="{{route('services.edit', $service)}}" method="get" class="mr-1">
