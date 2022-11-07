@@ -10,12 +10,9 @@ class UpdateCurrency
 {
     public static function run($currencies)
     {
-        $res = Http::acceptJson()->get('https://belarusbank.by/api/kursExchange');
-        foreach ($currencies as $currency) {
-            $currencyName = $currency;
-            $currency = $currency . '_out';
-            $rate = json_decode($res->body())[0]->$currency;
-            Currency::where('currency', $currencyName)->update(['rate' => $rate]);
+        $currencies = BelarusbankClient::getCurrencyRates($currencies);
+        foreach ($currencies as $currency => $rate) {
+            Currency::where('currency', $currency)->update(['rate' => $rate]);
         }
     }
 }

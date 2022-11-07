@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            UpdateCurrency::run(['USD']);;
+            UpdateCurrency::run(['USD']);
         })->hourly();
     }
 
