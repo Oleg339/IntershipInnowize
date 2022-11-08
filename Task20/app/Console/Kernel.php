@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
-use App\Additional\BankFactory;
-use App\Additional\Banks\BelarusbankClient;
+use App\Currencies\BelarusbankClient;
+use App\Currencies\CurrencyRateSourceFactory;
 use App\Jobs\UpdateCurrencies;
 use App\Models\Currency;
 use Illuminate\Console\Scheduling\Schedule;
@@ -19,10 +19,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            $bank = BankFactory::create(BelarusbankClient::class, Currency::all());
-            UpdateCurrencies::dispatch($bank);
-        })->everyMinute();
+        $bank = CurrencyRateSourceFactory::create(BelarusbankClient::class);
+
+        $schedule->job(new UpdateCurrencies($bank))->everyMinute();
     }
 
     /**

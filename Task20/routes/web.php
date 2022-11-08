@@ -1,18 +1,24 @@
 <?php
 
 use App\Additional\Export;
+use App\Currencies\BelarusbankClient;
+use App\Currencies\CurrencyRateSourceFactory;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
+use App\Jobs\UpdateCurrencies;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('catalog');
 });
+
+Route::get('get-currency-test', [OrderController::class, 'test']);
+
 
 Route::get('catalog', [OrderController::class, 'index'])->name('catalog');
 Route::post('catalog', [OrderController::class, 'store'])->name('catalog.store');

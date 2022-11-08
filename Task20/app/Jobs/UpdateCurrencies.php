@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Additional\Bank;
+use App\Currencies\CurrencyRateSource;
 use App\Models\Currency;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,14 +14,16 @@ class UpdateCurrencies implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private CurrencyRateSource $currencyRateSource;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(CurrencyRateSource $currencyRateSource)
     {
-
+        $this->currencyRateSource = $currencyRateSource;
     }
 
     /**
@@ -29,8 +31,8 @@ class UpdateCurrencies implements ShouldQueue
      *
      * @return void
      */
-    public function handle(Bank $bank)
+    public function handle()
     {
-        $bank->getCurrencyRates()->each->save();
+        $this->currencyRateSource->updateCurrencyRates(Currency::all());
     }
 }

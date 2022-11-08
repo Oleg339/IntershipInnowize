@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Additional\Bank;
-use App\Additional\Banks\BelarusbankClient;
+use App\Currencies\BelarusbankClient;
+use App\Currencies\CurrencyRateSource;
 use Illuminate\Support\ServiceProvider;
 
 class BankProvider extends ServiceProvider
@@ -25,6 +25,6 @@ class BankProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(Bank::class, BelarusbankClient::class);
+//        $this->app->bind(CurrencyRateSource::class, BelarusbankClient::class);
     }
 }
