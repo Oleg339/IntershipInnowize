@@ -31,7 +31,6 @@ class UpdateCurrencies implements ShouldQueue
      */
     public function handle(Bank $bank)
     {
-        $DbCurrencies = Currency::all();
-        $bank->getCurrencyRates($DbCurrencies)->each->save();
+        $bank->getCurrencyRates()->each->save();
     }
 }

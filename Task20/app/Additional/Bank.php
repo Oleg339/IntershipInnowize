@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface Bank
 {
-    public function getCurrencyRates(Collection $currencies);
+    public function __construct(Collection $currencies);
+
+    public function getCurrencyRates();
 }

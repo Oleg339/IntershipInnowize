@@ -2,9 +2,10 @@
 
 namespace App\Console;
 
+use App\Additional\BankFactory;
 use App\Additional\Banks\BelarusbankClient;
 use App\Jobs\UpdateCurrencies;
-use App\Requests\UpdateCurrency;
+use App\Models\Currency;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,14 +14,14 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call( function(){
-            //(new UpdateCurrencies())->handle(new BelarusbankClient());
-            UpdateCurrencies::dispatch(new BelarusbankClient());
+        $schedule->call(function () {
+            $bank = BankFactory::create(BelarusbankClient::class, Currency::all());
+            UpdateCurrencies::dispatch($bank);
         })->everyMinute();
     }
 
@@ -31,7 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

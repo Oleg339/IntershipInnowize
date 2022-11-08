@@ -8,15 +8,22 @@ use Illuminate\Support\Facades\Http;
 
 class BelarusbankClient implements Bank
 {
-    public function getCurrencyRates(Collection $currencies): Collection
+    private Collection $currencies;
+
+    public function __construct(Collection $currencies)
+    {
+        $this->currencies = $currencies;
+    }
+
+    public function getCurrencyRates(): Collection
     {
         $res = Http::acceptJson()->get('https://belarusbank.by/api/kursExchange');
 
-        $currencies->each(function ($currency) use ($res) {
+        $this->currencies->each(function ($currency) use ($res) {
             $currencyStr = $currency->currency . '_out';
             $currency->rate = json_decode($res->body())[0]->$currencyStr;
         });
 
-        return $currencies;
+        return $this->currencies;
     }
 }
