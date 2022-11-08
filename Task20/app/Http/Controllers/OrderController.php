@@ -21,9 +21,9 @@ class OrderController extends Controller
 
         $services = Service::all();
 
-        $usd = Currency::where('currency', 'usd')->first()->rate;
+        $usdRate = Currency::where('currency', 'usd')->first()->rate;
 
-        return view('catalog', ['products' => $products, 'services' => $services, 'usd' => $usd]);
+        return view('catalog', ['products' => $products, 'services' => $services, 'usdRate' => $usdRate]);
     }
 
     public function store(Request $request)

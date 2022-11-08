@@ -8,8 +8,6 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Currency;
 use App\Models\Product;
-use App\Models\User;
-use App\Requests\UpdateCurrency;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Attachment;
 use Illuminate\Support\Facades\Mail;
@@ -25,9 +23,9 @@ class ProductController extends Controller
         $products = $filter->run($request, Product::class)
             ->orderBy($request->order ?: 'release_date')
             ->paginate(10);
-        $usd = Currency::where('currency', 'usd')->first()->rate;
+        $usdRate = Currency::where('currency', 'USD')->first()->rate;
 
-        return view('products.index', ['products' => $products, 'usd' => $usd]);
+        return view('products.index', ['products' => $products, 'usdRate' => $usdRate]);
     }
 
     public function store(StoreProductRequest $request)

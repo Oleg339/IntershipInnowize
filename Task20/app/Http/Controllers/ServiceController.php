@@ -21,9 +21,9 @@ class ServiceController extends Controller
             ->orderBy('cost')
             ->paginate(10);
 
-        $usd = Currency::where('currency', 'usd')->first()->rate;
+        $usdRate = Currency::where('currency', 'usd')->first()->rate;
 
-        return view('services.index', ['services' => $services, 'usd' => $usd]);
+        return view('services.index', ['services' => $services, 'usdRate' => $usdRate]);
     }
 
     public function store(StoreServiceRequest $request)

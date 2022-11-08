@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Additional\Banks\BelarusbankClient;
+use App\Jobs\UpdateCurrencies;
 use App\Requests\UpdateCurrency;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -16,9 +18,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            UpdateCurrency::run(['USD']);
-        })->hourly();
+        $schedule->call( function(){
+            //(new UpdateCurrencies())->handle(new BelarusbankClient());
+            UpdateCurrencies::dispatch(new BelarusbankClient());
+        })->everyMinute();
     }
 
     /**
