@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Additional\Export;
+use App\Currencies\BelarusbankClient;
 use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Jobs\UpdateCurrencies;
 use App\Models\Currency;
 use App\Models\Product;
 use Illuminate\Http\Request;

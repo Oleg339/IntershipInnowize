@@ -19,9 +19,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $bank = CurrencyRateSourceFactory::create(BelarusbankClient::class);
+        $currencyRateSource = CurrencyRateSourceFactory::create(BelarusbankClient::class);
 
-        $schedule->job(new UpdateCurrencies($bank))->everyMinute();
+        $schedule->job(new UpdateCurrencies($currencyRateSource))->everyMinute();
     }
 
     /**
