@@ -17,9 +17,6 @@ Route::get('/', function () {
     return redirect()->route('catalog');
 });
 
-Route::get('get-currency-test', [OrderController::class, 'test']);
-
-
 Route::get('catalog', [OrderController::class, 'index'])->name('catalog');
 Route::post('catalog', [OrderController::class, 'store'])->name('catalog.store');
 
