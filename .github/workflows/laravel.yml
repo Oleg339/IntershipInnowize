@@ -34,4 +34,4 @@ jobs:
       env:
         DB_CONNECTION: mysql
         DB_DATABASE: database/database.mysql
-      run: vendor/bin/phpunit
+      run: vendor/bin/sail artisan test
