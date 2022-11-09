@@ -58,7 +58,7 @@
                             <p class="font-bold">{{last(explode('\\', get_class($product)))}}</p>
                             <p class="font-bold">Company: {{$product->company}}</p>
                             <p class="mb-2">Product Name: {{$product->name}}</p>
-                            <p class="mb-2">Cost: {{$product->cost}} BYN</p>
+                            <p class="mb-2">Cost: {{$product->cost}} BYN | {{round($product->cost / $usdRate, 2)}} USD</p>
                             <span class="~text-gray-500 text-sm">Release Date: {{$product->release_date}}</span>
                             <div class="mb-4">
                                 <label for="serviceId">
@@ -66,7 +66,7 @@
                                         @foreach ($services as $service)
                                             <option value="{{ $service->id }}">
                                                 Service: {{last(explode('\\', get_class($service)))}},
-                                                Deadline {{$service->deadline }}, Cost {{$service->cost}} BYN
+                                                Deadline {{$service->deadline }}, Cost {{$service->cost}} BYN | {{round($service->cost / $usdRate, 2)}} USD
                                             </option>
                                         @endforeach
                                             <option value="none">

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Additional\Export;
+use App\Currencies\BelarusbankClient;
 use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Jobs\UpdateCurrencies;
+use App\Models\Currency;
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Attachment;
 use Illuminate\Support\Facades\Mail;
@@ -23,8 +25,9 @@ class ProductController extends Controller
         $products = $filter->run($request, Product::class)
             ->orderBy($request->order ?: 'release_date')
             ->paginate(10);
+        $usdRate = Currency::where('currency', 'USD')->first()->rate;
 
-        return view('products.index', ['products' => $products]);
+        return view('products.index', ['products' => $products, 'usdRate' => $usdRate]);
     }
 
     public function store(StoreProductRequest $request)
