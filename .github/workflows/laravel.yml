@@ -31,9 +31,9 @@ jobs:
         mkdir -p database
         touch database/database.mysql
     - name: run sail
-      run: sail up -d
+      run: ./vendor/bin/sail up -d
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: mysql
         DB_DATABASE: database/database.mysql
-      run: sail artisan test
+      run: ./vendor/bin/sail artisan test
