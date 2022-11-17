@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8001'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -127,7 +127,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Warranty Mode Driver
+    | Maintenance Mode Driver
     |--------------------------------------------------------------------------
     |
     | These configuration options determine the driver used to determine and
@@ -181,7 +181,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\Providers\BankProvider::class,
 
         /*
          * Package Service Providers...
