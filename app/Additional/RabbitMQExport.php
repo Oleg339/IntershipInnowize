@@ -19,7 +19,6 @@ class RabbitMQExport
         $msg = new AMQPMessage($models->toJson());
 
         $channel->basic_publish($msg, '', 'productsExport');
-        $channel->basic_publish($msg, '', 'productsExport');
 
         $channel->close();
         $connection->close();
