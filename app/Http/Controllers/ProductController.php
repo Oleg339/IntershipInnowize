@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Additional\Export;
+use App\Additional\RabbitMQExport;
 use App\Currencies\BelarusbankClient;
 use App\Http\QueryBuilders\Filter;
 use App\Http\Requests\StoreProductRequest;
@@ -68,15 +69,7 @@ class ProductController extends Controller
     {
         $this->authorize('export', Product::class);
 
-        $uploaded = Export::export(Product::class);
-
-        if ($uploaded) {
-            Mail::send('emails.products', [], function($message)
-            {
-                $message->to(auth()->user()->email)->subject('Products');
-                $message->attach(Attachment::fromPath("files/products.csv"));
-            });
-        }
+        RabbitMQExport::run(Product::class);
 
         return redirect()->route('products');
     }
